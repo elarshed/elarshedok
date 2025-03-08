@@ -1,919 +1,934 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>Untitled</title>
-  
-
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حساب أرباح المنتجات - Ahmed Muhammed Abdeslam</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Flag Icons CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
-    <!-- Google Fonts: Tajawal -->
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-        body { 
-            font-family: 'Tajawal', sans-serif; 
-            transition: background-color 0.5s ease, color 0.5s ease;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
-            overflow-x: hidden;
-            position: relative;
-        }
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 20% 20%, rgba(43, 108, 176, 0.05) 0%, transparent 70%);
-            z-index: -1;
-            animation: wave 10s infinite alternate ease-in-out;
-        }
-        @keyframes wave {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(10px); }
-            100% { transform: translateY(0); }
-        }
-        .light-mode { 
-            background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
-            color: #1a202c;
-        }
-        .dark-mode { 
-            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
-            color: #ffffff;
-        }
-        .container { 
-            border-radius: 1.5rem;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-            padding: 1.5rem;
-            margin: 1rem auto;
-            max-width: 95%;
-            transition: background-color 0.5s ease, box-shadow 0.5s ease;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(43, 108, 176, 0.2);
-        }
-        .light-mode .container { 
-            background: #ffffff;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
-        }
-        .dark-mode .container { 
-            background: #2d3748;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-        }
-        .container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(43, 108, 176, 0.1) 0%, transparent 70%);
-            z-index: -1;
-            animation: glow 10s infinite alternate;
-        }
-        @keyframes glow {
-            0% { transform: scale(1); opacity: 0.5; }
-            100% { transform: scale(1.2); opacity: 0; }
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>أداة دراسة جدوى المتجر الإلكتروني</title>
 
-        h1 { 
-            font-size: 2rem;
-            font-weight: 900;
-            text-align: center;
-            margin-bottom: 1.5rem;
-            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
-            position: relative;
-            animation: fadeInDown 1.2s ease-in-out;
-        }
-        h1::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            border-radius: 2px;
-            background: #2b6cb0;
-            animation: pulse 2.5s infinite alternate;
-        }
-        .dark-mode h1::after { background: #48bb78; }
-        @keyframes fadeInDown {
-            0% { opacity: 0; transform: translateY(-30px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes pulse {
-            0% { width: 80px; }
-            100% { width: 100px; }
-        }
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <!-- Google Fonts (Cairo) -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet" />
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-        /* تصميم الـ header */
-        .header {
-            width: 100%;
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-            background: inherit;
-            animation: slideIn 1.2s ease-in-out;
-        }
-        @media (min-width: 768px) {
-            .header {
-                flex-direction: row;
-                justify-content: space-between;
-                padding: 1.5rem 2rem;
-            }
-        }
-        @keyframes slideIn {
-            0% { transform: translateY(-30px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-
-        /* تصميم بطاقة البروفايل */
-        .profile-card {
-            background: transparent;
-            padding: 0.5rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-            border: 2px solid #2b6cb0;
-            border-radius: 1rem;
-            width: 100%;
-            max-width: 300px;
-        }
-        .profile-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 10px 25px rgba(43, 108, 176, 0.4);
-        }
-        .dark-mode .profile-card { border-color: #48bb78; }
-        .profile-pic {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            border: 3px solid #2b6cb0;
-            margin: 0 auto;
-            transition: transform 0.3s ease;
-            overflow: hidden;
-            animation: rotateIn 1.2s ease-in-out;
-        }
-        .dark-mode .profile-pic { border-color: #48bb78; }
-        .profile-pic img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .profile-pic:hover {
-            transform: scale(1.1);
-        }
-        @keyframes rotateIn {
-            0% { transform: rotate(-10deg); opacity: 0; }
-            100% { transform: rotate(0); opacity: 1; }
-        }
-        .profile-name {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-top: 0.5rem;
-            transition: color 0.3s ease;
-        }
-        .light-mode .profile-name { color: #1a202c; }
-        .dark-mode .profile-name { color: #ffffff; }
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
-        }
-        .social-links a {
-            font-size: 1rem;
-            color: #ffffff;
-            padding: 0.4rem;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-        }
-        .social-links a:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-        }
-        .social-links .facebook { background: #1877F2; }
-        .social-links .whatsapp { background: #25D366; }
-        .social-links .instagram { background: #E1306C; }
-        .social-links .tiktok { background: #000000; }
-        .social-links .tiktok:hover { background: #00F7F9; }
-        .social-links .linkedin { background: #0077B5; }
-        .dark-mode .social-links a { box-shadow: 0 3px 10px rgba(72, 187, 120, 0.3); }
-        .dark-mode .social-links a:hover { box-shadow: 0 6px 15px rgba(72, 187, 120, 0.5); }
-
-        .input-group { 
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            transition: transform 0.3s ease;
-            animation: fadeIn 1.2s ease-in-out;
-            position: relative;
-        }
-        @media (min-width: 768px) {
-            .input-group {
-                flex-direction: row;
-                align-items: center;
-                gap: 1rem;
-                margin-bottom: 1.2rem;
-            }
-        }
-        /* أزلت التأثير عند الـ hover */
-        .input-group label { 
-            font-size: 1rem;
-            font-weight: 700;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
-        }
-        @media (min-width: 768px) {
-            .input-group label { font-size: 1.2rem; }
-        }
-        .light-mode .input-group label { color: #1a202c; }
-        .dark-mode .input-group label { color: #ffffff; }
-        .input-group i { 
-            font-size: 1.2rem;
-            transition: color 0.3s ease;
-        }
-        .light-mode .input-group i { color: #2b6cb0; }
-        .dark-mode .input-group i { color: #48bb78; }
-        .input-group input { 
-            font-size: 1rem;
-            padding: 0.6rem;
-            border-radius: 0.7rem;
-            border: 2px solid #2b6cb0;
-            width: 100%;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            color: #1a202c;
-        }
-        @media (min-width: 768px) {
-            .input-group input {
-                font-size: 1.1rem;
-                padding: 0.7rem;
-                width: auto;
-                flex-grow: 1;
-            }
-        }
-        .light-mode .input-group input { background: #f7fafc; }
-        .dark-mode .input-group input { background: #4a5568; color: #ffffff; }
-        .input-group input:focus { 
-            border-color: #1e40af;
-            box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.2);
-        }
-        .dark-mode .input-group input:focus { border-color: #48bb78; box-shadow: 0 0 0 4px rgba(72, 187, 120, 0.2); }
-
-        /* تصميم المخرجات (النتائج) */
-        .result-card { 
-            border-radius: 1rem;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            border: 2px solid #2b6cb0;
-            background: #ffffff;
-            animation: fadeInUp 1.2s ease-in-out;
-            transform-style: preserve-3d;
-        }
-        @media (min-width: 768px) {
-            .result-card {
-                border-radius: 1.2rem;
-                padding: 1.5rem;
-                margin-bottom: 1.5rem;
-            }
-        }
-        .dark-mode .result-card { background: #2d3748; border-color: #48bb78; }
-        /* أزلت التأثير عند الـ hover */
-        .result-card p:first-child { 
-            font-size: 0.9rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
-        }
-        @media (min-width: 768px) {
-            .result-card p:first-child { font-size: 1.1rem; gap: 0.6rem; }
-        }
-        .light-mode .result-card p:first-child { color: #1a202c; }
-        .dark-mode .result-card p:first-child { color: #ffffff; }
-        .result-card p:last-child { 
-            font-size: 1.2rem;
-            font-weight: 900;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-            margin-top: 0.5rem;
-            color: #1a202c;
-        }
-        @media (min-width: 768px) {
-            .result-card p:last-child { font-size: 1.5rem; margin-top: 0.6rem; }
-        }
-        .dark-mode .result-card p:last-child { color: #ffffff; }
-        .result-card.bg-blue-50 { 
-            border-color: #2b6cb0;
-            position: relative;
-        }
-        .dark-mode .result-card.bg-blue-50 { 
-            background: #000000;
-            border-color: #48bb78;
-        }
-        .light-mode .result-card.bg-blue-50 { 
-            background: #e6fffa;
-        }
-        .result-card i {
-            font-size: 1.2rem;
-            transition: color 0.3s ease;
-        }
-        @media (min-width: 768px) {
-            .result-card i { font-size: 1.4rem; }
-        }
-        .light-mode .result-card i { color: #2b6cb0; }
-        .dark-mode .result-card i { color: #48bb78; }
-
-        /* نتيجة صافي الأرباح (أكبر وأوضح) */
-        #netProfitAfterAds {
-            font-size: 1.8rem;
-            font-weight: 900;
-        }
-        @media (min-width: 768px) {
-            #netProfitAfterAds { font-size: 2.5rem; }
-        }
-        .dark-mode #netProfitAfterAds { }
-        #profitIndicator, #trendIndicator {
-            margin-left: 1.5rem;
-            font-size: 0.8rem;
-            transition: all 0.5s ease;
-        }
-        @media (min-width: 768px) {
-            #profitIndicator, #trendIndicator { margin-left: 3rem; font-size: 1rem; }
-        }
-
-        /* زر الوضع النهاري/الليلي */
-        .toggle-switch { 
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 26px;
-        }
-        @media (min-width: 768px) {
-            .toggle-switch { width: 65px; height: 32px; }
-        }
-        .toggle-switch input { 
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-        .slider { 
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #a0aec0;
-            transition: 0.4s ease;
-            border-radius: 32px;
-            border: 2px solid #2b6cb0;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        }
-        .slider:before { 
-            position: absolute;
-            content: "";
-            height: 20px;
-            width: 20px;
-            left: 3px;
-            bottom: 3px;
-            background-color: #ffffff;
-            transition: 0.4s ease;
-            border-radius: 50%;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-        }
-        @media (min-width: 768px) {
-            .slider:before { height: 26px; width: 26px; }
-        }
-        input:checked + .slider { background-color: #2d3748; }
-        input:checked + .slider:before { transform: translateX(24px); }
-        @media (min-width: 768px) {
-            input:checked + .slider:before { transform: translateX(33px); }
-        }
-        .mode-toggle { 
-            margin-left: 0;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        @media (min-width: 768px) {
-            .mode-toggle { margin-left: 1.2rem; gap: 0.6rem; }
-        }
-        .mode-toggle i {
-            font-size: 1.1rem;
-            transition: color 0.3s ease;
-        }
-        @media (min-width: 768px) {
-            .mode-toggle i { font-size: 1.3rem; }
-        }
-        .light-mode .mode-toggle i.fa-sun { color: #f6ad55; }
-        .dark-mode .mode-toggle i.fa-moon { color: #a0aec0; }
-        .light-mode .mode-toggle span { color: #1a202c; }
-        .dark-mode .mode-toggle span { color: #ffffff; }
-
-        .custom-dropdown { 
-            position: relative;
-            display: inline-block;
-            width: 100%;
-            max-width: 180px;
-            margin-left: 0;
-        }
-        @media (min-width: 768px) {
-            .custom-dropdown { width: 210px; margin-left: 1.2rem; }
-        }
-        .dropdown-selected { 
-            display: flex;
-            align-items: center;
-            padding: 0.5rem 1rem;
-            border-radius: 0.7rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-            font-size: 0.9rem;
-            font-weight: 700;
-            border: 2px solid #2b6cb0;
-        }
-        @media (min-width: 768px) {
-            .dropdown-selected { padding: 0.7rem 1.2rem; font-size: 1.1rem; }
-        }
-        .light-mode .dropdown-selected { background-color: #f0f4f8; color: #1a202c; }
-        .dark-mode .dropdown-selected { background-color: #4a5568; color: #ffffff; }
-        .dropdown-selected:hover { background-color: #e2e8f0; box-shadow: 0 4px 12px rgba(43, 108, 176, 0.2); }
-        .dark-mode .dropdown-selected:hover { background-color: #5a677a; box-shadow: 0 4px 12px rgba(72, 187, 120, 0.2); }
-        .dropdown-selected i { margin-left: 0.5rem; }
-        .dropdown-options { 
-            position: absolute;
-            top: 100%;
-            right: 0;
-            width: 100%;
-            background-color: #ffffff;
-            border-radius: 0.7rem;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-            display: none;
-            z-index: 1000;
-        }
-        .dark-mode .dropdown-options { background-color: #2d3748; }
-        .dropdown-options.active { display: block; }
-        .dropdown-option { 
-            display: flex;
-            align-items: center;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        @media (min-width: 768px) {
-            .dropdown-option { padding: 0.7rem 1.2rem; }
-        }
-        .light-mode .dropdown-option { color: #1a202c; }
-        .dark-mode .dropdown-option { color: #ffffff; }
-        .dropdown-option:hover { background-color: #f0f4f8; }
-        .dark-mode .dropdown-option:hover { background-color: #4a5568; }
-        .dropdown-option span { margin-left: 0.5rem; margin-right: 0.5rem; }
-
-        /* شريط التقدم */
-        .progress-bar {
-            width: 100%;
-            height: 10px;
-            background: #e2e8f0;
-            border-radius: 6px;
-            margin-top: 0.8rem;
-            overflow: hidden;
-            transition: all 0.5s ease;
-        }
-        @media (min-width: 768px) {
-            .progress-bar { height: 12px; margin-top: 1rem; }
-        }
-        .progress {
-            height: 100%;
-            border-radius: 6px;
-            transition: width 0.5s ease, background-color 0.5s ease;
-        }
-        .light-mode .progress { background-color: #2b6cb0; }
-        .dark-mode .progress { background-color: #48bb78; }
-        .negative { background-color: #e53e3e; }
-
-        /* زر إعادة التعيين */
-        .reset-btn {
-            display: block;
-            width: 100%;
-            max-width: 200px;
-            margin: 1rem auto;
-            padding: 0.6rem 1rem;
-            background: #2b6cb0;
-            color: #ffffff;
-            border-radius: 0.7rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-            font-size: 1rem;
-        }
-        @media (min-width: 768px) {
-            .reset-btn {
-                display: inline-block;
-                width: auto;
-                padding: 0.7rem 1.5rem;
-                font-size: 1.1rem;
-            }
-        }
-        .dark-mode .reset-btn { background: #48bb78; }
-        .reset-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(43, 108, 176, 0.3); }
-        .dark-mode .reset-btn:hover { box-shadow: 0 6px 15px rgba(72, 187, 120, 0.3); }
-        .ripple {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.4);
-            border-radius: 50%;
-            transform: scale(0);
-            animation: rippleEffect 0.6s linear;
-        }
-        @keyframes rippleEffect {
-            to { transform: scale(4); opacity: 0; }
-        }
-
-        /* مؤشر حالة الربح */
-        .profit-indicator {
-            font-size: 0.8rem;
-            margin-left: 0.5rem;
-            transition: all 0.5s ease;
-        }
-        @media (min-width: 768px) {
-            .profit-indicator { font-size: 1rem; }
-        }
-        .up { color: #48bb78; animation: moveUp 1.5s infinite; }
-        .down { color: #e53e3e; animation: moveDown 1.5s infinite; }
-        @keyframes moveUp { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        @keyframes moveDown { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
-
-        /* مؤشر اتجاه الربح */
-        .trend-indicator {
-            font-size: 0.7rem;
-            margin-left: 0.5rem;
-            transition: all 0.5s ease;
-        }
-        @media (min-width: 768px) {
-            .trend-indicator { font-size: 0.8rem; }
-        }
-        .up-trend { color: #48bb78; animation: pulseTrend 1s infinite; }
-        .down-trend { color: #e53e3e; animation: pulseTrend 1s infinite; }
-        @keyframes pulseTrend { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-    </style>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(135deg, #dbe2ef, #c0c8e0);
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 2100px;
+      margin: 0 auto;
+      padding: 5.5rem;
+    }
+    .section {
+      background: white;
+      border-radius: 2.75rem;
+      box-shadow: 0 18px 55px rgba(0,0,0,0.15);
+      padding: 5.5rem;
+      margin-bottom: 5.5rem;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .section:hover {
+      transform: translateY(-22px);
+      box-shadow: 0 22px 60px rgba(0,0,0,0.25);
+    }
+    .tab {
+      padding: 2.5rem 5rem;
+      border-bottom: 10px solid transparent;
+      cursor: pointer;
+      font-weight: 700;
+      color: #4b5563;
+      transition: all 0.3s ease;
+      border-radius: 2.25rem 2.25rem 0 0;
+      background: #f1f5f9;
+    }
+    .tab.active {
+      border-color: #1e40af;
+      color: #1e40af;
+      background: #dbeafe;
+    }
+    .tab:hover {
+      color: #1e40af;
+      background: #eff6ff;
+    }
+    .input-group {
+      position: relative;
+      margin-bottom: 5rem;
+    }
+    .input {
+      width: 100%;
+      padding: 1.6rem 6rem 1.6rem 1.6rem;
+      border: 1px solid #d1d5db;
+      border-radius: 2rem;
+      transition: all 0.3s ease;
+      background: #f9fafb;
+      font-size: 1.3rem;
+    }
+    .input:focus {
+      border-color: #1e40af;
+      box-shadow: 0 0 22px rgba(30, 64, 175, 0.5);
+      outline: none;
+      background: white;
+    }
+    .input-icon {
+      position: absolute;
+      right: 2.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #6b7280;
+    }
+    .input-desc {
+      font-size: 1.2rem;
+      color: #6b7280;
+      margin-top: 1.5rem;
+      line-height: 1.9;
+    }
+    .btn {
+      padding: 1.6rem 5rem;
+      border-radius: 2rem;
+      font-weight: 700;
+      transition: all 0.4s ease;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+    }
+    .btn:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.3);
+    }
+    .dashboard-card {
+      background: linear-gradient(145deg, #ffffff, #f8fafc);
+      border-radius: 2.5rem;
+      padding: 5rem;
+      text-align: center;
+      box-shadow: 0 16px 45px rgba(0,0,0,0.2);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.9);
+    }
+    .dashboard-card:hover {
+      transform: scale(1.18) rotate(5deg);
+      box-shadow: 0 22px 55px rgba(0,0,0,0.3);
+    }
+    .dashboard-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 16px;
+      background: linear-gradient(to right, #1e40af, #60a5fa, #93c5fd);
+      animation: gradientShift 2s infinite linear;
+    }
+    .dashboard-card::after {
+      content: '';
+      position: absolute;
+      top: -90%;
+      left: -90%;
+      width: 280%;
+      height: 280%;
+      background: radial-gradient(circle, rgba(30,64,175,0.3) 0%, rgba(255,255,255,0) 70%);
+      animation: pulse 3.5s infinite ease-in-out;
+    }
+    .dashboard-desc {
+      font-size: 1.2rem;
+      color: #6b7280;
+      margin-top: 2rem;
+      line-height: 1.9;
+    }
+    .chart-container {
+      position: relative;
+      height: 750px;
+      width: 100%;
+      background: white;
+      border-radius: 2.75rem;
+      padding: 5rem;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.15);
+    }
+    .profile-card {
+      background: linear-gradient(135deg, #1e40af, #1e3a8a);
+      color: white;
+      padding: 5.5rem;
+      border-radius: 2.75rem;
+      display: flex;
+      align-items: center;
+      gap: 5rem;
+      box-shadow: 0 18px 55px rgba(0,0,0,0.25);
+      position: relative;
+      overflow: hidden;
+    }
+    .profile-card::after {
+      content: '';
+      position: absolute;
+      bottom: -110%;
+      left: -55%;
+      width: 210%;
+      height: 210%;
+      background: rgba(255,255,255,0.4);
+      transform: skewY(-15deg);
+      z-index: 0;
+    }
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 4.5rem;
+      background: #f9fafb;
+      border-radius: 2.25rem;
+      overflow: hidden;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.15);
+    }
+    .table th, .table td {
+      border: 1px solid #e5e7eb;
+      padding: 3.5rem;
+      text-align: center;
+    }
+    .table th {
+      background: #e5e7eb;
+      font-weight: 700;
+      color: #1f2937;
+    }
+    .table tbody tr:nth-child(even) {
+      background: #f1f5f9;
+    }
+    .table tbody tr:hover {
+      background: #dbeafe;
+      transition: background 0.2s ease;
+    }
+    .alert {
+      padding: 3.5rem;
+      border-radius: 2rem;
+      margin-bottom: 4.5rem;
+      animation: fadeIn 1s ease-in-out;
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.18);
+    }
+    .alert-error {
+      background-color: #fee2e2;
+      color: #991b1b;
+    }
+    .alert-success {
+      background-color: #d1fae5;
+      color: #065f46;
+    }
+    .alert-info {
+      background-color: #dbeafe;
+      color: #1e40af;
+    }
+    .currency-select {
+      padding: 1.6rem;
+      border: 1px solid #d1d5db;
+      border-radius: 2rem;
+      background: white;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+    .currency-select:focus {
+      border-color: #1e40af;
+      box-shadow: 0 0 14px rgba(30, 64, 175, 0.5);
+      outline: none;
+    }
+    .negative {
+      color: #ef4444;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-45px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.9; }
+      50% { transform: scale(1.6); opacity: 0.6; }
+      100% { transform: scale(1); opacity: 0.9; }
+    }
+    @media (max-width: 768px) {
+      .container { padding: 4.5rem; }
+      .section { padding: 5rem; }
+      .tab { padding: 2.25rem 4.5rem; }
+      .dashboard-card { padding: 4.5rem; }
+      .profile-card { flex-direction: column; text-align: center; gap: 4.5rem; }
+    }
+    @media print {
+      .no-print { display: none; }
+      body { background: white; }
+      .section { box-shadow: none; }
+      .dashboard-card { box-shadow: none; border: 1px solid #e5e7eb; }
+    }
+  </style>
 </head>
-<body class="min-h-screen p-3 light-mode">
-    <!-- الـ header -->
-    <header class="header">
-        <div class="profile-card">
-            <div class="profile-pic">
-                <img src="https://scontent.faly1-2.fna.fbcdn.net/v/t39.30808-6/478724180_2012750999223754_4950667810291165018_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHGVoV1nv_uBT6VDiUmkTUBt9Lm4gk8hxC30ubiCTyHECTpTi2wl8gfRfMESNTozonQZKpDfqy38PE-slzWn9Ck&_nc_ohc=v_k1rOPK2F0Q7kNvgFLv1QA&_nc_oc=AdhvcaU_nFdQ4Z3Kg3E9swCkPRk7JtChJHFOQT9zYUpJ2idA5GZBKG6zFFvqxVjJidw&_nc_zt=23&_nc_ht=scontent.faly1-2.fna&_nc_gid=AbAw2Mu7xWr-PKwk6ugrtKI&oh=00_AYEYtgolj04R5gnDNMBBPxyJ8SDMHtIZyPBKUEH1wGiRpA&oe=67D072AD" alt="Ahmed Muhammed Abdeslam">
-            </div>
-            <h2 class="profile-name">Ahmed Muhammed Abdeslam</h2>
-            <div class="social-links">
-                <a href="https://web.facebook.com/ahmed10az" target="_blank" class="facebook"><i class="fab fa-facebook"></i></a>
-                <a href="https://wa.me/201282512082" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
-                <a href="https://instagram.com/ahmed10az" target="_blank" class="instagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://tiktok.com/@elarshedok" target="_blank" class="tiktok"><i class="fab fa-tiktok"></i></a>
-                <a href="https://linkedin.com/in/elarshedok" target="_blank" class="linkedin"><i class="fab fa-linkedin"></i></a>
-            </div>
-        </div>
-        <div class="flex flex-col items-center gap-2 md:flex-row">
-            <div class="mode-toggle">
-                <label class="toggle-switch">
-                    <input type="checkbox" id="darkModeToggle">
-                    <span class="slider"></span>
-                </label>
-                <i class="fas fa-sun mode-icon light-mode-icon"></i>
-                <i class="fas fa-moon mode-icon dark-mode-icon" style="display: none;"></i>
-                <span class="text-base md:text-lg font-semibold ml-2" id="modeLabel">وضع النهار</span>
-            </div>
-            <div class="custom-dropdown">
-                <div class="dropdown-selected" id="dropdownSelected">
-                    <span class="flag-icon flag-icon-eg"></span> جنيه مصري (EGP)
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="dropdown-options" id="dropdownOptions">
-                    <div class="dropdown-option" data-value="EGP">
-                        <span class="flag-icon flag-icon-eg"></span> جنيه مصري (EGP)
-                    </div>
-                    <div class="dropdown-option" data-value="USD">
-                        <span class="flag-icon flag-icon-us"></span> دولار أمريكي (USD)
-                    </div>
-                    <div class="dropdown-option" data-value="SAR">
-                        <span class="flag-icon flag-icon-sa"></span> ريال سعودي (SAR)
-                    </div>
-                    <div class="dropdown-option" data-value="AED">
-                        <span class="flag-icon flag-icon-ae"></span> درهم إماراتي (AED)
-                    </div>
-                    <div class="dropdown-option" data-value="KWD">
-                        <span class="flag-icon flag-icon-kw"></span> دينار كويتي (KWD)
-                    </div>
-                    <div class="dropdown-option" data-value="QAR">
-                        <span class="flag-icon flag-icon-qa"></span> ريال قطري (QAR)
-                    </div>
-                    <div class="dropdown-option" data-value="JOD">
-                        <span class="flag-icon flag-icon-jo"></span> دينار أردني (JOD)
-                    </div>
-                    <div class="dropdown-option" data-value="BHD">
-                        <span class="flag-icon flag-icon-bh"></span> دينار بحريني (BHD)
-                    </div>
-                    <div class="dropdown-option" data-value="LYD">
-                        <span class="flag-icon flag-icon-ly"></span> دينار ليبي (LYD)
-                    </div>
-                </div>
-                <input type="hidden" id="currency" value="EGP">
-            </div>
-        </div>
-    </header>
-
-    <div class="container w-full max-w-5xl">
-        <h1 class="text-center mb-4">حساب أرباح المنتجات</h1>
-
-        <!-- قسم المدخلات -->
-        <div class="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-4">
-            <div class="input-group">
-                <i class="fas fa-dollar-sign"></i>
-                <label>سعر المنتج بدون عمولة</label>
-                <input type="number" id="productPrice" step="any" min="0" value="320">
-            </div>
-            <div class="input-group">
-                <i class="fas fa-shopping-cart"></i>
-                <label>سعر البيع بالشحن</label>
-                <input type="number" id="sellingPrice" step="any" min="0" value="324">
-            </div>
-            <div class="input-group">
-                <i class="fas fa-truck"></i>
-                <label>سعر شحن المنصة</label>
-                <input type="number" id="shippingCost" step="any" min="0" value="55">
-            </div>
-            <div class="input-group">
-                <i class="fas fa-boxes"></i>
-                <label>عدد الأوردرات المستهدف</label>
-                <input type="number" id="targetOrders" step="1" min="0" value="438">
-            </div>
-            <div class="input-group">
-                <i class="fas fa-percentage"></i>
-                <label>نسبة التسليمات المتوقعة (%)</label>
-                <input type="number" id="deliveryRate" step="any" min="0" max="100" value="15">
-            </div>
-            <div class="input-group">
-                <i class="fas fa-ad"></i>
-                <label>متوسط تكلفة الطلب الإعلاني</label>
-                <input type="number" id="adCostPerOrder" step="any" min="0" value="17">
-            </div>
-            <div class="input-group flex flex-col items-start gap-2 md:flex-row md:items-center md:gap-3">
-                <i class="fas fa-tax"></i>
-                <label class="flex-1">تطبيق ضريبة 14% على الإعلانات</label>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="applyTax" checked>
-                    <span class="slider"></span>
-                </label>
-            </div>
-        </div>
-
-        <!-- قسم النتائج -->
-        <div id="results" class="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-4 mt-4">
-            <div class="result-card">
-                <p><i class="fas fa-coins"></i>الربح الصافي لكل طلب</p>
-                <p id="netProfitPerOrder"></p>
-            </div>
-            <div class="result-card">
-                <p><i class="fas fa-chart-line"></i>هامش الربح (%)</p>
-                <p id="profitMargin"></p>
-            </div>
-            <div class="result-card">
-                <p><i class="fas fa-truck-loading"></i>عدد الطلبات المسلمة</p>
-                <p id="deliveredOrders"></p>
-            </div>
-            <div class="result-card">
-                <p><i class="fas fa-money-bill-wave"></i>الربح قبل خصم الإعلانات</p>
-                <p id="profitBeforeAds"></p>
-            </div>
-            <div class="result-card">
-                <p><i class="fas fa-bullhorn"></i>إجمالي إنفاق الإعلانات</p>
-                <p id="totalAdSpend"></p>
-            </div>
-            <div class="result-card">
-                <p><i class="fas fa-calculator"></i>إجمالي إنفاق الإعلانات بعد الضريبة</p>
-                <p id="adSpendWithTax"></p>
-            </div>
-            <div class="result-card bg-blue-50 col-span-full text-center">
-                <p><i class="fas fa-wallet"></i>صافي الأرباح بعد الإعلان</p>
-                <div class="flex items-center justify-center">
-                    <p id="netProfitAfterAds" class="text-2xl font-bold mr-3 md:text-3xl md:mr-4"></p>
-                    <i id="profitIndicator" class="fas fa-arrow-up profit-indicator up" style="display: none;"></i>
-                    <i id="trendIndicator" class="fas fa-arrow-up trend-indicator up-trend" style="display: none;"></i>
-                </div>
-                <div class="progress-bar mt-2">
-                    <div class="progress" id="profitProgress"></div>
-                </div>
-            </div>
-        </div>
-        <button class="reset-btn" onclick="resetValues()">إعادة التعيين</button>
+<body>
+  <div class="container">
+    <!-- Profile Card -->
+    <div class="profile-card mb-20 no-print">
+      <img src="https://via.placeholder.com/100" alt="أحمد محمد" class="rounded-full w-52 h-52 object-cover border-4 border-white relative z-10" />
+      <div class="relative z-10">
+        <h1 class="text-8xl font-bold">أحمد محمد عبد السلام</h1>
+        <p class="text-6xl opacity-90">خبير التجارة الإلكترونية</p>
+      </div>
+      <div class="ml-auto flex items-center gap-18 relative z-10">
+        <label class="text-white font-semibold text-6xl">العملة:</label>
+        <select id="currency" class="currency-select">
+          <option value="ج.م">ج.م</option>
+          <option value="$">دولار</option>
+          <option value="€">يورو</option>
+          <option value="ر.س">ريال سعودي</option>
+        </select>
+      </div>
     </div>
 
-    <script>
-        let previousProfit = 0;
+    <!-- Tabs -->
+    <div class="flex flex-wrap gap-14 mb-20 border-b border-gray-200 no-print">
+      <span class="tab active" data-tab="products">المنتجات</span>
+      <span class="tab" data-tab="orders">الطلب</span>
+      <span class="tab" data-tab="pricing">التسعير</span>
+      <span class="tab" data-tab="dashboard">لوحة المعلومات</span>
+    </div>
 
-        const currencySymbols = {
-            EGP: 'ج.م',
-            USD: '$',
-            SAR: 'ر.س',
-            AED: 'د.إ',
-            KWD: 'د.ك',
-            QAR: 'ر.ق',
-            JOD: 'د.أ',
-            BHD: 'د.ب',
-            LYD: 'د.ل'
+    <!-- Products Section -->
+    <div id="products" class="section tab-content active">
+      <h2 class="text-8xl font-bold mb-20 flex items-center gap-14">
+        <i class="fas fa-box"></i> المنتجات
+      </h2>
+      <div id="productList" class="space-y-18"></div>
+      <button id="addProduct" class="btn bg-blue-600 text-white hover:bg-blue-700 mt-18 no-print">
+        <i class="fas fa-plus"></i> إضافة منتج
+      </button>
+    </div>
+
+    <!-- Orders Section -->
+    <div id="orders" class="section tab-content hidden">
+      <h2 class="text-8xl font-bold mb-20 flex items-center gap-14">
+        <i class="fas fa-shopping-cart"></i> الطلب
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-20">
+        <div class="input-group">
+          <label class="block mb-2 font-semibold">نسبة التسليم الافتراضية (%)</label>
+          <input id="defaultDeliveryRate" type="number" class="input" value="0" min="0" max="100" />
+          <i class="fas fa-percentage input-icon"></i>
+          <p class="input-desc">نسبة التسليم العامة إذا لم تُحدد للمنتج (مثل: 85%).</p>
+        </div>
+        <div class="input-group">
+          <label class="block mb-2 font-semibold">تكلفة الإعلان لكل طلب</label>
+          <input id="adCostPerOrder" type="number" class="input" value="0" min="0" step="0.01" />
+          <i class="fas fa-ad input-icon"></i>
+          <p class="input-desc">متوسط تكلفة جذب طلب واحد (مثل: 15 ج.م).</p>
+        </div>
+        <div class="input-group">
+          <label class="block mb-2 font-semibold">تكلفة المرتجع لكل طلب</label>
+          <input id="returnCostPerOrder" type="number" class="input" value="0" min="0" step="0.01" />
+          <i class="fas fa-undo input-icon"></i>
+          <p class="input-desc">تكلفة معالجة الطلب المرتجع (مثل: 20 ج.م).</p>
+        </div>
+        <div class="input-group">
+          <label class="block mb-2 font-semibold">رواتب الموظفين الشهرية</label>
+          <input id="staffCost" type="number" class="input" value="0" min="0" step="0.01" />
+          <i class="fas fa-users input-icon"></i>
+          <p class="input-desc">إجمالي رواتب الفريق شهريًا (مثل: 5000 ج.م).</p>
+        </div>
+        <div class="input-group">
+          <label class="block mb-2 font-semibold">تكلفة تشغيل الموقع</label>
+          <input id="websiteCost" type="number" class="input" value="0" min="0" step="0.01" />
+          <i class="fas fa-globe input-icon"></i>
+          <p class="input-desc">تكاليف استضافة الموقع (مثل: 200 ج.م).</p>
+        </div>
+        <div class="input-group">
+          <label class="block mb-2 font-semibold">تكلفة التغليف لكل طلب</label>
+          <input id="packagingCost" type="number" class="input" value="0" min="0" step="0.01" />
+          <i class="fas fa-box-open input-icon"></i>
+          <p class="input-desc">تكلفة مواد التغليف لكل طلب (مثل: 5 ج.م).</p>
+        </div>
+        <div class="input-group">
+          <label class="block mb-2 font-semibold">تكلفة التخزين الشهرية</label>
+          <input id="storageCost" type="number" class="input" value="0" min="0" step="0.01" />
+          <i class="fas fa-warehouse input-icon"></i>
+          <p class="input-desc">تكلفة تخزين المنتجات شهريًا (مثل: 1000 ج.م).</p>
+        </div>
+        <div class="input-group">
+          <label class="block mb-2 font-semibold">تكلفة التسويق غير المدفوع</label>
+          <input id="organicMarketingCost" type="number" class="input" value="0" min="0" step="0.01" />
+          <i class="fas fa-bullhorn input-icon"></i>
+          <p class="input-desc">تكلفة التسويق العضوي شهريًا (مثل: 500 ج.م).</p>
+        </div>
+        <div class="input-group">
+          <label class="block mb-2 font-semibold">تكلفة دعم العملاء</label>
+          <input id="supportCost" type="number" class="input" value="0" min="0" step="0.01" />
+          <i class="fas fa-headset input-icon"></i>
+          <p class="input-desc">تكلفة خدمة العملاء شهريًا (مثل: 300 ج.م).</p>
+        </div>
+        <div class="input-group">
+          <label class="block mb-2 font-semibold">تكلفة الصيانة الشهرية</label>
+          <input id="maintenanceCost" type="number" class="input" value="0" min="0" step="0.01" />
+          <i class="fas fa-tools input-icon"></i>
+          <p class="input-desc">تكلفة صيانة الموقع أو المعدات (مثل: 400 ج.م).</p>
+        </div>
+        <div class="input-group">
+          <label class="block mb-2 font-semibold">تكلفة التدريب الشهرية</label>
+          <input id="trainingCost" type="number" class="input" value="0" min="0" step="0.01" />
+          <i class="fas fa-chalkboard-teacher input-icon"></i>
+          <p class="input-desc">تكلفة تدريب الموظفين شهريًا (مثل: 200 ج.م).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pricing Section -->
+    <div id="pricing" class="section tab-content hidden">
+      <h2 class="text-8xl font-bold mb-20 flex items-center gap-14">
+        <i class="fas fa-dollar-sign"></i> التسعير
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-20">
+        <div class="input-group">
+          <label class="block mb-2 font-semibold">الربح الافتراضي لكل طلب</label>
+          <input id="defaultDesiredProfit" type="number" class="input" value="0" min="0" step="0.01" />
+          <i class="fas fa-coins input-icon"></i>
+          <p class="input-desc">الربح الصافي الافتراضي لتغطية التكاليف بدون مكسب أو خسارة (يمكنك زيادته).</p>
+        </div>
+        <div class="input-group">
+          <label class="block mb-2 font-semibold">نسبة الخصم (%)</label>
+          <input id="discountRate" type="number" class="input" value="0" min="0" max="100" />
+          <i class="fas fa-tags input-icon"></i>
+          <p class="input-desc">نسبة الخصم للعملاء (مثل: 10%).</p>
+        </div>
+        <div class="input-group">
+          <label class="block mb-2 font-semibold">تكلفة الدفع عند الاستلام</label>
+          <input id="codCost" type="number" class="input" value="0" min="0" step="0.01" />
+          <i class="fas fa-money-bill input-icon"></i>
+          <p class="input-desc">رسوم الدفع عند الاستلام (مثل: 10 ج.م).</p>
+        </div>
+        <div class="input-group">
+          <label class="block mb-2 font-semibold">نسبة الضرائب (%)</label>
+          <input id="taxRate" type="number" class="input" value="0" min="0" max="100" />
+          <i class="fas fa-calculator input-icon"></i>
+          <p class="input-desc">نسبة الضرائب على الطلب (مثل: 14%).</p>
+        </div>
+        <div class="input-group">
+          <label class="block mb-2 font-semibold">رسوم بوابة الدفع (%)</label>
+          <input id="paymentGatewayFee" type="number" class="input" value="0" min="0" max="100" />
+          <i class="fas fa-credit-card input-icon"></i>
+          <p class="input-desc">نسبة رسوم الدفع الإلكتروني (مثل: 2.5%).</p>
+        </div>
+        <div class="input-group">
+          <label class="block mb-2 font-semibold">نسبة العمولة للمنصة (%)</label>
+          <input id="platformCommission" type="number" class="input" value="0" min="0" max="100" />
+          <i class="fas fa-store input-icon"></i>
+          <p class="input-desc">نسبة العمولة لمنصة البيع (مثل: 5%).</p>
+        </div>
+        <div class="input-group">
+          <label class="block mb-2 font-semibold">الهدف من ROAS</label>
+          <input id="targetROAS" type="number" class="input" value="0" min="0" step="0.01" />
+          <i class="fas fa-bullseye input-icon"></i>
+          <p class="input-desc">العائد المستهدف على الإنفاق الإعلاني (مثل: 3).</p>
+        </div>
+        <div class="input-group">
+          <label class="block mb-2 font-semibold">نسبة العملاء المتكررين (%)</label>
+          <input id="repeatCustomerRate" type="number" class="input" value="0" min="0" max="100" />
+          <i class="fas fa-users input-icon"></i>
+          <p class="input-desc">نسبة العملاء الذين يعودون للشراء (مثل: 20%).</p>
+        </div>
+      </div>
+      <div class="mt-20">
+        <h3 class="text-7xl font-semibold mb-18 flex items-center gap-14">
+          <i class="fas fa-table"></i> أسعار البيع المقترحة
+        </h3>
+        <table class="table" id="pricingTable">
+          <thead><tr><th>المنتج</th><th>التكلفة الإجمالية</th><th>السعر قبل الخصم</th><th>السعر بعد الخصم</th><th>الضرائب</th><th>رسوم البوابة</th><th>عمولة المنصة</th><th>الربح لكل طلب</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div id="dashboard" class="section tab-content hidden">
+      <h2 class="text-8xl font-bold mb-22 flex items-center gap-14">
+        <i class="fas fa-tachometer-alt"></i> لوحة المعلومات
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-20 mb-22">
+        <div class="dashboard-card">
+          <p class="text-gray-600 font-semibold text-4xl">إجمالي المبيعات</p>
+          <p id="dashRevenue" class="text-9xl font-bold text-blue-600">ج.م 0</p>
+          <p class="dashboard-desc">إجمالي الإيرادات بعد الخصم والضرائب.</p>
+        </div>
+        <div class="dashboard-card">
+          <p class="text-gray-600 font-semibold text-4xl">صافي الربح</p>
+          <p id="dashNetProfit" class="text-9xl font-bold">ج.م 0</p>
+          <p class="dashboard-desc">الربح بعد خصم كل التكاليف.</p>
+        </div>
+        <div class="dashboard-card">
+          <p class="text-gray-600 font-semibold text-4xl">نقطة التعادل</p>
+          <p id="dashBreakEven" class="text-9xl font-bold text-yellow-600">0 طلب</p>
+          <p class="dashboard-desc">عدد الطلبات لتغطية التكاليف.</p>
+        </div>
+        <div class="dashboard-card">
+          <p class="text-gray-600 font-semibold text-4xl">ROAS</p>
+          <p id="dashROAS" class="text-9xl font-bold text-purple-600">0</p>
+          <p class="dashboard-desc">العائد على الإنفاق الإعلاني.</p>
+        </div>
+        <div class="dashboard-card">
+          <p class="text-gray-600 font-semibold text-4xl">متوسط تكلفة الطلب</p>
+          <p id="dashAvgOrderCost" class="text-9xl font-bold text-teal-600">ج.م 0</p>
+          <p class="dashboard-desc">متوسط التكلفة لكل طلب.</p>
+        </div>
+        <div class="dashboard-card">
+          <p class="text-gray-600 font-semibold text-4xl">نسبة المرتجعات (%)</p>
+          <p id="dashReturnRate" class="text-9xl font-bold text-red-600">0%</p>
+          <p class="dashboard-desc">نسبة الطلبات المرتجعة.</p>
+        </div>
+        <div class="dashboard-card">
+          <p class="text-gray-600 font-semibold text-4xl">إجمالي الضرائب</p>
+          <p id="dashTotalTax" class="text-9xl font-bold text-orange-600">ج.م 0</p>
+          <p class="dashboard-desc">إجمالي الضرائب على المبيعات.</p>
+        </div>
+        <div class="dashboard-card">
+          <p class="text-gray-600 font-semibold text-4xl">هامش الربح (%)</p>
+          <p id="dashProfitMargin" class="text-9xl font-bold text-green-600">0%</p>
+          <p class="dashboard-desc">نسبة الربح من المبيعات.</p>
+        </div>
+        <div class="dashboard-card">
+          <p class="text-gray-600 font-semibold text-4xl">إجمالي رسوم البوابة</p>
+          <p id="dashGatewayFees" class="text-9xl font-bold text-pink-600">ج.م 0</p>
+          <p class="dashboard-desc">إجمالي رسوم الدفع الإلكتروني.</p>
+        </div>
+        <div class="dashboard-card">
+          <p class="text-gray-600 font-semibold text-4xl">إجمالي تكلفة التخزين</p>
+          <p id="dashStorageCost" class="text-9xl font-bold text-indigo-600">ج.م 0</p>
+          <p class="dashboard-desc">إجمالي تكاليف التخزين الشهرية.</p>
+        </div>
+        <div class="dashboard-card">
+          <p class="text-gray-600 font-semibold text-4xl">إجمالي تكلفة التسويق العضوي</p>
+          <p id="dashOrganicMarketingCost" class="text-9xl font-bold text-cyan-600">ج.م 0</p>
+          <p class="dashboard-desc">إجمالي تكاليف التسويق غير المدفوع.</p>
+        </div>
+        <div class="dashboard-card">
+          <p class="text-gray-600 font-semibold text-4xl">إجمالي عمولة المنصة</p>
+          <p id="dashPlatformCommission" class="text-9xl font-bold text-amber-600">ج.م 0</p>
+          <p class="dashboard-desc">إجمالي عمولة منصة البيع.</p>
+        </div>
+        <div class="dashboard-card">
+          <p class="text-gray-600 font-semibold text-4xl">إجمالي تكلفة دعم العملاء</p>
+          <p id="dashSupportCost" class="text-9xl font-bold text-gray-600">ج.م 0</p>
+          <p class="dashboard-desc">إجمالي تكاليف خدمة العملاء.</p>
+        </div>
+        <div class="dashboard-card">
+          <p class="text-gray-600 font-semibold text-4xl">إجمالي تكلفة الصيانة</p>
+          <p id="dashMaintenanceCost" class="text-9xl font-bold text-blue-800">ج.م 0</p>
+          <p class="dashboard-desc">إجمالي تكاليف الصيانة الشهرية.</p>
+        </div>
+        <div class="dashboard-card">
+          <p class="text-gray-600 font-semibold text-4xl">المبلغ المطلوب للإعلانات</p>
+          <p id="dashRequiredAdSpend" class="text-9xl font-bold text-violet-600">ج.م 0</p>
+          <p class="dashboard-desc">الإنفاق الإعلاني لتحقيق هدف ROAS.</p>
+        </div>
+        <div class="dashboard-card">
+          <p class="text-gray-600 font-semibold text-4xl">إجمالي تكلفة التدريب</p>
+          <p id="dashTrainingCost" class="text-9xl font-bold text-lime-600">ج.م 0</p>
+          <p class="dashboard-desc">إجمالي تكاليف تدريب الموظفين.</p>
+        </div>
+        <div class="dashboard-card">
+          <p class="text-gray-600 font-semibold text-4xl">إيرادات العملاء المتكررين</p>
+          <p id="dashRepeatRevenue" class="text-9xl font-bold text-emerald-600">ج.م 0</p>
+          <p class="dashboard-desc">الإيرادات من العملاء المتكررين.</p>
+        </div>
+      </div>
+      <div class="chart-container">
+        <canvas id="costBreakdownChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex flex-wrap gap-18 mt-20 no-print">
+      <button id="calculate" class="btn bg-green-600 text-white hover:bg-green-700">
+        <i class="fas fa-calculator"></i> حساب النتائج
+      </button>
+      <button id="reset" class="btn bg-red-600 text-white hover:bg-red-700">
+        <i class="fas fa-undo"></i> إعادة تعيين
+      </button>
+      <button id="print" class="btn bg-gray-600 text-white hover:bg-gray-700">
+        <i class="fas fa-print"></i> طباعة
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // البيانات العالمية
+    let products = [{ name: "منتج 1", buyPrice: 0, shipping: 0, otherCosts: 0, expectedDeliveries: 0, desiredProfit: 0 }];
+    let currency = document.getElementById("currency").value;
+    let costChart = null;
+
+    // تبديل التبويبات
+    document.querySelectorAll(".tab").forEach(tab => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+        document.querySelectorAll(".tab-content").forEach(c => c.classList.add("hidden"));
+        tab.classList.add("active");
+        document.getElementById(tab.dataset.tab).classList.remove("hidden");
+      });
+    });
+
+    // عرض المنتجات
+    function renderProducts() {
+      const productList = document.getElementById("productList");
+      productList.innerHTML = "";
+      products.forEach((product, index) => {
+        const div = document.createElement("div");
+        div.className = "border rounded-lg p-18 bg-gray-50 shadow-sm transition-all duration-300 hover:bg-gray-100";
+        div.innerHTML = `
+          <div class="flex justify-between items-center mb-18">
+            <div class="input-group w-1/4">
+              <input type="text" value="${product.name}" class="input" data-index="${index}" data-field="name" placeholder="اسم المنتج" />
+              <i class="fas fa-tag input-icon"></i>
+              <p class="input-desc">اسم المنتج أو نوعه (مثل: تيشيرت، حذاء).</p>
+            </div>
+            <button class="text-red-600 hover:text-red-800 no-print" data-index="${index}">
+              <i class="fas fa-trash"></i> حذف
+            </button>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-5 gap-18">
+            <div class="input-group">
+              <label class="block mb-2 font-semibold">سعر الشراء</label>
+              <input type="number" value="${product.buyPrice}" class="input" data-index="${index}" data-field="buyPrice" min="0" step="0.01" />
+              <i class="fas fa-shopping-cart input-icon"></i>
+              <p class="input-desc">تكلفة شراء المنتج (مثل: 50 ج.م).</p>
+            </div>
+            <div class="input-group">
+              <label class="block mb-2 font-semibold">تكلفة الشحن</label>
+              <input type="number" value="${product.shipping}" class="input" data-index="${index}" data-field="shipping" min="0" step="0.01" />
+              <i class="fas fa-truck input-icon"></i>
+              <p class="input-desc">تكلفة شحن المنتج (مثل: 20 ج.م).</p>
+            </div>
+            <div class="input-group">
+              <label class="block mb-2 font-semibold">تكاليف أخرى</label>
+              <input type="number" value="${product.otherCosts}" class="input" data-index="${index}" data-field="otherCosts" min="0" step="0.01" />
+              <i class="fas fa-tools input-icon"></i>
+              <p class="input-desc">مصروفات إضافية (مثل: 10 ج.م).</p>
+            </div>
+            <div class="input-group">
+              <label class="block mb-2 font-semibold">التسليمات المتوقعة</label>
+              <input type="number" value="${product.expectedDeliveries}" class="input" data-index="${index}" data-field="expectedDeliveries" min="0" />
+              <i class="fas fa-shopping-bag input-icon"></i>
+              <p class="input-desc">عدد التسليمات الشهرية (مثل: 50 طلب).</p>
+            </div>
+            <div class="input-group">
+              <label class="block mb-2 font-semibold">الربح المطلوب</label>
+              <input type="number" value="${product.desiredProfit}" class="input" data-index="${index}" data-field="desiredProfit" min="0" step="0.01" />
+              <i class="fas fa-coins input-icon"></i>
+              <p class="input-desc">الربح الصافي لكل طلب (مثل: 30 ج.م).</p>
+            </div>
+          </div>
+        `;
+        productList.appendChild(div);
+      });
+
+      productList.querySelectorAll("input").forEach(input => {
+        input.addEventListener("input", (e) => {
+          const index = e.target.dataset.index;
+          const field = e.target.dataset.field;
+          products[index][field] = field === "name" ? e.target.value : Math.max(parseFloat(e.target.value) || 0, 0);
+          calculateAll();
+        });
+      });
+
+      productList.querySelectorAll("button").forEach(btn => {
+        btn.addEventListener("click", () => {
+          if (products.length > 1) {
+            products.splice(btn.dataset.index, 1);
+            renderProducts();
+            calculateAll();
+            showAlert("تم حذف المنتج بنجاح!", "success");
+          } else {
+            showAlert("لا يمكن حذف المنتج الوحيد!", "error");
+          }
+        });
+      });
+    }
+
+    // إضافة منتج
+    document.getElementById("addProduct").addEventListener("click", () => {
+      products.push({ name: `منتج ${products.length + 1}`, buyPrice: 0, shipping: 0, otherCosts: 0, expectedDeliveries: 0, desiredProfit: 0 });
+      renderProducts();
+      calculateAll();
+      showAlert("تم إضافة منتج جديد!", "success");
+    });
+
+    // الحسابات الأساسية
+    function calculateAll() {
+      if (products.length === 0) {
+        showAlert("يرجى إضافة منتج واحد على الأقل!", "error");
+        return;
+      }
+
+      currency = document.getElementById("currency").value;
+
+      // تكاليف المنتجات
+      const productCosts = products.map(p => ({
+        name: p.name,
+        totalCost: Math.max(p.buyPrice + p.shipping + p.otherCosts, 0),
+        expectedDeliveries: Math.max(p.expectedDeliveries, 0),
+        desiredProfit: Math.max(p.desiredProfit, 0)
+      }));
+
+      const defaultDeliveryRate = Math.min(Math.max(parseFloat(document.getElementById("defaultDeliveryRate").value) || 0, 0), 100);
+      const adCostPerOrder = Math.max(parseFloat(document.getElementById("adCostPerOrder").value) || 0, 0);
+      const returnCostPerOrder = Math.max(parseFloat(document.getElementById("returnCostPerOrder").value) || 0, 0);
+      const staffCost = Math.max(parseFloat(document.getElementById("staffCost").value) || 0, 0);
+      const websiteCost = Math.max(parseFloat(document.getElementById("websiteCost").value) || 0, 0);
+      const packagingCost = Math.max(parseFloat(document.getElementById("packagingCost").value) || 0, 0);
+      const storageCost = Math.max(parseFloat(document.getElementById("storageCost").value) || 0, 0);
+      const organicMarketingCost = Math.max(parseFloat(document.getElementById("organicMarketingCost").value) || 0, 0);
+      const supportCost = Math.max(parseFloat(document.getElementById("supportCost").value) || 0, 0);
+      const maintenanceCost = Math.max(parseFloat(document.getElementById("maintenanceCost").value) || 0, 0);
+      const trainingCost = Math.max(parseFloat(document.getElementById("trainingCost").value) || 0, 0);
+
+      const discountRate = Math.min(Math.max(parseFloat(document.getElementById("discountRate").value) || 0, 0), 100);
+      const codCost = Math.max(parseFloat(document.getElementById("codCost").value) || 0, 0);
+      const taxRate = Math.min(Math.max(parseFloat(document.getElementById("taxRate").value) || 0, 0), 100);
+      const paymentGatewayFee = Math.min(Math.max(parseFloat(document.getElementById("paymentGatewayFee").value) || 0, 0), 100);
+      const platformCommission = Math.min(Math.max(parseFloat(document.getElementById("platformCommission").value) || 0, 0), 100);
+      const targetROAS = Math.max(parseFloat(document.getElementById("targetROAS").value) || 0, 0);
+      const repeatCustomerRate = Math.min(Math.max(parseFloat(document.getElementById("repeatCustomerRate").value) || 0, 0), 100);
+
+      // الطلبات
+      const totalExpectedOrders = productCosts.reduce((sum, p) => sum + p.expectedDeliveries, 0);
+      const deliveredOrders = productCosts.map(p => p.expectedDeliveries * (defaultDeliveryRate / 100));
+      const returnedOrders = productCosts.map(p => p.expectedDeliveries * ((100 - defaultDeliveryRate) / 100));
+      const totalDeliveredOrders = deliveredOrders.reduce((sum, d) => sum + d, 0);
+
+      // حساب التكاليف الكلية بدون الربح
+      const totalProductCost = productCosts.reduce((sum, p, i) => sum + p.totalCost * deliveredOrders[i], 0);
+      const totalAdCost = totalExpectedOrders * adCostPerOrder;
+      const totalReturnCost = returnedOrders.reduce((sum, r) => sum + r, 0) * returnCostPerOrder;
+      const totalCodCost = totalDeliveredOrders * codCost;
+      const totalPackagingCost = totalDeliveredOrders * packagingCost;
+      const fixedCosts = staffCost + websiteCost + storageCost + organicMarketingCost + supportCost + maintenanceCost + trainingCost;
+
+      const totalVariableCost = totalProductCost + totalAdCost + totalReturnCost + totalCodCost + totalPackagingCost;
+      const totalCostBeforeProfit = totalVariableCost + fixedCosts;
+
+      // حساب الربح الافتراضي لتغطية التكاليف (صافي الربح = 0)
+      let defaultDesiredProfit = 0;
+      if (totalDeliveredOrders > 0) {
+        const baseCostPerOrder = totalCostBeforeProfit / totalDeliveredOrders;
+        const taxMultiplier = taxRate / 100;
+        const gatewayMultiplier = paymentGatewayFee / 100;
+        const platformMultiplier = platformCommission / 100;
+        const discountMultiplier = discountRate / 100;
+        
+        const revenuePerOrderBeforeProfit = baseCostPerOrder / (1 - taxMultiplier - gatewayMultiplier - platformMultiplier - discountMultiplier);
+        defaultDesiredProfit = revenuePerOrderBeforeProfit - (productCosts[0].totalCost + packagingCost + codCost); // افتراضي لكل طلب
+      }
+
+      // إذا لم يُحدد الربح للمنتجات، استخدم القيمة المقترحة
+      const suggestedPrices = productCosts.map(p => {
+        const desiredProfit = p.desiredProfit > 0 ? p.desiredProfit : defaultDesiredProfit;
+        const baseCost = p.totalCost + packagingCost;
+        const priceBeforeDiscount = baseCost + desiredProfit + codCost;
+        const discountAmount = priceBeforeDiscount * (discountRate / 100);
+        const priceAfterDiscount = priceBeforeDiscount - discountAmount;
+        const taxAmount = priceAfterDiscount * (taxRate / 100);
+        const gatewayFee = priceAfterDiscount * (paymentGatewayFee / 100);
+        const platformFee = priceAfterDiscount * (platformCommission / 100);
+        const finalPrice = priceAfterDiscount + taxAmount + gatewayFee + platformFee;
+        return {
+          name: p.name,
+          totalCost: baseCost,
+          priceBeforeDiscount,
+          priceAfterDiscount,
+          taxAmount,
+          gatewayFee,
+          platformFee,
+          profitPerOrder: priceAfterDiscount - baseCost - codCost - gatewayFee - platformFee,
+          expectedDeliveries: p.expectedDeliveries
         };
+      });
 
-        const getCurrencySymbol = () => currencySymbols[document.getElementById('currency').value];
+      // الحسابات المالية
+      const totalRevenue = suggestedPrices.reduce((sum, p, i) => sum + p.priceAfterDiscount * deliveredOrders[i], 0);
+      const totalTax = suggestedPrices.reduce((sum, p, i) => sum + p.taxAmount * deliveredOrders[i], 0);
+      const totalGatewayFees = suggestedPrices.reduce((sum, p, i) => sum + p.gatewayFee * deliveredOrders[i], 0);
+      const totalPlatformCommission = suggestedPrices.reduce((sum, p, i) => sum + p.platformFee * deliveredOrders[i], 0);
+      const totalExpenses = totalCostBeforeProfit + totalTax + totalGatewayFees + totalPlatformCommission;
+      const netProfit = totalRevenue - totalExpenses;
+      const requiredAdSpend = targetROAS > 0 ? totalRevenue / targetROAS : 0;
 
-        const calculateResults = () => {
-            const productPrice = parseFloat(document.getElementById('productPrice').value) || 0;
-            const sellingPrice = parseFloat(document.getElementById('sellingPrice').value) || 0;
-            const shippingCost = parseFloat(document.getElementById('shippingCost').value) || 0;
-            const targetOrders = parseFloat(document.getElementById('targetOrders').value) || 0;
-            const deliveryRate = parseFloat(document.getElementById('deliveryRate').value) || 0;
-            const adCostPerOrder = parseFloat(document.getElementById('adCostPerOrder').value) || 0;
-            const applyTax = document.getElementById('applyTax').checked;
-            const currencySymbol = getCurrencySymbol();
+      // إيرادات العملاء المتكررين
+      const repeatRevenue = totalRevenue * (repeatCustomerRate / 100);
 
-            const netProfitPerOrder = sellingPrice - productPrice - shippingCost;
-            const profitMargin = sellingPrice ? (netProfitPerOrder / sellingPrice) * 100 : 0;
-            const deliveredOrders = (targetOrders * deliveryRate) / 100;
-            const profitBeforeAds = deliveredOrders * netProfitPerOrder;
-            const totalAdSpend = targetOrders * adCostPerOrder;
-            const adSpendWithTax = applyTax ? totalAdSpend * 1.14 : totalAdSpend;
-            const netProfitAfterAds = profitBeforeAds - adSpendWithTax;
-            const totalInvestment = totalAdSpend + adSpendWithTax + (productPrice + shippingCost) * deliveredOrders;
-            const profitPercentage = totalInvestment > 0 ? (netProfitAfterAds / totalInvestment) * 100 : 0;
+      // تحديث الربح الافتراضي في واجهة المستخدم
+      const defaultProfitInput = document.getElementById("defaultDesiredProfit");
+      if (defaultProfitInput.value == 0 || !defaultProfitInput.dataset.userModified) {
+        defaultProfitInput.value = defaultDesiredProfit.toFixed(2);
+        defaultProfitInput.dataset.userModified = false;
+      }
 
-            const updateElement = (id, value, isPercentage = false, isNumberOnly = false) => {
-                const element = document.getElementById(id);
-                element.textContent = isPercentage ? `${value.toFixed(2)}%` : (isNumberOnly ? value.toFixed(2) : `${currencySymbol} ${value.toFixed(2)}`);
-                element.classList.remove('text-red-500', 'text-yellow-500', 'text-green-500');
-                if (value > 0) element.classList.add('text-green-500');
-                else if (value < 0) element.classList.add('text-red-500');
-                else element.classList.add('text-yellow-500');
-            };
+      // تنبيه المستخدم
+      if (!defaultProfitInput.dataset.userModified) {
+        showAlert(`الربح الافتراضي (${currency} ${defaultDesiredProfit.toFixed(2)}) يغطي التكاليف بدون مكسب أو خسارة. يمكنك زيادته لتحقيق ربح إضافي!`, "info");
+      }
 
-            updateElement('netProfitPerOrder', netProfitPerOrder);
-            updateElement('profitMargin', profitMargin, true);
-            updateElement('deliveredOrders', deliveredOrders, false, true);
-            updateElement('profitBeforeAds', profitBeforeAds);
-            updateElement('totalAdSpend', totalAdSpend);
-            updateElement('adSpendWithTax', adSpendWithTax);
-            updateElement('netProfitAfterAds', netProfitAfterAds);
+      // مخرجات إضافية
+      const avgOrderCost = totalExpectedOrders > 0 ? totalExpenses / totalExpectedOrders : 0;
+      const returnRatePercentage = totalExpectedOrders > 0 ? (returnedOrders.reduce((sum, r) => sum + r, 0) / totalExpectedOrders) * 100 : 0;
+      const profitMargin = totalRevenue > 0 ? (netProfit / totalRevenue) * 100 : 0;
 
-            // تحديث شريط التقدم
-            const progress = document.getElementById('profitProgress');
-            const progressWidth = Math.min(Math.abs(profitPercentage), 100);
-            progress.style.width = `${progressWidth}%`;
-            progress.classList.remove('negative');
-            if (netProfitAfterAds < 0) progress.classList.add('negative');
+      // تحديث لوحة المعلومات
+      const dashNetProfit = document.getElementById("dashNetProfit");
+      document.getElementById("dashRevenue").textContent = `${currency} ${totalRevenue.toFixed(2)}`;
+      dashNetProfit.textContent = `${currency} ${netProfit.toFixed(2)}`;
+      dashNetProfit.classList.toggle("negative", netProfit < 0);
+      const totalDesiredProfit = suggestedPrices.reduce((sum, p, i) => sum + p.profitPerOrder * deliveredOrders[i], 0);
+      const breakEven = totalDesiredProfit > 0 ? Math.ceil((totalExpenses - totalRevenue + fixedCosts) / (totalDesiredProfit / totalDeliveredOrders)) : 0;
+      document.getElementById("dashBreakEven").textContent = `${breakEven} طلب`;
+      const roas = totalAdCost > 0 ? totalRevenue / totalAdCost : 0;
+      document.getElementById("dashROAS").textContent = roas.toFixed(2);
+      document.getElementById("dashAvgOrderCost").textContent = `${currency} ${avgOrderCost.toFixed(2)}`;
+      document.getElementById("dashReturnRate").textContent = `${returnRatePercentage.toFixed(2)}%`;
+      document.getElementById("dashTotalTax").textContent = `${currency} ${totalTax.toFixed(2)}`;
+      document.getElementById("dashProfitMargin").textContent = `${profitMargin.toFixed(2)}%`;
+      document.getElementById("dashGatewayFees").textContent = `${currency} ${totalGatewayFees.toFixed(2)}`;
+      document.getElementById("dashStorageCost").textContent = `${currency} ${storageCost.toFixed(2)}`;
+      document.getElementById("dashOrganicMarketingCost").textContent = `${currency} ${organicMarketingCost.toFixed(2)}`;
+      document.getElementById("dashPlatformCommission").textContent = `${currency} ${totalPlatformCommission.toFixed(2)}`;
+      document.getElementById("dashSupportCost").textContent = `${currency} ${supportCost.toFixed(2)}`;
+      document.getElementById("dashMaintenanceCost").textContent = `${currency} ${maintenanceCost.toFixed(2)}`;
+      document.getElementById("dashRequiredAdSpend").textContent = `${currency} ${requiredAdSpend.toFixed(2)}`;
+      document.getElementById("dashTrainingCost").textContent = `${currency} ${trainingCost.toFixed(2)}`;
+      document.getElementById("dashRepeatRevenue").textContent = `${currency} ${repeatRevenue.toFixed(2)}`;
 
-            // تحديث مؤشر الحالة
-            const indicator = document.getElementById('profitIndicator');
-            indicator.style.display = netProfitAfterAds !== 0 ? 'inline' : 'none';
-            indicator.classList.remove('fa-arrow-up', 'fa-arrow-down', 'up', 'down');
-            if (netProfitAfterAds > 0) {
-                indicator.classList.add('fa-arrow-up', 'up');
-            } else if (netProfitAfterAds < 0) {
-                indicator.classList.add('fa-arrow-down', 'down');
+      // تحديث جدول التسعير
+      const pricingTable = document.querySelector("#pricingTable tbody");
+      pricingTable.innerHTML = "";
+      suggestedPrices.forEach(p => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${p.name}</td>
+          <td>${p.totalCost.toFixed(2)}</td>
+          <td>${p.priceBeforeDiscount.toFixed(2)}</td>
+          <td>${p.priceAfterDiscount.toFixed(2)}</td>
+          <td>${p.taxAmount.toFixed(2)}</td>
+          <td>${p.gatewayFee.toFixed(2)}</td>
+          <td>${p.platformFee.toFixed(2)}</td>
+          <td>${p.profitPerOrder.toFixed(2)}</td>
+        `;
+        pricingTable.appendChild(row);
+      });
+
+      // تحديث المخطط
+      updateChart(totalProductCost, totalAdCost, totalReturnCost, staffCost, websiteCost, totalCodCost, totalPackagingCost, totalTax, totalGatewayFees, storageCost, organicMarketingCost, supportCost, maintenanceCost, trainingCost, totalPlatformCommission);
+    }
+
+    // تحديث المخطط
+    function updateChart(productCost, adCost, returnCost, staffCost, websiteCost, codCost, packagingCost, taxCost, gatewayFees, storageCost, organicMarketingCost, supportCost, maintenanceCost, trainingCost, platformCommission) {
+      if (costChart) costChart.destroy();
+      costChart = new Chart(document.getElementById("costBreakdownChart").getContext("2d"), {
+        type: "pie",
+        data: {
+          labels: ["تكلفة المنتجات", "الإعلانات", "المرتجعات", "الموظفين", "تشغيل الموقع", "الدفع عند الاستلام", "التغليف", "الضرائب", "رسوم البوابة", "التخزين", "التسويق العضوي", "دعم العملاء", "الصيانة", "التدريب", "عمولة المنصة"],
+          datasets: [{
+            data: [
+              Math.max(productCost, 0),
+              Math.max(adCost, 0),
+              Math.max(returnCost, 0),
+              Math.max(staffCost, 0),
+              Math.max(websiteCost, 0),
+              Math.max(codCost, 0),
+              Math.max(packagingCost, 0),
+              Math.max(taxCost, 0),
+              Math.max(gatewayFees, 0),
+              Math.max(storageCost, 0),
+              Math.max(organicMarketingCost, 0),
+              Math.max(supportCost, 0),
+              Math.max(maintenanceCost, 0),
+              Math.max(trainingCost, 0),
+              Math.max(platformCommission, 0)
+            ],
+            backgroundColor: ["#3b82f6", "#ef4444", "#f59e0b", "#10b981", "#8b5cf6", "#ec4899", "#14b8a6", "#f97316", "#db2777", "#4f46e5", "#06b6d4", "#6b7280", "#1d4ed8", "#84cc16", "#d97706"],
+            borderWidth: 2,
+            borderColor: "#fff"
+          }]
+        },
+        options: {
+          plugins: {
+            legend: { position: "bottom", labels: { font: { size: 24 }, padding: 55 } },
+            title: { display: true, text: "تفصيل التكاليف", font: { size: 32 }, padding: 55 },
+            tooltip: {
+              callbacks: {
+                label: (context) => `${context.label}: ${currency} ${context.raw.toFixed(2)}`
+              }
             }
-
-            // تحديث مؤشر اتجاه الربح
-            const trendIndicator = document.getElementById('trendIndicator');
-            if (netProfitAfterAds !== previousProfit) {
-                trendIndicator.style.display = 'inline';
-                trendIndicator.classList.remove('fa-arrow-up', 'fa-arrow-down', 'up-trend', 'down-trend');
-                if (netProfitAfterAds > previousProfit) {
-                    trendIndicator.classList.add('fa-arrow-up', 'up-trend');
-                } else if (netProfitAfterAds < previousProfit) {
-                    trendIndicator.classList.add('fa-arrow-down', 'down-trend');
-                }
-                setTimeout(() => trendIndicator.style.display = 'none', 2000);
-            }
-            previousProfit = netProfitAfterAds;
-        };
-
-        // منطق تبديل المود
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        const modeLabel = document.getElementById('modeLabel');
-        const lightModeIcon = document.querySelector('.light-mode-icon');
-        const darkModeIcon = document.querySelector('.dark-mode-icon');
-
-        darkModeToggle.addEventListener('change', () => {
-            if (darkModeToggle.checked) {
-                document.body.classList.remove('light-mode');
-                document.body.classList.add('dark-mode');
-                modeLabel.textContent = 'وضع الليل';
-                lightModeIcon.style.display = 'none';
-                darkModeIcon.style.display = 'inline';
-            } else {
-                document.body.classList.remove('dark-mode');
-                document.body.classList.add('light-mode');
-                modeLabel.textContent = 'وضع النهار';
-                lightModeIcon.style.display = 'inline';
-                darkModeIcon.style.display = 'none';
-            }
-        });
-
-        // منطق القائمة المنسدلة
-        const dropdownSelected = document.getElementById('dropdownSelected');
-        const dropdownOptions = document.getElementById('dropdownOptions');
-        const currencyInput = document.getElementById('currency');
-        const options = document.querySelectorAll('.dropdown-option');
-
-        dropdownSelected.addEventListener('click', () => {
-            dropdownOptions.classList.toggle('active');
-        });
-
-        options.forEach(option => {
-            option.addEventListener('click', () => {
-                const value = option.getAttribute('data-value');
-                const text = option.textContent.trim();
-                dropdownSelected.innerHTML = `<span class="${option.querySelector('span').className}"></span> ${text} <i class="fas fa-chevron-down"></i>`;
-                currencyInput.value = value;
-                dropdownOptions.classList.remove('active');
-                calculateResults();
-            });
-        });
-
-        // إغلاق القائمة عند النقر خارجها
-        document.addEventListener('click', (e) => {
-            if (!dropdownSelected.contains(e.target) && !dropdownOptions.contains(e.target)) {
-                dropdownOptions.classList.remove('active');
-            }
-        });
-
-        // إعادة التعيين بجعل القيم صفرًا
-        function resetValues() {
-            document.getElementById('productPrice').value = 0;
-            document.getElementById('sellingPrice').value = 0;
-            document.getElementById('shippingCost').value = 0;
-            document.getElementById('targetOrders').value = 0;
-            document.getElementById('deliveryRate').value = 0;
-            document.getElementById('adCostPerOrder').value = 0;
-            document.getElementById('applyTax').checked = false;
-            calculateResults();
-
-            const btn = event.target;
-            const ripple = document.createElement('span');
-            ripple.classList.add('ripple');
-            const rect = btn.getBoundingClientRect();
-            const size = Math.max(rect.width, rect.height);
-            const x = event.clientX - rect.left - size / 2;
-            const y = event.clientY - rect.top - size / 2;
-            ripple.style.left = `${x}px`;
-            ripple.style.top = `${y}px`;
-            ripple.style.width = `${size}px`;
-            ripple.style.height = `${size}px`;
-            btn.appendChild(ripple);
-
-            setTimeout(() => ripple.remove(), 600);
+          },
+          animation: { duration: 4000, easing: "easeOutQuart" }
         }
+      });
+    }
 
-        // تحديث النتائج في الوقت الحقيقي
-        document.querySelectorAll('input, #currency, #applyTax').forEach(input => {
-            input.addEventListener('input', () => {
-                const results = document.getElementById('results').children;
-                for (let result of results) {
-                    result.style.opacity = '0';
-                    setTimeout(() => {
-                        result.style.transition = 'opacity 0.5s ease';
-                        result.style.opacity = '1';
-                    }, 50);
-                }
-                calculateResults();
-            });
-        });
-        calculateResults();
-    </script>
-</body>
-</html>
-<!-- partial -->
-  
+    // عرض التنبيهات
+    function showAlert(message, type) {
+      const alertDiv = document.createElement("div");
+      alertDiv.className = `alert alert-${type}`;
+      alertDiv.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i> ${message}`;
+      document.querySelector(".container").prepend(alertDiv);
+      setTimeout(() => alertDiv.remove(), 6500);
+    }
+
+    // أحداث المستمعين
+    document.querySelectorAll("input").forEach(input => {
+      input.addEventListener("input", (e) => {
+        if (e.target.id === "defaultDesiredProfit") e.target.dataset.userModified = true;
+        debounce(calculateAll, 300)();
+      });
+    });
+
+    document.getElementById("currency").addEventListener("change", () => {
+      currency = document.getElementById("currency").value;
+      calculateAll();
+    });
+
+    document.getElementById("calculate").addEventListener("click", () => {
+      calculateAll();
+      showAlert("تم حساب النتائج بنجاح!", "success");
+    });
+
+    document.getElementById("reset").addEventListener("click", () => {
+      products = [{ name: "منتج 1", buyPrice: 0, shipping: 0, otherCosts: 0, expectedDeliveries: 0, desiredProfit: 0 }];
+      document.querySelectorAll("input:not([id='currency'])").forEach(input => {
+        input.value = "0";
+        if (input.id === "defaultDesiredProfit") input.dataset.userModified = false;
+      });
+      document.getElementById("currency").value = "ج.م";
+      renderProducts();
+      calculateAll();
+      showAlert("تم إعادة تعيين البيانات!", "success");
+    });
+
+    document.getElementById("print").addEventListener("click", () => {
+      window.print();
+      showAlert("جارٍ الطباعة!", "success");
+    });
+
+    // Debounce Function
+    function debounce(func, delay) {
+      let timeout;
+      return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func(...args), delay);
+      };
+    }
+
+    // التهيئة الأولية
+    renderProducts();
+    calculateAll();
+  </script>
 </body>
 </html>
