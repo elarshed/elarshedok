@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-  <!-- Chart.js -->
+  <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -40,42 +40,357 @@
       z-index: 2;
     }
     .dark-mode .container { background: #2d3748; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); }
-
     /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes glow {
       0% { text-shadow: 0 0 5px rgba(56, 161, 105, 0.7); }
       50% { text-shadow: 0 0 10px rgba(56, 161, 105, 1), 0 0 20px rgba(56, 161, 105, 0.7); }
       100% { text-shadow: 0 0 5px rgba(56, 161, 105, 0.7); }
     }
-    @keyframes scaleUp {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
+    @keyframes scaleUp { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+    /* Header */
+    .header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
     }
-
-    /* Header, Cards, Inputs ... نفس التنسيقات الأصلية */
-    /* ... (تم الاحتفاظ بالأنماط السابقة دون تغيير كبير) */
-
-    /* إضافة تنسيق لرسم البياني */
-    .chart-container {
+    .dark-mode .header { background: #2d3748; }
+    .profile-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      width: 100%;
+      padding: 0.75rem;
+      background: #f7fafc;
+      border-radius: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.5s ease, box-shadow 0.3s ease;
+    }
+    .profile-card.visible { transform: translateY(0); box-shadow: 0 6px 16px rgba(43, 108, 176, 0.2); }
+    .dark-mode .profile-card { background: #3d4a5a; }
+    .profile-pic {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 4px solid #2b6cb0;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+    .dark-mode .profile-pic { border-color: #a0aec0; }
+    .profile-pic img { width: 100%; height: 100%; object-fit: cover; }
+    .profile-info { display: flex; flex-direction: column; align-items: center; gap: 0.2rem; }
+    .profile-name {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: #2b6cb0;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .dark-mode .profile-name { color: #a0aec0; }
+    .profile-name i { font-size: 1rem; animation: bounce 2s infinite; }
+    .creator-name { font-size: 0.9rem; font-weight: 700; color: #4a5568; }
+    .dark-mode .creator-name { color: #a0aec0; }
+    .social-links { display: flex; gap: 0.3rem; margin-top: 0.3rem; }
+    .social-links a { font-size: 1rem; padding: 0.4rem; border-radius: 50%; border: 1px solid rgba(0, 0, 0, 0.1); }
+    .social-links .facebook { color: #1877F2; }
+    .social-links .whatsapp { color: #25D366; }
+    .social-links .instagram { color: #E1306C; }
+    .social-links .tiktok { color: #000000; }
+    .social-links .linkedin { color: #0077B5; }
+    /* Controls */
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      gap: 0.3rem;
+      padding: 0 0.5rem;
+    }
+    .mode-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+    }
+    .toggle-switch { position: relative; width: 36px; height: 18px; }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #a0aec0;
+      border-radius: 18px;
+      border: 1px solid #2b6cb0;
+      transition: 0.3s;
+    }
+    .dark-mode .slider { border-color: #a0aec0; }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 14px;
+      width: 14px;
+      left: 2px;
+      bottom: 2px;
+      background: #ffffff;
+      border-radius: 50%;
+      transition: 0.3s;
+    }
+    input:checked + .slider { background: #a0aec0; }
+    input:checked + .slider:before { transform: translateX(16px); }
+    .mode-toggle i { font-size: 0.8rem; }
+    .light-mode .mode-toggle i.fa-sun { color: #f6ad55; }
+    .dark-mode .mode-toggle i.fa-moon { color: #a0aec0; }
+    .mode-toggle span { font-size: 0.7rem; font-weight: 700; }
+    .light-mode .mode-toggle span { color: #1a202c; }
+    .dark-mode .mode-toggle span { color: #ffffff; }
+    /* Currency Dropdown */
+    .custom-dropdown { width: 90px; position: relative; }
+    .dropdown-selected {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.3rem 0.5rem;
+      border: 1px solid #2b6cb0;
+      border-radius: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: #f7fafc;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .dark-mode .dropdown-selected { background: #3d4a5a; border-color: #a0aec0; }
+    .dropdown-selected:hover { background: #e2e8f0; }
+    .dark-mode .dropdown-selected:hover { background: #4a5b6d; }
+    .dropdown-selected i { margin-left: 0.3rem; font-size: 0.7rem; }
+    .dropdown-options {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      width: 90px;
+      background: #ffffff;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      display: none;
+      z-index: 10;
+      max-height: 150px;
+      overflow-y: auto;
+    }
+    .dark-mode .dropdown-options { background: #3d4a5a; }
+    .dropdown-options.active { display: block; }
+    .dropdown-option {
+      display: flex;
+      align-items: center;
+      padding: 0.3rem 0.5rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .light-mode .dropdown-option { color: #1a202c; }
+    .dark-mode .dropdown-option { color: #ffffff; }
+    .dropdown-option:hover { background: #e2e8f0; }
+    .dark-mode .dropdown-option:hover { background: #4a5b6d; }
+    .dropdown-option span { margin: 0 0.3rem; }
+    /* Inputs Section */
+    .inputs-section {
+      background: #e6f0fa;
+      border-radius: 0.75rem;
+      padding: 0.5rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      animation: slideIn 0.5s ease;
+      margin-bottom: 0.5rem;
+    }
+    .dark-mode .inputs-section { background: #2d4a6a; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); }
+    .inputs-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.3rem;
+    }
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      position: relative;
+      animation: slideIn 0.5s ease backwards;
+      animation-delay: calc(var(--order) * 0.1s);
+    }
+    .input-group label {
+      font-size: 0.9rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+      color: #2b6cb0;
+    }
+    .dark-mode .input-group label { color: #a0aec0; }
+    .input-group i { font-size: 0.9rem; }
+    .light-mode .input-group i { color: #2b6cb0; }
+    .dark-mode .input-group i { color: #a0aec0; }
+    .input-group input {
+      width: 100%;
+      padding: 0.3rem;
+      font-size: 1rem;
+      font-weight: 700;
+      border: 1px solid #2b6cb0;
+      border-radius: 0.5rem;
+      background: #ffffff;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .input-group input:focus {
+      border-color: #a0aec0;
+      box-shadow: 0 0 8px rgba(160, 174, 192, 0.3);
+      outline: none;
+    }
+    .dark-mode .input-group input { background: #3d4a5a; color: #ffffff; border-color: #a0aec0; }
+    .input-group.tax-group {
+      grid-column: 1 / -1;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.4rem;
+      border: 1px solid #2b6cb0;
+      border-radius: 0.5rem;
+      background: #ffffff;
+    }
+    .dark-mode .input-group.tax-group { border-color: #a0aec0; background: #3d4a5a; }
+    .tax-toggle { display: flex; align-items: center; gap: 0.2rem; }
+    #taxStatus { font-size: 0.9rem; display: flex; align-items: center; gap: 0.2rem; }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .light-mode .status-dot.active { background: #2b6cb0; }
+    .light-mode .status-dot.inactive { background: #e53e3e; }
+    .dark-mode .status-dot.active { background: #a0aec0; }
+    .dark-mode .status-dot.inactive { background: #e53e3e; }
+    /* Decorative Line */
+    .decorative-line {
+      height: 2px;
+      background: linear-gradient(to right, transparent, #2b6cb0, transparent);
+      margin: 0.5rem 0;
+      border-radius: 1rem;
+    }
+    .dark-mode .decorative-line { background: linear-gradient(to right, transparent, #a0aec0, transparent); }
+    /* Results Section */
+    .results-section {
+      padding: 0.5rem;
+      animation: slideIn 0.5s ease 0.2s backwards;
+    }
+    .results-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.3rem;
+    }
+    .result-card {
       background: #ffffff;
       border: 1px solid #e2e8f0;
       border-radius: 0.5rem;
-      padding: 1rem;
-      margin-top: 1rem;
+      padding: 0.4rem;
+      text-align: center;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
       transition: box-shadow 0.3s ease;
     }
+    .dark-mode .result-card { background: #3d4a5a; border-color: #a0aec0; }
+    .result-card.visible { box-shadow: 0 4px 16px rgba(43, 108, 176, 0.2); }
+    .result-card.hidden { display: none; }
+    .result-card p:first-child {
+      font-size: 0.9rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.2rem;
+      color: #2b6cb0;
+    }
+    .dark-mode .result-card p:first-child { color: #a0aec0; }
+    .result-card i { font-size: 0.9rem; }
+    .result-card p:last-child {
+      font-size: 0.8rem;
+      font-weight: 900;
+      transition: color 0.3s ease, transform 0.3s ease;
+      margin-top: 0.2rem;
+    }
+    .result-card.bg-blue-50 {
+      grid-column: 1 / -1;
+      background: #e6fffa;
+      padding: 0.5rem;
+    }
+    .dark-mode .result-card.bg-blue-50 { background: #2d4a6a; }
+    .result-card.bg-blue-50 p:last-child {
+      font-size: 2.5rem;
+    }
+    .result-value { animation: scaleUp 0.5s ease; }
+    .text-green-600 { color: #38a169; }
+    .dark-mode .text-green-600 { color: #48bb78; }
+    .text-red-600 { color: #e53e3e; }
+    .text-gray-600 { color: #718096; }
+    .dark-mode .text-gray-600 { color: #a0aec0; }
+    .profit-indicators { display: flex; justify-content: center; align-items: center; gap: 0.3rem; }
+    #profitIndicator, #trendIndicator { font-size: 1rem; }
+    .up, .up-trend { color: #38a169; }
+    .dark-mode .up, .dark-mode .up-trend { color: #48bb78; }
+    .down, .down-trend { color: #e53e3e; }
+    /* Chart Section */
+    .chart-container {
+      margin-top: 1rem;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.5rem;
+      padding: 0.5rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease;
+    }
     .chart-container:hover {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transform: scale(1.02);
+    }
+    .dark-mode .chart-container {
+      background: #3d4a5a;
+      border-color: #a0aec0;
+    }
+    /* Buttons */
+    .buttons-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+    }
+    .show-more-btn, .reset-btn {
+      width: 100%;
+      max-width: 120px;
+      padding: 0.4rem 1rem;
+      border-radius: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-align: center;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+    .show-more-btn { background: #2b6cb0; color: #ffffff; }
+    .dark-mode .show-more-btn { background: #a0aec0; }
+    .show-more-btn:hover { opacity: 0.9; }
+    .reset-btn { background: #e53e3e; color: #ffffff; }
+    .reset-btn:hover { opacity: 0.9; }
+    /* Responsive Adjustments */
+    @media (min-width: 768px) {
+      .container { padding: 1rem; max-width: 800px; margin: 0 auto; }
+      .header { padding: 0.75rem; }
+      .profile-pic { width: 90px; height: 90px; }
+      .profile-name { font-size: 1.5rem; }
+      .creator-name { font-size: 1rem; }
+      .social-links a { font-size: 1.2rem; padding: 0.5rem; }
+      .custom-dropdown { width: 110px; }
+      .dropdown-selected { font-size: 0.9rem; }
+      .dropdown-option { font-size: 0.9rem; }
+      .inputs-section, .results-section { padding: 1rem; }
+      .input-group label { font-size: 1rem; }
+      .input-group input { padding: 0.5rem; font-size: 1.1rem; }
+      .result-card p:first-child { font-size: 1rem; }
+      .result-card p:last-child { font-size: 1rem; }
+      .result-card.bg-blue-50 p:last-child { font-size: 3rem; }
+      .show-more-btn, .reset-btn { max-width: 150px; font-size: 1rem; }
     }
   </style>
 </head>
@@ -124,7 +439,6 @@
         </div>
       </div>
     </header>
-
     <!-- Inputs Section -->
     <div class="inputs-section">
       <div class="inputs-container">
@@ -164,10 +478,8 @@
         </div>
       </div>
     </div>
-
     <!-- Decorative Line -->
     <div class="decorative-line"></div>
-
     <!-- Results Section -->
     <div class="results-section">
       <div class="results-container" id="results">
@@ -209,13 +521,11 @@
         <button class="show-more-btn" id="showMoreBtn" onclick="showMoreResults()">إظهار المزيد</button>
       </div>
     </div>
-
     <!-- Chart Section -->
     <div class="chart-container">
       <canvas id="performanceChart"></canvas>
     </div>
   </div>
-
   <script>
     let previousProfit = 0;
     const currencySymbols = { EGP: 'ج.م', LYD: 'د.ل', SAR: 'ر.س', AED: 'د.إ' };
@@ -223,31 +533,37 @@
 
     // إعداد الرسم البياني باستخدام Chart.js
     const ctx = document.getElementById('performanceChart').getContext('2d');
-    const performanceChart = new Chart(ctx, {
+    let performanceChart = new Chart(ctx, {
       type: 'bar',
       data: {
         labels: ['ربح الأوردر', 'هامش الربح', 'الأوردرات المسلمة'],
         datasets: [{
           label: 'المؤشرات',
-          data: [0, 0, 0],
-          backgroundColor: ['#2b6cb0', '#38a169', '#e53e3e'],
-          borderColor: ['#2b6cb0', '#38a169', '#e53e3e'],
-          borderWidth: 1
+          backgroundColor: ['#38a169', '#2b6cb0', '#e53e3e'],
+          data: [0, 0, 0]
         }]
       },
       options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: {
+            label: function(context) {
+              return context.parsed.y;
+            }
+          } }
+        },
         scales: {
           y: { beginAtZero: true }
-        },
-        animation: { duration: 500 }
+        }
       }
     });
 
-    const updateChart = (netProfitPerOrder, profitMargin, deliveredOrders) => {
+    const updateChart = (netProfit, profitMargin, deliveredOrders) => {
       performanceChart.data.datasets[0].data = [
-        netProfitPerOrder,
-        profitMargin,
-        deliveredOrders
+        parseFloat(netProfit.toFixed(2)),
+        parseFloat(profitMargin.toFixed(2)),
+        parseFloat(deliveredOrders.toFixed(2))
       ];
       performanceChart.update();
     };
@@ -306,7 +622,7 @@
       }
       previousProfit = netProfitAfterAds;
 
-      // تحديث الرسم البياني بالقيم الحالية
+      // تحديث الرسم البياني مع المؤشرات الرئيسية
       updateChart(netProfitPerOrder, profitMargin, deliveredOrders);
     };
 
@@ -379,7 +695,7 @@
       });
     });
 
-    // Set initial value for demonstration
+    // تعيين القيمة الابتدائية للربح لإظهار تجربة تفاعلية
     document.getElementById('netProfitAfterAds').textContent = 'ج.م 2746.26';
     document.getElementById('netProfitAfterAds').classList.add('text-green-600', 'glow');
     calculateResults();
