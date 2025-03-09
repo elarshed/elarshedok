@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-  <!-- Chart.js CDN -->
+  <!-- تضمين Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -40,15 +40,27 @@
       z-index: 2;
     }
     .dark-mode .container { background: #2d3748; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); }
+
     /* Animations */
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
     @keyframes glow {
       0% { text-shadow: 0 0 5px rgba(56, 161, 105, 0.7); }
       50% { text-shadow: 0 0 10px rgba(56, 161, 105, 1), 0 0 20px rgba(56, 161, 105, 0.7); }
       100% { text-shadow: 0 0 5px rgba(56, 161, 105, 0.7); }
     }
-    @keyframes scaleUp { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+    @keyframes scaleUp {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
     /* Header */
     .header {
       display: flex;
@@ -94,15 +106,25 @@
     }
     .dark-mode .profile-name { color: #a0aec0; }
     .profile-name i { font-size: 1rem; animation: bounce 2s infinite; }
-    .creator-name { font-size: 0.9rem; font-weight: 700; color: #4a5568; }
+    .creator-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #4a5568;
+    }
     .dark-mode .creator-name { color: #a0aec0; }
     .social-links { display: flex; gap: 0.3rem; margin-top: 0.3rem; }
-    .social-links a { font-size: 1rem; padding: 0.4rem; border-radius: 50%; border: 1px solid rgba(0, 0, 0, 0.1); }
+    .social-links a {
+      font-size: 1rem;
+      padding: 0.4rem;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
     .social-links .facebook { color: #1877F2; }
     .social-links .whatsapp { color: #25D366; }
     .social-links .instagram { color: #E1306C; }
     .social-links .tiktok { color: #000000; }
     .social-links .linkedin { color: #0077B5; }
+
     /* Controls */
     .controls {
       display: flex;
@@ -117,11 +139,18 @@
       align-items: center;
       gap: 0.2rem;
     }
-    .toggle-switch { position: relative; width: 36px; height: 18px; }
+    .toggle-switch {
+      position: relative;
+      width: 36px;
+      height: 18px;
+    }
     .toggle-switch input { opacity: 0; width: 0; height: 0; }
     .slider {
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       background: #a0aec0;
       border-radius: 18px;
       border: 1px solid #2b6cb0;
@@ -147,8 +176,12 @@
     .mode-toggle span { font-size: 0.7rem; font-weight: 700; }
     .light-mode .mode-toggle span { color: #1a202c; }
     .dark-mode .mode-toggle span { color: #ffffff; }
+
     /* Currency Dropdown */
-    .custom-dropdown { width: 90px; position: relative; }
+    .custom-dropdown {
+      width: 90px;
+      position: relative;
+    }
     .dropdown-selected {
       display: flex;
       align-items: center;
@@ -193,6 +226,7 @@
     .dropdown-option:hover { background: #e2e8f0; }
     .dark-mode .dropdown-option:hover { background: #4a5b6d; }
     .dropdown-option span { margin: 0 0.3rem; }
+
     /* Inputs Section */
     .inputs-section {
       background: #e6f0fa;
@@ -266,6 +300,7 @@
     .light-mode .status-dot.inactive { background: #e53e3e; }
     .dark-mode .status-dot.active { background: #a0aec0; }
     .dark-mode .status-dot.inactive { background: #e53e3e; }
+
     /* Decorative Line */
     .decorative-line {
       height: 2px;
@@ -274,6 +309,7 @@
       border-radius: 1rem;
     }
     .dark-mode .decorative-line { background: linear-gradient(to right, transparent, #a0aec0, transparent); }
+
     /* Results Section */
     .results-section {
       padding: 0.5rem;
@@ -322,7 +358,9 @@
     .result-card.bg-blue-50 p:last-child {
       font-size: 2.5rem;
     }
-    .result-value { animation: scaleUp 0.5s ease; }
+    .result-value {
+      animation: scaleUp 0.5s ease;
+    }
     .text-green-600 { color: #38a169; }
     .dark-mode .text-green-600 { color: #48bb78; }
     .text-red-600 { color: #e53e3e; }
@@ -333,23 +371,7 @@
     .up, .up-trend { color: #38a169; }
     .dark-mode .up, .dark-mode .up-trend { color: #48bb78; }
     .down, .down-trend { color: #e53e3e; }
-    /* Chart Section */
-    .chart-container {
-      margin-top: 1rem;
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 0.5rem;
-      padding: 0.5rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-      transition: transform 0.3s ease;
-    }
-    .chart-container:hover {
-      transform: scale(1.02);
-    }
-    .dark-mode .chart-container {
-      background: #3d4a5a;
-      border-color: #a0aec0;
-    }
+
     /* Buttons */
     .buttons-container {
       display: flex;
@@ -368,11 +390,29 @@
       cursor: pointer;
       transition: opacity 0.3s ease;
     }
-    .show-more-btn { background: #2b6cb0; color: #ffffff; }
+    .show-more-btn {
+      background: #2b6cb0;
+      color: #ffffff;
+    }
     .dark-mode .show-more-btn { background: #a0aec0; }
     .show-more-btn:hover { opacity: 0.9; }
-    .reset-btn { background: #e53e3e; color: #ffffff; }
+    .reset-btn {
+      background: #e53e3e;
+      color: #ffffff;
+    }
     .reset-btn:hover { opacity: 0.9; }
+
+    /* Chart Section */
+    .chart-section {
+      background: #fff;
+      border-radius: 0.75rem;
+      padding: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-top: 0.5rem;
+      animation: slideIn 0.5s ease;
+    }
+    .dark-mode .chart-section { background: #2d3748; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+
     /* Responsive Adjustments */
     @media (min-width: 768px) {
       .container { padding: 1rem; max-width: 800px; margin: 0 auto; }
@@ -384,7 +424,7 @@
       .custom-dropdown { width: 110px; }
       .dropdown-selected { font-size: 0.9rem; }
       .dropdown-option { font-size: 0.9rem; }
-      .inputs-section, .results-section { padding: 1rem; }
+      .inputs-section, .results-section, .chart-section { padding: 1rem; }
       .input-group label { font-size: 1rem; }
       .input-group input { padding: 0.5rem; font-size: 1.1rem; }
       .result-card p:first-child { font-size: 1rem; }
@@ -439,6 +479,7 @@
         </div>
       </div>
     </header>
+
     <!-- Inputs Section -->
     <div class="inputs-section">
       <div class="inputs-container">
@@ -478,8 +519,10 @@
         </div>
       </div>
     </div>
+
     <!-- Decorative Line -->
     <div class="decorative-line"></div>
+
     <!-- Results Section -->
     <div class="results-section">
       <div class="results-container" id="results">
@@ -521,52 +564,45 @@
         <button class="show-more-btn" id="showMoreBtn" onclick="showMoreResults()">إظهار المزيد</button>
       </div>
     </div>
+
     <!-- Chart Section -->
-    <div class="chart-container">
+    <div class="chart-section">
       <canvas id="performanceChart"></canvas>
     </div>
   </div>
+
   <script>
     let previousProfit = 0;
     const currencySymbols = { EGP: 'ج.م', LYD: 'د.ل', SAR: 'ر.س', AED: 'د.إ' };
     const getCurrencySymbol = () => currencySymbols[document.getElementById('currency').value];
 
-    // إعداد الرسم البياني باستخدام Chart.js
+    // إنشاء الرسم البياني باستخدام Chart.js
     const ctx = document.getElementById('performanceChart').getContext('2d');
-    let performanceChart = new Chart(ctx, {
+    const performanceChart = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['ربح الأوردر', 'هامش الربح', 'الأوردرات المسلمة'],
+        labels: ['ربح الأوردر', 'هامش الربح (%)', 'أوردرات مسلمة'],
         datasets: [{
-          label: 'المؤشرات',
-          backgroundColor: ['#38a169', '#2b6cb0', '#e53e3e'],
-          data: [0, 0, 0]
+          label: 'مؤشرات الأداء',
+          data: [0, 0, 0],
+          backgroundColor: ['#2b6cb0', '#38a169', '#e53e3e'],
+          borderColor: ['#2b6cb0', '#38a169', '#e53e3e'],
+          borderWidth: 1,
+          borderRadius: 4
         }]
       },
       options: {
         responsive: true,
-        plugins: {
-          legend: { display: false },
-          tooltip: { callbacks: {
-            label: function(context) {
-              return context.parsed.y;
-            }
-          } }
-        },
+        maintainAspectRatio: false,
+        animation: { duration: 500 },
         scales: {
           y: { beginAtZero: true }
+        },
+        plugins: {
+          legend: { display: false }
         }
       }
     });
-
-    const updateChart = (netProfit, profitMargin, deliveredOrders) => {
-      performanceChart.data.datasets[0].data = [
-        parseFloat(netProfit.toFixed(2)),
-        parseFloat(profitMargin.toFixed(2)),
-        parseFloat(deliveredOrders.toFixed(2))
-      ];
-      performanceChart.update();
-    };
 
     const calculateResults = () => {
       const productPrice = parseFloat(document.getElementById('productPrice').value) || 0;
@@ -622,8 +658,9 @@
       }
       previousProfit = netProfitAfterAds;
 
-      // تحديث الرسم البياني مع المؤشرات الرئيسية
-      updateChart(netProfitPerOrder, profitMargin, deliveredOrders);
+      // تحديث بيانات الرسم البياني
+      performanceChart.data.datasets[0].data = [netProfitPerOrder.toFixed(2), profitMargin.toFixed(2), deliveredOrders.toFixed(0)];
+      performanceChart.update();
     };
 
     const updateTaxStatus = () => {
@@ -695,7 +732,7 @@
       });
     });
 
-    // تعيين القيمة الابتدائية للربح لإظهار تجربة تفاعلية
+    // تعيين القيمة المبدئية للربح للعرض التجريبي
     document.getElementById('netProfitAfterAds').textContent = 'ج.م 2746.26';
     document.getElementById('netProfitAfterAds').classList.add('text-green-600', 'glow');
     calculateResults();
