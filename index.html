@@ -1,311 +1,54 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>مستشار التجارة الإلكترونية - مصر</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    body {
-      font-family: 'Cairo', sans-serif;
-      background: #f3f4f6;
-      margin: 0;
-      padding: 1rem;
-    }
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .section {
-      background: white;
-      padding: 1rem;
-      border-radius: 0.5rem;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      margin-bottom: 1rem;
-    }
-    .tab {
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      font-weight: 600;
-      color: #4b5563;
-      background: #e5e7eb;
-      border-radius: 0.5rem 0.5rem 0 0;
-    }
-    .tab.active {
-      background: #1e40af;
-      color: white;
-    }
-    .input-group {
-      margin-bottom: 0.75rem;
-    }
-    .input {
-      width: 100%;
-      padding: 0.5rem;
-      border: 1px solid #d1d5db;
-      border-radius: 0.5rem;
-      font-size: 0.875rem;
-    }
-    .input:focus {
-      border-color: #1e40af;
-      outline: none;
-    }
-    .btn {
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      font-weight: 600;
-      color: white;
-      cursor: pointer;
-    }
-    .dashboard-card {
-      background: white;
-      padding: 0.75rem;
-      border-radius: 0.5rem;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    .chart-container {
-      height: 200px;
-      background: white;
-      border-radius: 0.5rem;
-      padding: 0.5rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    .recommendation {
-      background: #fef3c7;
-      padding: 1rem;
-      border-radius: 0.5rem;
-      margin-top: 1rem;
-    }
-    @media (max-width: 768px) {
-      .container { padding: 0.5rem; }
-      .input { font-size: 0.75rem; }
-      .btn { padding: 0.4rem 0.8rem; }
-      .dashboard-card { padding: 0.5rem; }
-      .text-xl { font-size: 1rem; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أداة إدارة المتجر</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-  <div class="container">
-    <!-- Tabs -->
-    <div class="flex flex-wrap gap-2 mb-4">
-      <span class="tab active" data-tab="products">المنتجات</span>
-      <span class="tab" data-tab="marketing">الإعلانات</span>
-      <span class="tab" data-tab="shipping">الشحن</span>
-      <span class="tab" data-tab="operations">التشغيل</span>
-      <span class="tab" data-tab="dashboard">لوحة التحكم</span>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto p-4">
+        <h1 class="text-2xl font-bold text-center mb-4">أداة إدارة متجرك الإلكتروني</h1>
+        
+        <!-- قسم المنتجات -->
+        <div class="mb-6">
+            <h2 class="text-xl font-semibold mb-2">المنتجات</h2>
+            <form class="mb-4">
+                <input type="text" placeholder="اسم المنتج" class="border p-2 mr-2">
+                <input type="number" placeholder="السعر" class="border p-2 mr-2">
+                <input type="number" placeholder="الكمية" class="border p-2 mr-2">
+                <button type="submit" class="bg-blue-500 text-white p-2 rounded">إضافة منتج</button>
+            </form>
+            <table class="w-full border">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="p-2">اسم المنتج</th>
+                        <th class="p-2">السعر</th>
+                        <th class="p-2">الكمية</th>
+                    </tr>
+                </thead>
+                <tbody id="productsTable"></tbody>
+            </table>
+        </div>
+
+        <!-- قسم الطلبات -->
+        <div>
+            <h2 class="text-xl font-semibold mb-2">الطلبات</h2>
+            <button class="bg-green-500 text-white p-2 rounded">إضافة طلب جديد</button>
+        </div>
     </div>
 
-    <!-- Products Section -->
-    <div id="products" class="section tab-content active">
-      <h2 class="text-xl font-bold mb-4">بيانات المنتج</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="input-group"><label>سعر الشراء</label><input id="buyPrice" type="number" class="input" value="0" min="0" step="0.01" /></div>
-        <div class="input-group"><label>تكلفة الشحن الدولي (اختياري)</label><input id="intShipping" type="number" class="input" value="0" min="0" step="0.01" /></div>
-        <div class="input-group"><label>الجمارك والضرائب (اختياري)</label><input id="customs" type="number" class="input" value="0" min="0" step="0.01" /></div>
-        <div class="input-group"><label>تكلفة التصنيع المحلي (اختياري)</label><input id="manufacturing" type="number" class="input" value="0" min="0" step="0.01" /></div>
-        <div class="input-group"><label>تكلفة التغليف</label><input id="packaging" type="number" class="input" value="0" min="0" step="0.01" /></div>
-        <div class="input-group"><label>تكلفة التخزين لكل وحدة</label><input id="storage" type="number" class="input" value="0" min="0" step="0.01" /></div>
-        <div class="input-group"><label>تكلفة التأمين (اختياري)</label><input id="insurance" type="number" class="input" value="0" min="0" step="0.01" /></div>
-        <div class="input-group"><label>تكلفة مراقبة الجودة (اختياري)</label><input id="qualityControl" type="number" class="input" value="0" min="0" step="0.01" /></div>
-      </div>
-    </div>
-
-    <!-- Marketing Section -->
-    <div id="marketing" class="section tab-content hidden">
-      <h2 class="text-xl font-bold mb-4">بيانات الإعلانات</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="input-group"><label>الميزانية الإعلانية الشهرية</label><input id="adBudget" type="number" class="input" value="0" min="0" step="0.01" /></div>
-        <div class="input-group"><label>تكلفة النقرة (CPC)</label><input id="cpc" type="number" class="input" value="0" min="0" step="0.01" /></div>
-        <div class="input-group"><label>نسبة النقر (CTR %)</label><input id="ctr" type="number" class="input" value="0" min="0" max="100" /></div>
-        <div class="input-group"><label>نسبة التحويل (Conversion %)</label><input id="conversionRate" type="number" class="input" value="0" min="0" max="100" /></div>
-        <div class="input-group"><label>تكلفة اكتساب العميل (CPA)</label><input id="cpa" type="number" class="input" value="0" min="0" step="0.01" /></div>
-        <div class="input-group"><label>عدد الزوار المتوقع</label><input id="visitors" type="number" class="input" value="0" min="0" /></div>
-        <div class="input-group"><label>تكلفة المحتوى</label><input id="contentCost" type="number" class="input" value="0" min="0" step="0.01" /></div>
-        <div class="input-group"><label>تكلفة إدارة الإعلانات (اختياري)</label><input id="adManagement" type="number" class="input" value="0" min="0" step="0.01" /></div>
-        <div class="input-group"><label>نسبة التخلي عن السلة (%)</label><input id="abandonRate" type="number" class="input" value="0" min="0" max="100" /></div>
-      </div>
-    </div>
-
-    <!-- Shipping Section -->
-    <div id="shipping" class="section tab-content hidden">
-      <h2 class="text-xl font-bold mb-4">بيانات الشحن</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="input-group"><label>عدد الطلبات المتوقع</label><input id="orders" type="number" class="input" value="0" min="0" /></div>
-        <div class="input-group"><label>نسبة الإلغاء قبل الشحن (%)</label><input id="cancelRate" type="number" class="input" value="0" min="0" max="100" /></div>
-        <div class="input-group"><label>نسبة التسليم الناجح (%)</label><input id="deliveryRate" type="number" class="input" value="0" min="0" max="100" /></div>
-        <div class="input-group"><label>نسبة المرتجعات (%)</label><input id="returnRate" type="number" class="input" value="0" min="0" max="100" /></div>
-        <div class="input-group"><label>تكلفة إعادة الشحن للمرتجعات</label><input id="returnShipping" type="number" class="input" value="0" min="0" step="0.01" /></div>
-        <div class="input-group"><label>تكلفة التخزين الإضافي للمرتجعات</label><input id="extraStorage" type="number" class="input" value="0" min="0" step="0.01" /></div>
-        <div class="input-group"><label>تكلفة الدفع عند الاستلام (COD)</label><input id="codFees" type="number" class="input" value="0" min="0" step="0.01" /></div>
-      </div>
-    </div>
-
-    <!-- Operations Section -->
-    <div id="operations" class="section tab-content hidden">
-      <h2 class="text-xl font-bold mb-4">بيانات التشغيل</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="input-group"><label>عدد الموظفين والمرتبات</label><input id="salaries" type="number" class="input" value="0" min="0" step="0.01" /></div>
-        <div class="input-group"><label>عمولات الدفع الإلكتروني (%)</label><input id="paymentFees" type="number" class="input" value="0" min="0" max="100" /></div>
-        <div class="input-group"><label>الاشتراكات الشهرية</label><input id="subscriptions" type="number" class="input" value="0" min="0" step="0.01" /></div>
-        <div class="input-group"><label>تكلفة الصيانة والتطوير</label><input id="maintenance" type="number" class="input" value="0" min="0" step="0.01" /></div>
-      </div>
-    </div>
-
-    <!-- Dashboard Section -->
-    <div id="dashboard" class="section tab-content hidden">
-      <h2 class="text-xl font-bold mb-4">لوحة التحكم</h2>
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
-        <div class="dashboard-card"><p>إجمالي التكلفة لكل طلب</p><p id="costPerOrder" class="text-lg font-bold">ج.م 0</p></div>
-        <div class="dashboard-card"><p>صافي الربح لكل طلب</p><p id="netProfit" class="text-lg font-bold">ج.م 0</p></div>
-        <div class="dashboard-card"><p>نقطة التعادل</p><p id="breakEven" class="text-lg font-bold">0 طلب</p></div>
-        <div class="dashboard-card"><p>ROAS</p><p id="roas" class="text-lg font-bold">0%</p></div>
-      </div>
-      <div class="chart-container"><canvas id="costChart"></canvas></div>
-      <div class="recommendation">
-        <h3 class="text-lg font-bold mb-2">نصايح ذكية</h3>
-        <ul id="recommendations" class="list-disc pr-4"></ul>
-      </div>
-    </div>
-
-    <!-- Action Buttons -->
-    <div class="flex gap-4 mt-4">
-      <button id="calculate" class="btn bg-green-600 hover:bg-green-700">احسب كل حاجة</button>
-      <button id="reset" class="btn bg-red-600 hover:bg-red-700">ابدأ من الأول</button>
-    </div>
-  </div>
-
-  <script>
-    let data = {};
-    let costChart = null;
-
-    // Load data from LocalStorage
-    if (localStorage.getItem("ecommerceData")) {
-      data = JSON.parse(localStorage.getItem("ecommerceData"));
-      loadInputs();
-    }
-
-    // Tab switching
-    document.querySelectorAll(".tab").forEach(tab => {
-      tab.addEventListener("click", () => {
-        document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-        document.querySelectorAll(".tab-content").forEach(c => c.classList.add("hidden"));
-        tab.classList.add("active");
-        document.getElementById(tab.dataset.tab).classList.remove("hidden");
-      });
-    });
-
-    // Load inputs from data
-    function loadInputs() {
-      document.querySelectorAll(".input").forEach(input => {
-        input.value = data[input.id] || 0;
-        input.addEventListener("input", () => {
-          data[input.id] = parseFloat(input.value) || 0;
-          localStorage.setItem("ecommerceData", JSON.stringify(data));
+    <script>
+        // وظيفة بسيطة لإضافة منتج (سيتم تطويرها لاحقًا)
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = e.target[0].value;
+            const price = e.target[1].value;
+            const quantity = e.target[2].value;
+            const row = `<tr><td class="p-2">${name}</td><td class="p-2">${price}</td><td class="p-2">${quantity}</td></tr>`;
+            document.getElementById('productsTable').innerHTML += row;
+            e.target.reset();
         });
-      });
-    }
-
-    // Calculate everything
-    document.getElementById("calculate").addEventListener("click", () => {
-      const inputs = {
-        buyPrice: data.buyPrice || 0,
-        intShipping: data.intShipping || 0,
-        customs: data.customs || 0,
-        manufacturing: data.manufacturing || 0,
-        packaging: data.packaging || 0,
-        storage: data.storage || 0,
-        insurance: data.insurance || 0,
-        qualityControl: data.qualityControl || 0,
-        adBudget: data.adBudget || 0,
-        cpc: data.cpc || 0,
-        ctr: Math.min(data.ctr || 0, 100),
-        conversionRate: Math.min(data.conversionRate || 0, 100),
-        cpa: data.cpa || 0,
-        visitors: data.visitors || 0,
-        contentCost: data.contentCost || 0,
-        adManagement: data.adManagement || 0,
-        abandonRate: Math.min(data.abandonRate || 0, 100),
-        orders: data.orders || 0,
-        cancelRate: Math.min(data.cancelRate || 0, 100),
-        deliveryRate: Math.min(data.deliveryRate || 0, 100),
-        returnRate: Math.min(data.returnRate || 0, 100),
-        returnShipping: data.returnShipping || 0,
-        extraStorage: data.extraStorage || 0,
-        codFees: data.codFees || 0,
-        salaries: data.salaries || 0,
-        paymentFees: Math.min(data.paymentFees || 0, 100),
-        subscriptions: data.subscriptions || 0,
-        maintenance: data.maintenance || 0
-      };
-
-      // Calculations
-      const totalProductCost = inputs.buyPrice + inputs.intShipping + inputs.customs + inputs.manufacturing + inputs.packaging + inputs.storage + inputs.insurance + inputs.qualityControl;
-      const totalAdCost = inputs.adBudget + inputs.contentCost + inputs.adManagement;
-      const clicks = inputs.visitors * (inputs.ctr / 100);
-      const ordersFromAds = clicks * (inputs.conversionRate / 100);
-      const completedOrders = inputs.orders * (inputs.deliveryRate / 100) * (1 - inputs.cancelRate / 100);
-      const returns = completedOrders * (inputs.returnRate / 100);
-      const totalShippingCost = inputs.returnShipping * returns + inputs.codFees * completedOrders;
-      const totalOperationalCost = inputs.salaries + inputs.subscriptions + inputs.maintenance;
-      const totalCost = totalProductCost * completedOrders + totalAdCost + totalShippingCost + totalOperationalCost;
-
-      const idealPrice = totalProductCost * 1.5; // 50% profit margin as base
-      const totalRevenue = idealPrice * completedOrders;
-      const netProfit = totalRevenue - totalCost;
-      const profitPerOrder = netProfit / completedOrders || 0;
-      const profitMargin = (profitPerOrder / idealPrice) * 100;
-      const breakEvenPrice = totalCost / completedOrders || 0;
-      const breakEvenPoint = totalCost / profitPerOrder || 0;
-      const roas = totalRevenue / totalAdCost || 0;
-      const idealCpa = idealPrice * 0.3; // 30% of selling price as ideal CPA
-      const deliverySuccessRate = inputs.deliveryRate;
-      const cashFlow = totalRevenue - totalCost;
-      const minOrdersForCashFlow = totalOperationalCost / profitPerOrder || 0;
-
-      // Update Dashboard
-      document.getElementById("costPerOrder").textContent = `ج.م ${totalCost / completedOrders || 0}`;
-      document.getElementById("netProfit").textContent = `ج.م ${profitPerOrder.toFixed(2)}`;
-      document.getElementById("netProfit").classList.toggle("text-red-600", profitPerOrder < 0);
-      document.getElementById("breakEven").textContent = `${Math.ceil(breakEvenPoint)} طلب`;
-      document.getElementById("roas").textContent = `${(roas * 100).toFixed(2)}%`;
-
-      // Chart
-      if (costChart) costChart.destroy();
-      costChart = new Chart(document.getElementById("costChart").getContext("2d"), {
-        type: "pie",
-        data: {
-          labels: ["تكلفة المنتجات", "الإعلانات", "الشحن", "التشغيل"],
-          datasets: [{
-            data: [totalProductCost * completedOrders, totalAdCost, totalShippingCost, totalOperationalCost],
-            backgroundColor: ["#3b82f6", "#ef4444", "#f59e0b", "#10b981"]
-          }]
-        },
-        options: { responsive: true, maintainAspectRatio: false }
-      });
-
-      // Recommendations
-      const recommendations = document.getElementById("recommendations");
-      recommendations.innerHTML = "";
-      if (profitMargin < 10) recommendations.innerHTML += "<li>هامش الربح ضعيف، جرب تقلل التكاليف أو تزود السعر!</li>";
-      if (roas < 1) recommendations.innerHTML += "<li>الإعلانات مش مربحة، جرب تحسن الاستهداف!</li>";
-      if (inputs.returnRate > 20) recommendations.innerHTML += "<li>المرتجعات عالية، أكد الطلبات قبل الشحن!</li>";
-      if (cashFlow < 0) recommendations.innerHTML += "<li>الكاش فلو سالب، زود المبيعات أو قلل المصاريف!</li>";
-    });
-
-    // Reset
-    document.getElementById("reset").addEventListener("click", () => {
-      localStorage.clear();
-      data = {};
-      document.querySelectorAll(".input").forEach(input => input.value = "0");
-      document.getElementById("calculate").click();
-    });
-
-    // Initial load
-    loadInputs();
-  </script>
+    </script>
 </body>
 </html>
