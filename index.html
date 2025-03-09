@@ -3,429 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aff Price - مستشار أعمالك الرقمي</title>
+    <title>Store Profit Calculator</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Cairo', sans-serif;
-            background: #f0f4f8;
-            color: #1a202c;
-            min-height: 100vh;
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-            transition: background 0.3s ease;
-        }
-        .light-mode { background: #f0f4f8; color: #1a202c; }
-        .dark-mode { background: #1a202c; color: #e2e8f0; }
-        .container {
-            background: #ffffff;
-            border-radius: 1rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            padding: 1rem;
-            max-width: 900px;
-            margin: 0 auto;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            animation: fadeIn 0.5s ease;
-        }
-        .dark-mode .container { background: #2d3748; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); }
-
-        /* Animations */
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes glow { 0% { text-shadow: 0 0 5px rgba(66, 153, 225, 0.7); } 50% { text-shadow: 0 0 10px rgba(66, 153, 225, 1); } 100% { text-shadow: 0 0 5px rgba(66, 153, 225, 0.7); } }
-        @keyframes scaleUp { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-
-        /* Header */
-        .header { text-align: center; padding: 1rem; }
-        .profile-card { background: #f7fafc; border-radius: 1rem; padding: 1rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
-        .dark-mode .profile-card { background: #3d4a5a; }
-        .profile-pic { width: 100px; height: 100px; border-radius: 50%; border: 4px solid #4299e1; margin: 0 auto; }
-        .dark-mode .profile-pic { border-color: #63b3ed; }
-        .profile-name { font-size: 1.5rem; font-weight: 900; color: #4299e1; animation: glow 2s infinite; }
-        .dark-mode .profile-name { color: #63b3ed; }
-        .creator-name { font-size: 1rem; color: #4a5568; }
-        .dark-mode .creator-name { color: #a0aec0; }
-        .social-links { display: flex; justify-content: center; gap: 0.5rem; margin-top: 0.5rem; }
-        .social-links a { font-size: 1.2rem; padding: 0.5rem; border-radius: 50%; transition: transform 0.3s; }
-        .social-links a:hover { transform: scale(1.1); }
-
-        /* Controls */
-        .controls { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; }
-        .mode-toggle, .market-toggle { display: flex; align-items: center; gap: 0.5rem; }
-        .toggle-switch { position: relative; width: 40px; height: 20px; }
-        .toggle-switch input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: #a0aec0; border-radius: 20px; transition: 0.3s; }
-        input:checked + .slider { background: #4299e1; }
-        .slider:before { content: ''; position: absolute; width: 16px; height: 16px; left: 2px; bottom: 2px; background: #fff; border-radius: 50%; transition: 0.3s; }
-        input:checked + .slider:before { transform: translateX(20px); }
-        .mode-toggle i { font-size: 1rem; }
-        .light-mode .fa-sun { color: #f6ad55; }
-        .dark-mode .fa-moon { color: #63b3ed; }
-
-        /* Dropdown */
-        .custom-dropdown { position: relative; width: 120px; }
-        .dropdown-selected { padding: 0.5rem; border: 1px solid #4299e1; border-radius: 0.5rem; background: #f7fafc; cursor: pointer; display: flex; align-items: center; justify-content: space-between; }
-        .dark-mode .dropdown-selected { background: #3d4a5a; border-color: #63b3ed; }
-        .dropdown-options { position: absolute; top: 100%; right: 0; width: 100%; background: #fff; border-radius: 0.5rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: none; z-index: 10; }
-        .dark-mode .dropdown-options { background: #3d4a5a; }
-        .dropdown-options.active { display: block; }
-        .dropdown-option { padding: 0.5rem; cursor: pointer; }
-        .dropdown-option:hover { background: #e2e8f0; }
-        .dark-mode .dropdown-option:hover { background: #4a5568; }
-
-        /* Inputs Section */
-        .inputs-section { background: #edf2f7; border-radius: 0.75rem; padding: 1rem; }
-        .dark-mode .inputs-section { background: #2d3748; }
-        .inputs-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
-        .input-group { position: relative; }
-        .input-group label { font-size: 0.9rem; font-weight: 700; color: #4299e1; display: flex; align-items: center; gap: 0.3rem; }
-        .dark-mode .input-group label { color: #63b3ed; }
-        .input-group input { width: 100%; padding: 0.5rem; border: 1px solid #4299e1; border-radius: 0.5rem; font-size: 1rem; background: #fff; }
-        .dark-mode .input-group input { background: #3d4a5a; color: #fff; border-color: #63b3ed; }
-        .input-group input:focus { border-color: #63b3ed; box-shadow: 0 0 8px rgba(99, 179, 237, 0.3); outline: none; }
-        .tooltip { display: none; position: absolute; background: #2d3748; color: #fff; padding: 0.5rem; border-radius: 0.3rem; font-size: 0.8rem; top: -40px; left: 50%; transform: translateX(-50%); z-index: 10; }
-        .input-group:hover .tooltip { display: block; }
-
-        /* Results Section */
-        .results-section { padding: 1rem; }
-        .results-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
-        .result-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 1rem; text-align: center; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); }
-        .dark-mode .result-card { background: #3d4a5a; border-color: #4a5568; }
-        .result-card p:first-child { font-size: 0.9rem; font-weight: 700; color: #4299e1; }
-        .dark-mode .result-card p:first-child { color: #63b3ed; }
-        .result-card p:last-child { font-size: 1.2rem; font-weight: 900; margin-top: 0.5rem; }
-        .result-card.bg-blue-50 { background: #e6fffa; grid-column: 1 / -1; }
-        .dark-mode .result-card.bg-blue-50 { background: #2b6cb0; }
-
-        /* Recommendations Section */
-        .recommendations-section { padding: 1rem; background: #fefcbf; border-radius: 0.75rem; }
-        .dark-mode .recommendations-section { background: #4a5568; }
-        .recommendations-section h3 { font-size: 1.2rem; font-weight: 900; color: #744210; }
-        .dark-mode .recommendations-section h3 { color: #ecc94b; }
-        .recommendations-section ul { list-style: none; margin-top: 0.5rem; }
-        .recommendations-section li { font-size: 0.9rem; margin-bottom: 0.5rem; }
-
-        /* Buttons */
-        .buttons-container { display: flex; justify-content: space-between; padding: 1rem 0; }
-        .show-more-btn, .reset-btn { padding: 0.5rem 1.5rem; border-radius: 0.5rem; font-weight: 700; cursor: pointer; transition: opacity 0.3s; }
-        .show-more-btn { background: #4299e1; color: #fff; }
-        .dark-mode .show-more-btn { background: #63b3ed; }
-        .reset-btn { background: #e53e3e; color: #fff; }
-        .show-more-btn:hover, .reset-btn:hover { opacity: 0.9; }
+        body { font-family: 'Cairo', sans-serif; background: #f0f4f8; color: #1a202c; padding: 1rem; }
+        .container { background: #fff; border-radius: 0.75rem; padding: 1rem; max-width: 800px; margin: 0 auto; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
+        .inputs-section, .results-section { padding: 1rem; background: #e6f0fa; border-radius: 0.75rem; margin-bottom: 1rem; }
+        .inputs-container, .results-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+        .input-group { display: flex; flex-direction: column; gap: 0.3rem; }
+        .input-group label { font-weight: 700; color: #2b6cb0; }
+        .input-group input { padding: 0.5rem; border: 1px solid #2b6cb0; border-radius: 0.5rem; font-weight: 700; }
+        .result-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 0.5rem; text-align: center; }
+        .result-card p:first-child { font-weight: 700; color: #2b6cb0; }
+        .result-card p:last-child { font-weight: 900; font-size: 1.2rem; }
+        .text-green-600 { color: #38a169; }
+        .text-red-600 { color: #e53e3e; }
     </style>
 </head>
-<body class="light-mode">
+<body>
     <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="profile-card">
-                <div class="profile-pic">
-                    <img src="https://scontent.faly1-2.fna.fbcdn.net/v/t39.30808-6/478724180_2012750999223754_4950667810291165018_n.jpg" alt="Ahmed Muhammed Abdeslam">
-                </div>
-                <div class="profile-info">
-                    <span class="profile-name">Aff Price <i class="fas fa-brain"></i></span>
-                    <span class="creator-name">Ahmed Muhammed Abdeslam</span>
-                    <div class="social-links">
-                        <a href="https://web.facebook.com/ahmed10az" target="_blank" class="facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="https://wa.me/201282512082" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
-                        <a href="https://instagram.com/ahmed10az" target="_blank" class="instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="https://tiktok.com/@elarshedok" target="_blank" class="tiktok"><i class="fab fa-tiktok"></i></a>
-                        <a href="https://linkedin.com/in/elarshedok" target="_blank" class="linkedin"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="controls">
-                <div class="mode-toggle">
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="darkModeToggle">
-                        <span class="slider"></span>
-                    </label>
-                    <i class="fas fa-sun mode-icon light-mode-icon"></i>
-                    <i class="fas fa-moon mode-icon dark-mode-icon" style="display: none;"></i>
-                    <span id="modeLabel">نهار</span>
-                </div>
-                <div class="custom-dropdown">
-                    <div class="dropdown-selected" id="marketSelected">
-                        <span class="flag-icon flag-icon-eg"></span> مصر
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="dropdown-options" id="marketOptions">
-                        <div class="dropdown-option" data-value="EG"><span class="flag-icon flag-icon-eg"></span> مصر</div>
-                        <div class="dropdown-option" data-value="SA"><span class="flag-icon flag-icon-sa"></span> السعودية</div>
-                        <div class="dropdown-option" data-value="AE"><span class="flag-icon flag-icon-ae"></span> الإمارات</div>
-                    </div>
-                    <input type="hidden" id="market" value="EG">
-                </div>
-            </div>
-        </header>
-
         <!-- Inputs Section -->
         <div class="inputs-section">
+            <h2>مدخلات التكاليف والمبيعات</h2>
             <div class="inputs-container">
-                <!-- Product Costs -->
                 <div class="input-group">
-                    <label><i class="fas fa-dollar-sign"></i> سعر الشراء</label>
-                    <input type="number" id="purchasePrice" step="any" min="0" value="324">
-                    <span class="tooltip">سعر شراء المنتج من المورد</span>
+                    <label><i class="fas fa-box"></i> سعر المنتج</label>
+                    <input type="number" id="productCost" step="any" min="0" value="100">
                 </div>
                 <div class="input-group">
-                    <label><i class="fas fa-truck"></i> شحن دولي</label>
-                    <input type="number" id="intlShipping" step="any" min="0" value="0">
-                    <span class="tooltip">تكلفة الشحن الدولي لكل وحدة</span>
+                    <label><i class="fas fa-warehouse"></i> تكلفة التخزين الشهرية</label>
+                    <input type="number" id="storageCost" step="any" min="0" value="500">
                 </div>
                 <div class="input-group">
-                    <label><i class="fas fa-percentage"></i> الجمارك (%)</label>
-                    <input type="number" id="customsRate" step="any" min="0" max="100" value="5">
-                    <span class="tooltip">نسبة الجمارك على سعر الشراء</span>
+                    <label><i class="fas fa-truck"></i> تكلفة الشحن لكل طلب</label>
+                    <input type="number" id="shippingCost" step="any" min="0" value="20">
                 </div>
                 <div class="input-group">
-                    <label><i class="fas fa-warehouse"></i> تكلفة التخزين</label>
-                    <input type="number" id="storageCost" step="any" min="0" value="2">
-                    <span class="tooltip">تكلفة التخزين لكل وحدة</span>
+                    <label><i class="fas fa-ad"></i> تكلفة الإعلان لكل طلب</label>
+                    <input type="number" id="adCostPerOrder" step="any" min="0" value="15">
                 </div>
                 <div class="input-group">
-                    <label><i class="fas fa-box"></i> تكلفة التغليف</label>
-                    <input type="number" id="packagingCost" step="any" min="0" value="3">
-                    <span class="tooltip">تكلفة تعبئة المنتج لكل وحدة</span>
-                </div>
-
-                <!-- Marketing Costs -->
-                <div class="input-group">
-                    <label><i class="fas fa-ad"></i> ميزانية الإعلانات</label>
-                    <input type="number" id="adBudget" step="any" min="0" value="7456">
-                    <span class="tooltip">الميزانية الشهرية للإعلانات</span>
+                    <label><i class="fas fa-dollar-sign"></i> سعر البيع لكل طلب</label>
+                    <input type="number" id="sellingPrice" step="any" min="0" value="200">
                 </div>
                 <div class="input-group">
-                    <label><i class="fas fa-mouse-pointer"></i> تكلفة النقرة</label>
-                    <input type="number" id="cpc" step="any" min="0" value="0.5">
-                    <span class="tooltip">تكلفة النقرة الواحدة (CPC)</span>
+                    <label><i class="fas fa-percentage"></i> نسبة التسليم الناجح (%)</label>
+                    <input type="number" id="deliveryRate" step="any" min="0" max="100" value="80">
                 </div>
                 <div class="input-group">
-                    <label><i class="fas fa-percentage"></i> نسبة النقر (%)</label>
-                    <input type="number" id="ctr" step="any" min="0" max="100" value="2">
-                    <span class="tooltip">نسبة النقر على الإعلان (CTR)</span>
+                    <label><i class="fas fa-cogs"></i> تكاليف التشغيل الشهرية</label>
+                    <input type="number" id="operationalCost" step="any" min="0" value="1000">
                 </div>
                 <div class="input-group">
-                    <label><i class="fas fa-percentage"></i> نسبة التحويل (%)</label>
-                    <input type="number" id="conversionRate" step="any" min="0" max="100" value="5">
-                    <span class="tooltip">نسبة الشراء بعد النقر</span>
-                </div>
-
-                <!-- Shipping & Orders -->
-                <div class="input-group">
-                    <label><i class="fas fa-shopping-cart"></i> سعر البيع</label>
-                    <input type="number" id="sellingPrice" step="any" min="0" value="550">
-                    <span class="tooltip">سعر بيع المنتج للعميل</span>
-                </div>
-                <div class="input-group">
-                    <label><i class="fas fa-truck"></i> تكلفة الشحن</label>
-                    <input type="number" id="shippingCost" step="any" min="0" value="55">
-                    <span class="tooltip">تكلفة شحن الطلب للعميل</span>
-                </div>
-                <div class="input-group">
-                    <label><i class="fas fa-boxes"></i> عدد الطلبات</label>
-                    <input type="number" id="targetOrders" step="1" min="0" value="438">
-                    <span class="tooltip">عدد الطلبات المتوقع شهريًا</span>
-                </div>
-                <div class="input-group">
-                    <label><i class="fas fa-percentage"></i> نسبة التسليم (%)</label>
-                    <input type="number" id="deliveryRate" step="any" min="0" max="100" value="15">
-                    <span class="tooltip">نسبة الطلبات المسلمة بنجاح</span>
-                </div>
-                <div class="input-group">
-                    <label><i class="fas fa-money-check-alt"></i> رسوم COD</label>
-                    <input type="number" id="codFees" step="any" min="0" value="10">
-                    <span class="tooltip">رسوم الدفع عند الاستلام لكل طلب</span>
-                </div>
-
-                <!-- Operational Costs -->
-                <div class="input-group">
-                    <label><i class="fas fa-users"></i> رواتب الموظفين</label>
-                    <input type="number" id="staffSalaries" step="any" min="0" value="5000">
-                    <span class="tooltip">إجمالي رواتب الموظفين شهريًا</span>
-                </div>
-                <div class="input-group">
-                    <label><i class="fas fa-percentage"></i> عمولة الدفع (%)</label>
-                    <input type="number" id="paymentGatewayFee" step="any" min="0" max="100" value="2.5">
-                    <span class="tooltip">عمولة بوابة الدفع على كل معاملة</span>
+                    <label><i class="fas fa-shopping-cart"></i> عدد الطلبات المستهدفة</label>
+                    <input type="number" id="targetOrders" step="1" min="0" value="50">
                 </div>
             </div>
         </div>
 
         <!-- Results Section -->
         <div class="results-section">
+            <h2>النتائج المالية</h2>
             <div class="results-container" id="results">
                 <div class="result-card">
-                    <p><i class="fas fa-coins"></i> تكلفة الطلب</p>
-                    <p id="totalCostPerOrder" class="result-value"></p>
+                    <p>إجمالي تكلفة كل طلب</p>
+                    <p id="totalCostPerOrder"></p>
                 </div>
                 <div class="result-card">
-                    <p><i class="fas fa-dollar-sign"></i> سعر البيع المقترح</p>
-                    <p id="suggestedSellingPrice" class="result-value"></p>
+                    <p>السعر الأدنى للبيع</p>
+                    <p id="breakevenPrice"></p>
                 </div>
                 <div class="result-card">
-                    <p><i class="fas fa-coins"></i> ربح الطلب</p>
-                    <p id="netProfitPerOrder" class="result-value"></p>
+                    <p>السعر المناسب للبيع</p>
+                    <p id="recommendedPrice"></p>
                 </div>
                 <div class="result-card">
-                    <p><i class="fas fa-chart-line"></i> هامش الربح</p>
-                    <p id="profitMargin" class="result-value"></p>
+                    <p>هامش الربح لكل طلب</p>
+                    <p id="profitMargin"></p>
                 </div>
                 <div class="result-card">
-                    <p><i class="fas fa-ad"></i> عائد الإعلانات (ROAS)</p>
-                    <p id="roas" class="result-value"></p>
+                    <p>صافي الربح الشهري</p>
+                    <p id="netProfitMonthly"></p>
                 </div>
-                <div class="result-card bg-blue-50">
-                    <p><i class="fas fa-wallet"></i> صافي الربح الشهري</p>
-                    <p id="netProfitAfterAds" class="result-value"></p>
+                <div class="result-card">
+                    <p>العائد على الإعلانات (ROAS)</p>
+                    <p id="roas"></p>
+                </div>
+                <div class="result-card">
+                    <p>طلبات لتغطية التكاليف</p>
+                    <p id="ordersToCoverCosts"></p>
+                </div>
+                <div class="result-card">
+                    <p>التدفق النقدي المتوقع</p>
+                    <p id="cashFlow"></p>
+                </div>
+                <div class="result-card">
+                    <p>الخسائر من المرتجعات</p>
+                    <p id="returnLosses"></p>
                 </div>
             </div>
-            <div class="buttons-container">
-                <button class="reset-btn" onclick="resetValues()">محو البيانات</button>
-                <button class="show-more-btn" id="showMoreBtn" onclick="showRecommendations()">عرض التوصيات</button>
-            </div>
-        </div>
-
-        <!-- Recommendations Section -->
-        <div class="recommendations-section" id="recommendations" style="display: none;">
-            <h3><i class="fas fa-lightbulb"></i> توصيات ذكية</h3>
-            <ul id="recommendationsList"></ul>
         </div>
     </div>
 
     <script>
-        const marketSettings = {
-            EG: { currency: 'EGP', symbol: 'ج.م', taxRate: 14 },
-            SA: { currency: 'SAR', symbol: 'ر.س', taxRate: 15 },
-            AE: { currency: 'AED', symbol: 'د.إ', taxRate: 5 }
-        };
-        let previousProfit = 0;
-
-        const getMarketSettings = () => marketSettings[document.getElementById('market').value];
-        const getCurrencySymbol = () => getMarketSettings().symbol;
+        const currencySymbol = 'ج.م'; // يمكن إضافة اختيار العملة لاحقًا
 
         const calculateResults = () => {
-            const market = getMarketSettings();
-            const currencySymbol = market.symbol;
-
-            // Product Costs
-            const purchasePrice = parseFloat(document.getElementById('purchasePrice').value) || 0;
-            const intlShipping = parseFloat(document.getElementById('intlShipping').value) || 0;
-            const customsRate = parseFloat(document.getElementById('customsRate').value) || 0;
+            // Inputs
+            const productCost = parseFloat(document.getElementById('productCost').value) || 0;
             const storageCost = parseFloat(document.getElementById('storageCost').value) || 0;
-            const packagingCost = parseFloat(document.getElementById('packagingCost').value) || 0;
-
-            // Marketing Costs
-            const adBudget = parseFloat(document.getElementById('adBudget').value) || 0;
-            const cpc = parseFloat(document.getElementById('cpc').value) || 0;
-            const ctr = parseFloat(document.getElementById('ctr').value) || 0;
-            const conversionRate = parseFloat(document.getElementById('conversionRate').value) || 0;
-
-            // Orders & Shipping
-            const sellingPrice = parseFloat(document.getElementById('sellingPrice').value) || 0;
             const shippingCost = parseFloat(document.getElementById('shippingCost').value) || 0;
-            const targetOrders = parseFloat(document.getElementById('targetOrders').value) || 0;
+            const adCostPerOrder = parseFloat(document.getElementById('adCostPerOrder').value) || 0;
+            const sellingPrice = parseFloat(document.getElementById('sellingPrice').value) || 0;
             const deliveryRate = parseFloat(document.getElementById('deliveryRate').value) || 0;
-            const codFees = parseFloat(document.getElementById('codFees').value) || 0;
-
-            // Operational Costs
-            const staffSalaries = parseFloat(document.getElementById('staffSalaries').value) || 0;
-            const paymentGatewayFee = parseFloat(document.getElementById('paymentGatewayFee').value) || 0;
+            const operationalCost = parseFloat(document.getElementById('operationalCost').value) || 0;
+            const targetOrders = parseFloat(document.getElementById('targetOrders').value) || 0;
 
             // Calculations
-            const customsCost = purchasePrice * (customsRate / 100);
-            const productCostPerUnit = purchasePrice + intlShipping + customsCost + storageCost + packagingCost;
-            const deliveredOrders = targetOrders * (deliveryRate / 100);
-            const adCostPerOrder = adBudget / targetOrders || 0;
-            const paymentFeePerOrder = sellingPrice * (paymentGatewayFee / 100);
-            const operationalCostPerOrder = staffSalaries / targetOrders || 0;
+            const storageCostPerOrder = targetOrders ? storageCost / targetOrders : 0;
+            const totalCostPerOrder = productCost + shippingCost + adCostPerOrder + storageCostPerOrder;
+            const breakevenPrice = totalCostPerOrder; // السعر الأدنى لتغطية التكاليف
+            const profitMarginTarget = 0.3; // هدف هامش ربح 30% (يمكن تعديله)
+            const recommendedPrice = totalCostPerOrder / (1 - profitMarginTarget); // السعر الموصى به
+            const profitPerOrder = sellingPrice - totalCostPerOrder;
+            const profitMargin = sellingPrice ? (profitPerOrder / sellingPrice) * 100 : 0;
 
-            const totalCostPerOrder = productCostPerUnit + shippingCost + codFees + adCostPerOrder + paymentFeePerOrder + operationalCostPerOrder;
-            const suggestedSellingPrice = totalCostPerOrder * 1.3; // 30% profit margin
-            const netProfitPerOrder = sellingPrice - totalCostPerOrder;
-            const profitMargin = sellingPrice ? (netProfitPerOrder / sellingPrice) * 100 : 0;
+            const deliveredOrders = targetOrders * (deliveryRate / 100);
+            const returnRate = 100 - deliveryRate;
+            const returnedOrders = targetOrders * (returnRate / 100);
+            const returnLosses = returnedOrders * totalCostPerOrder;
+
             const revenue = deliveredOrders * sellingPrice;
-            const roas = adBudget ? revenue / adBudget : 0;
-            const netProfitAfterAds = (deliveredOrders * netProfitPerOrder) - (adBudget * (1 + market.taxRate / 100));
+            const totalAdSpend = targetOrders * adCostPerOrder;
+            const roas = totalAdSpend ? revenue / totalAdSpend : 0;
+            const netProfitMonthly = revenue - (deliveredOrders * totalCostPerOrder) - operationalCost;
+            const cashFlow = netProfitMonthly - returnLosses;
+            const ordersToCoverCosts = operationalCost / profitPerOrder || 0;
 
             // Update Results
-            const updateElement = (id, value, isPercentage = false) => {
+            const updateElement = (id, value, isPercentage = false, isNumberOnly = false) => {
                 const element = document.getElementById(id);
-                element.textContent = isPercentage ? `${value.toFixed(2)}%` : `${currencySymbol} ${value.toFixed(2)}`;
-                element.classList.remove('text-red-600', 'text-green-600', 'text-gray-600');
-                element.classList.add(value > 0 ? 'text-green-600' : value < 0 ? 'text-red-600' : 'text-gray-600');
-                element.style.animation = 'scaleUp 0.5s ease';
-                setTimeout(() => element.style.animation = '', 500);
+                element.textContent = isPercentage ? `${value.toFixed(2)}%` : 
+                                     isNumberOnly ? value.toFixed(0) : `${currencySymbol} ${value.toFixed(2)}`;
+                element.classList.remove('text-red-600', 'text-green-600');
+                element.classList.add(value >= 0 ? 'text-green-600' : 'text-red-600');
             };
 
             updateElement('totalCostPerOrder', totalCostPerOrder);
-            updateElement('suggestedSellingPrice', suggestedSellingPrice);
-            updateElement('netProfitPerOrder', netProfitPerOrder);
+            updateElement('breakevenPrice', breakevenPrice);
+            updateElement('recommendedPrice', recommendedPrice);
             updateElement('profitMargin', profitMargin, true);
+            updateElement('netProfitMonthly', netProfitMonthly);
             updateElement('roas', roas);
-            updateElement('netProfitAfterAds', netProfitAfterAds);
-
-            // Recommendations
-            const recommendations = [];
-            if (netProfitAfterAds < 0) recommendations.push("خفض تكلفة الإعلانات أو زيادة سعر البيع لتجنب الخسارة.");
-            if (profitMargin < 20) recommendations.push("هامش الربح منخفض، جرب زيادة السعر أو تقليل التكاليف.");
-            if (roas < 2) recommendations.push("عائد الإعلانات منخفض، راجع استراتيجية التسويق.");
-            if (deliveryRate < 50) recommendations.push("نسبة التسليم منخفضة، حسّن جودة المنتج أو الشحن.");
-            document.getElementById('recommendationsList').innerHTML = recommendations.map(r => `<li>${r}</li>`).join('');
-
-            previousProfit = netProfitAfterAds;
-        };
-
-        const showRecommendations = () => {
-            document.getElementById('recommendations').style.display = 'block';
-            document.getElementById('showMoreBtn').style.display = 'none';
-        };
-
-        const resetValues = () => {
-            document.querySelectorAll('input[type="number"]').forEach(input => input.value = 0);
-            calculateResults();
-            document.getElementById('recommendations').style.display = 'none';
-            document.getElementById('showMoreBtn').style.display = 'block';
+            updateElement('ordersToCoverCosts', ordersToCoverCosts, false, true);
+            updateElement('cashFlow', cashFlow);
+            updateElement('returnLosses', returnLosses);
         };
 
         // Event Listeners
-        document.getElementById('darkModeToggle').addEventListener('change', () => {
-            document.body.classList.toggle('light-mode', !document.getElementById('darkModeToggle').checked);
-            document.body.classList.toggle('dark-mode', document.getElementById('darkModeToggle').checked);
-            document.getElementById('modeLabel').textContent = document.getElementById('darkModeToggle').checked ? 'ليل' : 'نهار';
-            document.querySelector('.light-mode-icon').style.display = document.getElementById('darkModeToggle').checked ? 'none' : 'inline';
-            document.querySelector('.dark-mode-icon').style.display = document.getElementById('darkModeToggle').checked ? 'inline' : 'none';
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', calculateResults);
         });
 
-        const marketSelected = document.getElementById('marketSelected');
-        const marketOptions = document.getElementById('marketOptions');
-        const marketInput = document.getElementById('market');
-        document.querySelectorAll('.dropdown-option').forEach(option => {
-            option.addEventListener('click', () => {
-                const value = option.getAttribute('data-value');
-                marketSelected.innerHTML = `<span class="${option.querySelector('span').className}"></span> ${option.textContent.trim()} <i class="fas fa-chevron-down"></i>`;
-                marketInput.value = value;
-                marketOptions.classList.remove('active');
-                calculateResults();
-            });
-        });
-        marketSelected.addEventListener('click', () => marketOptions.classList.toggle('active'));
-        document.addEventListener('click', (e) => {
-            if (!marketSelected.contains(e.target) && !marketOptions.contains(e.target)) {
-                marketOptions.classList.remove('active');
-            }
-        });
-
-        document.querySelectorAll('input').forEach(input => input.addEventListener('input', calculateResults));
-        calculateResults(); // Initial calculation
+        // Initial Calculation
+        calculateResults();
     </script>
 </body>
 </html>
