@@ -3,30 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Store Profit Calculator</title>
+    <title>Aff Price - Profit Calculator</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Cairo', sans-serif; background: #f0f4f8; color: #1a202c; padding: 1rem; }
-        .container { background: #fff; border-radius: 0.75rem; padding: 1rem; max-width: 800px; margin: 0 auto; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
-        .inputs-section, .results-section { padding: 1rem; background: #e6f0fa; border-radius: 0.75rem; margin-bottom: 1rem; }
-        .inputs-container, .results-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
-        .input-group { display: flex; flex-direction: column; gap: 0.3rem; }
-        .input-group label { font-weight: 700; color: #2b6cb0; }
-        .input-group input { padding: 0.5rem; border: 1px solid #2b6cb0; border-radius: 0.5rem; font-weight: 700; }
-        .result-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 0.5rem; text-align: center; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #f0f4f8;
+            color: #1a202c;
+            padding: 1rem;
+            transition: background 0.3s ease;
+        }
+        .light-mode { background: #f0f4f8; color: #1a202c; }
+        .dark-mode { background: #1a202c; color: #ffffff; }
+        .container {
+            background: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .dark-mode .container { background: #2d3748; }
+        .inputs-section, .results-section {
+            background: #e6f0fa;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .dark-mode .inputs-section, .dark-mode .results-section { background: #2d4a6a; }
+        .inputs-container, .results-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.5rem;
+        }
+        .input-group { display: flex; flex-direction: column; gap: 0.2rem; }
+        .input-group label { font-size: 0.9rem; font-weight: 700; color: #2b6cb0; }
+        .dark-mode .input-group label { color: #a0aec0; }
+        .input-group input {
+            padding: 0.5rem;
+            border: 1px solid #2b6cb0;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            background: #ffffff;
+        }
+        .dark-mode .input-group input { background: #3d4a5a; color: #ffffff; border-color: #a0aec0; }
+        .result-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            text-align: center;
+        }
+        .dark-mode .result-card { background: #3d4a5a; border-color: #a0aec0; }
         .result-card p:first-child { font-weight: 700; color: #2b6cb0; }
-        .result-card p:last-child { font-weight: 900; font-size: 1.2rem; }
+        .dark-mode .result-card p:first-child { color: #a0aec0; }
+        .result-card p:last-child { font-weight: 900; font-size: 1rem; }
         .text-green-600 { color: #38a169; }
+        .dark-mode .text-green-600 { color: #48bb78; }
         .text-red-600 { color: #e53e3e; }
+        .controls { display: flex; justify-content: space-between; padding: 0.5rem 0; }
+        .mode-toggle { display: flex; align-items: center; gap: 0.3rem; }
+        .toggle-switch { position: relative; width: 36px; height: 18px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #a0aec0;
+            border-radius: 18px;
+            transition: 0.3s;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 14px;
+            width: 14px;
+            left: 2px;
+            bottom: 2px;
+            background: #ffffff;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+        input:checked + .slider:before { transform: translateX(16px); }
+        .custom-dropdown { width: 100px; position: relative; }
+        .dropdown-selected {
+            padding: 0.5rem;
+            border: 1px solid #2b6cb0;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            background: #f7fafc;
+            cursor: pointer;
+        }
+        .dark-mode .dropdown-selected { background: #3d4a5a; border-color: #a0aec0; }
+        .dropdown-options {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 10;
+        }
+        .dark-mode .dropdown-options { background: #3d4a5a; }
+        .dropdown-options.active { display: block; }
+        .dropdown-option { padding: 0.5rem; cursor: pointer; }
+        .dropdown-option:hover { background: #e2e8f0; }
+        .dark-mode .dropdown-option:hover { background: #4a5b6d; }
     </style>
 </head>
-<body>
+<body class="light-mode">
     <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="controls">
+                <div class="mode-toggle">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="darkModeToggle">
+                        <span class="slider"></span>
+                    </label>
+                    <span id="modeLabel">نهار</span>
+                </div>
+                <div class="custom-dropdown">
+                    <div class="dropdown-selected" id="dropdownSelected">
+                        <span class="flag-icon flag-icon-eg"></span> EGP
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="dropdown-options" id="dropdownOptions">
+                        <div class="dropdown-option" data-value="EGP"><span class="flag-icon flag-icon-eg"></span> EGP</div>
+                        <div class="dropdown-option" data-value="LYD"><span class="flag-icon flag-icon-ly"></span> LYD</div>
+                        <div class="dropdown-option" data-value="SAR"><span class="flag-icon flag-icon-sa"></span> SAR</div>
+                        <div class="dropdown-option" data-value="AED"><span class="flag-icon flag-icon-ae"></span> AED</div>
+                    </div>
+                    <input type="hidden" id="currency" value="EGP">
+                </div>
+            </div>
+        </header>
+
         <!-- Inputs Section -->
         <div class="inputs-section">
-            <h2>مدخلات التكاليف والمبيعات</h2>
+            <h2>المدخلات المالية</h2>
             <div class="inputs-container">
                 <div class="input-group">
                     <label><i class="fas fa-box"></i> سعر المنتج</label>
@@ -66,41 +189,41 @@
         <!-- Results Section -->
         <div class="results-section">
             <h2>النتائج المالية</h2>
-            <div class="results-container" id="results">
+            <div class="results-container">
                 <div class="result-card">
-                    <p>إجمالي تكلفة كل طلب</p>
+                    <p><i class="fas fa-coins"></i> إجمالي تكلفة كل طلب</p>
                     <p id="totalCostPerOrder"></p>
                 </div>
                 <div class="result-card">
-                    <p>السعر الأدنى للبيع</p>
+                    <p><i class="fas fa-arrow-down"></i> السعر الأدنى للبيع</p>
                     <p id="breakevenPrice"></p>
                 </div>
                 <div class="result-card">
-                    <p>السعر المناسب للبيع</p>
+                    <p><i class="fas fa-arrow-up"></i> السعر المناسب للبيع</p>
                     <p id="recommendedPrice"></p>
                 </div>
                 <div class="result-card">
-                    <p>هامش الربح لكل طلب</p>
+                    <p><i class="fas fa-chart-line"></i> هامش الربح لكل طلب</p>
                     <p id="profitMargin"></p>
                 </div>
                 <div class="result-card">
-                    <p>صافي الربح الشهري</p>
+                    <p><i class="fas fa-wallet"></i> صافي الربح الشهري</p>
                     <p id="netProfitMonthly"></p>
                 </div>
                 <div class="result-card">
-                    <p>العائد على الإعلانات (ROAS)</p>
+                    <p><i class="fas fa-bullhorn"></i> العائد على الإعلانات (ROAS)</p>
                     <p id="roas"></p>
                 </div>
                 <div class="result-card">
-                    <p>طلبات لتغطية التكاليف</p>
+                    <p><i class="fas fa-boxes"></i> طلبات لتغطية التكاليف</p>
                     <p id="ordersToCoverCosts"></p>
                 </div>
                 <div class="result-card">
-                    <p>التدفق النقدي المتوقع</p>
+                    <p><i class="fas fa-money-bill-wave"></i> التدفق النقدي المتوقع</p>
                     <p id="cashFlow"></p>
                 </div>
                 <div class="result-card">
-                    <p>الخسائر من المرتجعات</p>
+                    <p><i class="fas fa-undo"></i> الخسائر من المرتجعات</p>
                     <p id="returnLosses"></p>
                 </div>
             </div>
@@ -108,7 +231,8 @@
     </div>
 
     <script>
-        const currencySymbol = 'ج.م'; // يمكن إضافة اختيار العملة لاحقًا
+        const currencySymbols = { EGP: 'ج.م', LYD: 'د.ل', SAR: 'ر.س', AED: 'د.إ' };
+        const getCurrencySymbol = () => currencySymbols[document.getElementById('currency').value];
 
         const calculateResults = () => {
             // Inputs
@@ -120,13 +244,14 @@
             const deliveryRate = parseFloat(document.getElementById('deliveryRate').value) || 0;
             const operationalCost = parseFloat(document.getElementById('operationalCost').value) || 0;
             const targetOrders = parseFloat(document.getElementById('targetOrders').value) || 0;
+            const currencySymbol = getCurrencySymbol();
 
             // Calculations
             const storageCostPerOrder = targetOrders ? storageCost / targetOrders : 0;
             const totalCostPerOrder = productCost + shippingCost + adCostPerOrder + storageCostPerOrder;
-            const breakevenPrice = totalCostPerOrder; // السعر الأدنى لتغطية التكاليف
-            const profitMarginTarget = 0.3; // هدف هامش ربح 30% (يمكن تعديله)
-            const recommendedPrice = totalCostPerOrder / (1 - profitMarginTarget); // السعر الموصى به
+            const breakevenPrice = totalCostPerOrder;
+            const profitMarginTarget = 0.3; // 30% profit margin target
+            const recommendedPrice = totalCostPerOrder / (1 - profitMarginTarget);
             const profitPerOrder = sellingPrice - totalCostPerOrder;
             const profitMargin = sellingPrice ? (profitPerOrder / sellingPrice) * 100 : 0;
 
@@ -140,13 +265,13 @@
             const roas = totalAdSpend ? revenue / totalAdSpend : 0;
             const netProfitMonthly = revenue - (deliveredOrders * totalCostPerOrder) - operationalCost;
             const cashFlow = netProfitMonthly - returnLosses;
-            const ordersToCoverCosts = operationalCost / profitPerOrder || 0;
+            const ordersToCoverCosts = profitPerOrder > 0 ? (operationalCost + storageCost) / profitPerOrder : 0;
 
             // Update Results
             const updateElement = (id, value, isPercentage = false, isNumberOnly = false) => {
                 const element = document.getElementById(id);
                 element.textContent = isPercentage ? `${value.toFixed(2)}%` : 
-                                     isNumberOnly ? value.toFixed(0) : `${currencySymbol} ${value.toFixed(2)}`;
+                                     isNumberOnly ? Math.ceil(value) : `${currencySymbol} ${value.toFixed(2)}`;
                 element.classList.remove('text-red-600', 'text-green-600');
                 element.classList.add(value >= 0 ? 'text-green-600' : 'text-red-600');
             };
@@ -162,7 +287,33 @@
             updateElement('returnLosses', returnLosses);
         };
 
-        // Event Listeners
+        // Dark Mode Toggle
+        document.getElementById('darkModeToggle').addEventListener('change', () => {
+            document.body.classList.toggle('light-mode', !document.getElementById('darkModeToggle').checked);
+            document.body.classList.toggle('dark-mode', document.getElementById('darkModeToggle').checked);
+            document.getElementById('modeLabel').textContent = document.getElementById('darkModeToggle').checked ? 'ليل' : 'نهار';
+        });
+
+        // Currency Dropdown
+        const dropdownSelected = document.getElementById('dropdownSelected');
+        const dropdownOptions = document.getElementById('dropdownOptions');
+        document.querySelectorAll('.dropdown-option').forEach(option => {
+            option.addEventListener('click', () => {
+                const value = option.getAttribute('data-value');
+                dropdownSelected.innerHTML = `<span class="${option.querySelector('span').className}"></span> ${value} <i class="fas fa-chevron-down"></i>`;
+                document.getElementById('currency').value = value;
+                dropdownOptions.classList.remove('active');
+                calculateResults();
+            });
+        });
+        dropdownSelected.addEventListener('click', () => dropdownOptions.classList.toggle('active'));
+        document.addEventListener('click', (e) => {
+            if (!dropdownSelected.contains(e.target) && !dropdownOptions.contains(e.target)) {
+                dropdownOptions.classList.remove('active');
+            }
+        });
+
+        // Event Listeners for Inputs
         document.querySelectorAll('input').forEach(input => {
             input.addEventListener('input', calculateResults);
         });
