@@ -1,619 +1,431 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>مستشار التجارة الإلكترونية الذكي - مصر</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    body {
-      font-family: 'Cairo', sans-serif;
-      background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
-      margin: 0;
-      padding: 1rem;
-      overflow-x: hidden;
-    }
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 1rem;
-    }
-    .section {
-      background: white;
-      border-radius: 0.75rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      padding: 1.25rem;
-      margin-bottom: 1.5rem;
-    }
-    .tab {
-      padding: 0.5rem 1.25rem;
-      border-bottom: 3px solid transparent;
-      cursor: pointer;
-      font-weight: 600;
-      color: #4b5563;
-      transition: all 0.3s ease;
-      border-radius: 0.5rem 0.5rem 0 0;
-      background: #f1f5f9;
-    }
-    .tab.active {
-      border-color: #1e40af;
-      color: #1e40af;
-      background: #dbeafe;
-    }
-    .tab:hover {
-      color: #1e40af;
-      background: #eff6ff;
-    }
-    .input-group {
-      margin-bottom: 1rem;
-    }
-    .input {
-      width: 100%;
-      padding: 0.5rem 2rem 0.5rem 0.5rem;
-      border: 1px solid #d1d5db;
-      border-radius: 0.5rem;
-      background: #f9fafb;
-      font-size: 0.875rem;
-      transition: all 0.3s ease;
-    }
-    .input:focus {
-      border-color: #1e40af;
-      box-shadow: 0 0 6px rgba(30, 64, 175, 0.5);
-      outline: none;
-      background: white;
-    }
-    .input-icon {
-      position: absolute;
-      right: 0.75rem;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #6b7280;
-    }
-    .input-desc {
-      font-size: 0.75rem;
-      color: #6b7280;
-      margin-top: 0.25rem;
-    }
-    .btn {
-      padding: 0.5rem 1.25rem;
-      border-radius: 0.5rem;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-    }
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 12px rgba(0,0,0,0.15);
-    }
-    .dashboard-card {
-      background: white;
-      border-radius: 0.75rem;
-      padding: 1rem;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    .chart-container {
-      height: 250px;
-      width: 100%;
-      background: white;
-      border-radius: 0.75rem;
-      padding: 0.75rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    .recommendation {
-      background: #fef3c7;
-      padding: 1rem;
-      border-radius: 0.75rem;
-      margin-top: 1.5rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    .alert {
-      padding: 0.75rem;
-      border-radius: 0.5rem;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-    }
-    .alert-error { background-color: #fee2e2; color: #991b1b; }
-    .alert-success { background-color: #d1fae5; color: #065f46; }
-    @media (max-width: 768px) {
-      .container { padding: 0.75rem; }
-      .section { padding: 1rem; }
-      .tab { padding: 0.4rem 1rem; font-size: 0.75rem; }
-      .input { font-size: 0.75rem; padding: 0.4rem 1.5rem 0.4rem 0.4rem; }
-      .btn { padding: 0.4rem 1rem; font-size: 0.75rem; }
-      .dashboard-card p:first-child { font-size: 0.75rem; }
-      .dashboard-card p:nth-child(2) { font-size: 1.25rem; }
-    }
-    @media print {
-      .no-print { display: none; }
-      body { background: white; }
-      .section { box-shadow: none; }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <!-- Tabs -->
-    <div class="flex flex-wrap gap-2 mb-4 border-b border-gray-200 no-print">
-      <span class="tab active" data-tab="product">المنتج</span>
-      <span class="tab" data-tab="marketing">التسويق</span>
-      <span class="tab" data-tab="shipping">الشحن</span>
-      <span class="tab" data-tab="operations">التشغيل</span>
-      <span class="tab" data-tab="dashboard">لوحة التحكم</span>
-    </div>
-
-    <!-- Product Section -->
-    <div id="product" class="section tab-content active">
-      <h2 class="text-2xl font-bold mb-4">بيانات المنتج والمصاريف</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="input-group relative">
-          <label class="block mb-1 font-semibold">سعر شراء المنتج (جنيه)</label>
-          <input id="buyPrice" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-shopping-cart input-icon"></i>
-          <p class="input-desc">المنتج بيكلفك كام من المورد؟</p>
-        </div>
-        <div class="input-group relative">
-          <label class="block mb-1 font-semibold">تكلفة الشحن الدولي (جنيه)</label>
-          <input id="intlShipping" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-plane input-icon"></i>
-          <p class="input-desc">الشحن من المورد لمصر كام؟</p>
-        </div>
-        <div class="input-group relative">
-          <label class="block mb-1 font-semibold">الجمارك والضرائب (جنيه)</label>
-          <input id="customs" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-money-check input-icon"></i>
-          <p class="input-desc">الجمارك كلفتك كام؟</p>
-        </div>
-        <div class="input-group relative">
-          <label class="block mb-1 font-semibold">تكلفة التصنيع المحلي (جنيه)</label>
-          <input id="manufacturing" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-tools input-icon"></i>
-          <p class="input-desc">التصنيع المحلي كام؟</p>
-        </div>
-        <div class="input-group relative">
-          <label class="block mb-1 font-semibold">تكلفة التغليف (جنيه)</label>
-          <input id="packaging" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-box-open input-icon"></i>
-          <p class="input-desc">التغليف بيكلف كام لكل وحدة؟</p>
-        </div>
-        <div class="input-group relative">
-          <label class="block mb-1 font-semibold">تكلفة التخزين (جنيه)</label>
-          <input id="storage" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-warehouse input-icon"></i>
-          <p class="input-desc">التخزين بيكلف كام لكل وحدة؟</p>
-        </div>
-        <div class="input-group relative">
-          <label class="block mb-1 font-semibold">تكلفة التأمين (جنيه)</label>
-          <input id="insurance" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-shield-alt input-icon"></i>
-          <p class="input-desc">التأمين كام لكل وحدة؟</p>
-        </div>
-        <div class="input-group relative">
-          <label class="block mb-1 font-semibold">تكلفة مراقبة الجودة (جنيه)</label>
-          <input id="qualityControl" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-check-circle input-icon"></i>
-          <p class="input-desc">فحص الجودة بيكلف كام؟</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Marketing Section -->
-    <div id="marketing" class="section tab-content hidden">
-      <h2 class="text-2xl font-bold mb-4">بيانات التسويق والإعلانات</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="input-group relative">
-          <label class="block mb-1 font-semibold">الميزانية الإعلانية الشهرية (جنيه)</label>
-          <input id="adBudget" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-ad input-icon"></i>
-          <p class="input-desc">بتصرف كام على الإعلانات شهريًا؟</p>
-        </div>
-        <div class="input-group relative">
-          <label class="block mb-1 font-semibold">تكلفة النقرة (CPC) (جنيه)</label>
-          <input id="cpc" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-mouse-pointer input-icon"></i>
-          <p class="input-desc">كل نقرة بتكلفك كام؟</p>
-        </div>
-        <div class="input-group relative">
-          <label class="block mb-1 font-semibold">نسبة النقر (CTR) (%)</label>
-          <input id="ctr" type="number" class="input" value="0" min="0" max="100" step="0.01" />
-          <i class="fas fa-hand-pointer input-icon"></i>
-          <p class="input-desc">كام في المية بينقروا على الإعلان؟</p>
-        </div>
-        <div class="input-group relative">
-          <label class="block mb-1 font-semibold">نسبة التحويل (Conversion Rate) (%)</label>
-          <input id="conversionRate" type="number" class="input" value="0" min="0" max="100" step="0.01" />
-          <i class="fas fa-percentage input-icon"></i>
-          <p class="input-desc">كام في المية بيشتروا؟</p>
-        </div>
-        <div class="input-group relative">
-          <label class="block mb-1 font-semibold">تكلفة اكتساب العميل (CPA) (جنيه)</label>
-          <input id="cpa" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-user-plus input-icon"></i>
-          <p class="input-desc">بتدفع كام عشان تجيب عميل؟</p>
-        </div>
-        <div class="input-group relative">
-          <label class="block mb-1 font-semibold">عدد الزوار المتوقع (شهريًا)</label>
-          <input id="visitors" type="number" class="input" value="0" min="0" />
-          <i class="fas fa-users input-icon"></i>
-          <p class="input-desc">كام زائر بيتوقعوا؟</p>
-        </div>
-        <div class="input-group relative">
-          <label class="block mb-1 font-semibold">تكلفة إنشاء المحتوى (جنيه)</label>
-          <input id="contentCost" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-camera input-icon"></i>
-          <p class="input-desc">المحتوى بيكلف كام؟</p>
-        </div>
-        <div class="input-group relative">
-          <label class="block mb-1 font-semibold">تكلفة إدارة الإعلانات (جنيه)</label>
-          <input id="adManagement" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-cogs input-icon"></i>
-          <p class="input-desc">إدارة الإعلانات كام؟</p>
-        </div>
-        <div class="input-group relative">
-          <label class="block mb-1 font-semibold">نسبة التخلي عن السلة (%)</label>
-          <input id="abandonRate" type="number" class="input" value="0" min="0" max="100" step="0.01" />
-          <i class="fas fa-shopping-cart input-icon"></i>
-          <p class="input-desc">كام في المية بيسيبوا السلة؟</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Shipping Section -->
-    <div id="shipping" class="section tab-content hidden">
-      <h2 class="text-2xl font-bold mb-4">بيانات الطلبات والشحن</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="input-group relative">
-          <label class="block mb-1 font-semibold">عدد الطلبات المتوقع (شهريًا)</label>
-          <input id="orders" type="number" class="input" value="0" min="0" />
-          <i class="fas fa-shopping-bag input-icon"></i>
-          <p class="input-desc">هتبيع كام طلب شهريًا؟</p>
-        </div>
-        <div class="input-group relative">
-          <label class="block mb-1 font-semibold">نسبة الطلبات الملغاة (%)</label>
-          <input id="cancelRate" type="number" class="input" value="0" min="0" max="100" step="0.01" />
-          <i class="fas fa-times input-icon"></i>
-          <p class="input-desc">كام في المية بتلغي قبل الشحن؟</p>
-        </div>
-        <div class="input-group relative">
-          <label class="block mb-1 font-semibold">نسبة التسليم الناجح (%)</label>
-          <input id="deliveryRate" type="number" class="input" value="0" min="0" max="100" step="0.01" />
-          <i class="fas fa-truck input-icon"></i>
-          <p class="input-desc">كام في المية بتتسلم بنجاح؟</p>
-        </div>
-        <div class="input-group relative">
-          <label class="block mb-1 font-semibold">نسبة المرتجعات (%)</label>
-          <input id="returnRate" type="number" class="input" value="0" min="0" max="100" step="0.01" />
-          <i class="fas fa-undo input-icon"></i>
-          <p class="input-desc">كام في المية بيرجعوا المنتج؟</p>
-        </div>
-        <div class="input-group relative">
-          <label class="block mb-1 font-semibold">تكلفة إعادة الشحن (جنيه)</label>
-          <input id="returnShipping" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-truck-loading input-icon"></i>
-          <p class="input-desc">إرجاع المنتج بيكلف كام؟</p>
-        </div>
-        <div class="input-group relative">
-          <label class="block mb-1 font-semibold">تكلفة التخزين الإضافي (جنيه)</label>
-          <input id="extraStorage" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-warehouse input-icon"></i>
-          <p class="input-desc">تخزين المرتجعات بيكلف كام؟</p>
-        </div>
-        <div class="input-group relative">
-          <label class="block mb-1 font-semibold">تكلفة الدفع عند الاستلام (جنيه)</label>
-          <input id="codFees" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-money-bill input-icon"></i>
-          <p class="input-desc">رسوم COD بتكلف كام؟</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Operations Section -->
-    <div id="operations" class="section tab-content hidden">
-      <h2 class="text-2xl font-bold mb-4">بيانات التشغيل والإدارة</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="input-group relative">
-          <label class="block mb-1 font-semibold">عدد الموظفين والمرتبات (جنيه)</label>
-          <input id="salaries" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-user-tie input-icon"></i>
-          <p class="input-desc">مرتبات الفريق كام؟</p>
-        </div>
-        <div class="input-group relative">
-          <label class="block mb-1 font-semibold">عمولات الدفع الإلكتروني (%)</label>
-          <input id="paymentFees" type="number" class="input" value="0" min="0" max="100" step="0.01" />
-          <i class="fas fa-credit-card input-icon"></i>
-          <p class="input-desc">نسبة بوابات الدفع كام؟</p>
-        </div>
-        <div class="input-group relative">
-          <label class="block mb-1 font-semibold">الاشتراكات الشهرية (جنيه)</label>
-          <input id="subscriptions" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-file-invoice input-icon"></i>
-          <p class="input-desc">الاشتراكات بتكلف كام؟</p>
-        </div>
-        <div class="input-group relative">
-          <label class="block mb-1 font-semibold">تكلفة الصيانة والتطوير (جنيه)</label>
-          <input id="maintenance" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-tools input-icon"></i>
-          <p class="input-desc">الصيانة بتكلف كام؟</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Dashboard Section -->
-    <div id="dashboard" class="section tab-content hidden">
-      <h2 class="text-2xl font-bold mb-4">لوحة التحكم</h2>
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
-        <div class="dashboard-card">
-          <p class="text-gray-600 font-semibold">إجمالي المبيعات</p>
-          <p id="totalRevenue" class="text-2xl font-bold text-blue-600">ج.م 0</p>
-        </div>
-        <div class="dashboard-card">
-          <p class="text-gray-600 font-semibold">صافي الربح</p>
-          <p id="netProfit" class="text-2xl font-bold">ج.م 0</p>
-        </div>
-        <div class="dashboard-card">
-          <p class="text-gray-600 font-semibold">نقطة التعادل</p>
-          <p id="breakEven" class="text-2xl font-bold text-yellow-600">0 طلب</p>
-        </div>
-        <div class="dashboard-card">
-          <p class="text-gray-600 font-semibold">ROAS</p>
-          <p id="roas" class="text-2xl font-bold text-purple-600">0%</p>
-        </div>
-      </div>
-      <div class="chart-container">
-        <canvas id="costBreakdownChart"></canvas>
-      </div>
-      <div id="recommendations" class="recommendation">
-        <h3 class="text-xl font-bold mb-3">التوصيات الذكية</h3>
-        <ul id="recommendationList" class="list-disc pr-4 text-sm"></ul>
-      </div>
-    </div>
-
-    <!-- Action Buttons -->
-    <div class="flex flex-wrap gap-3 mt-4 no-print">
-      <button id="calculate" class="btn bg-green-600 text-white hover:bg-green-700">
-        <i class="fas fa-calculator"></i> احسب كل حاجة
-      </button>
-      <button id="reset" class="btn bg-red-600 text-white hover:bg-red-700">
-        <i class="fas fa-undo"></i> ابدأ من الأول
-      </button>
-      <button id="print" class="btn bg-gray-600 text-white hover:bg-gray-700">
-        <i class="fas fa-print"></i> اطبع التقرير
-      </button>
-    </div>
-  </div>
-
-  <script>
-    // Initialize IndexedDB
-    const dbName = "EcommerceToolDB";
-    let db;
-    const request = indexedDB.open(dbName, 1);
-    request.onupgradeneeded = (event) => {
-      db = event.target.result;
-      db.createObjectStore("data", { keyPath: "key" });
-    };
-    request.onsuccess = (event) => {
-      db = event.target.result;
-      loadData();
-    };
-
-    // Load data from IndexedDB
-    function loadData() {
-      const transaction = db.transaction(["data"], "readonly");
-      const store = transaction.objectStore("data");
-      const inputs = [
-        "buyPrice", "intlShipping", "customs", "manufacturing", "packaging", "storage", "insurance", "qualityControl",
-        "adBudget", "cpc", "ctr", "conversionRate", "cpa", "visitors", "contentCost", "adManagement", "abandonRate",
-        "orders", "cancelRate", "deliveryRate", "returnRate", "returnShipping", "extraStorage", "codFees",
-        "salaries", "paymentFees", "subscriptions", "maintenance"
-      ];
-      inputs.forEach(id => {
-        const request = store.get(id);
-        request.onsuccess = (event) => {
-          if (event.target.result) {
-            document.getElementById(id).value = event.target.result.value;
-          }
-        };
-      });
-      calculateAll();
-    }
-
-    // Save data to IndexedDB
-    function saveData(id, value) {
-      const transaction = db.transaction(["data"], "readwrite");
-      const store = transaction.objectStore("data");
-      store.put({ key: id, value });
-    }
-
-    // Global variables
-    let costChart = null;
-    const currency = "ج.م";
-
-    // Tab switching
-    document.querySelectorAll(".tab").forEach(tab => {
-      tab.addEventListener("click", () => {
-        document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-        document.querySelectorAll(".tab-content").forEach(c => c.classList.add("hidden"));
-        tab.classList.add("active");
-        document.getElementById(tab.dataset.tab).classList.remove("hidden");
-        calculateAll();
-      });
-    });
-
-    // Calculate everything
-    function calculateAll() {
-      // Product Costs
-      const buyPrice = parseFloat(document.getElementById("buyPrice").value) || 0;
-      const intlShipping = parseFloat(document.getElementById("intlShipping").value) || 0;
-      const customs = parseFloat(document.getElementById("customs").value) || 0;
-      const manufacturing = parseFloat(document.getElementById("manufacturing").value) || 0;
-      const packaging = parseFloat(document.getElementById("packaging").value) || 0;
-      const storage = parseFloat(document.getElementById("storage").value) || 0;
-      const insurance = parseFloat(document.getElementById("insurance").value) || 0;
-      const qualityControl = parseFloat(document.getElementById("qualityControl").value) || 0;
-
-      // Marketing Costs
-      const adBudget = parseFloat(document.getElementById("adBudget").value) || 0;
-      const cpc = parseFloat(document.getElementById("cpc").value) || 0;
-      const ctr = Math.min(parseFloat(document.getElementById("ctr").value) || 0, 100) / 100;
-      const conversionRate = Math.min(parseFloat(document.getElementById("conversionRate").value) || 0, 100) / 100;
-      const cpa = parseFloat(document.getElementById("cpa").value) || 0;
-      const visitors = parseFloat(document.getElementById("visitors").value) || 0;
-      const contentCost = parseFloat(document.getElementById("contentCost").value) || 0;
-      const adManagement = parseFloat(document.getElementById("adManagement").value) || 0;
-      const abandonRate = Math.min(parseFloat(document.getElementById("abandonRate").value) || 0, 100) / 100;
-
-      // Shipping & Orders
-      const orders = parseFloat(document.getElementById("orders").value) || 0;
-      const cancelRate = Math.min(parseFloat(document.getElementById("cancelRate").value) || 0, 100) / 100;
-      const deliveryRate = Math.min(parseFloat(document.getElementById("deliveryRate").value) || 0, 100) / 100;
-      const returnRate = Math.min(parseFloat(document.getElementById("returnRate").value) || 0, 100) / 100;
-      const returnShipping = parseFloat(document.getElementById("returnShipping").value) || 0;
-      const extraStorage = parseFloat(document.getElementById("extraStorage").value) || 0;
-      const codFees = parseFloat(document.getElementById("codFees").value) || 0;
-
-      // Operations Costs
-      const salaries = parseFloat(document.getElementById("salaries").value) || 0;
-      const paymentFees = Math.min(parseFloat(document.getElementById("paymentFees").value) || 0, 100) / 100;
-      const subscriptions = parseFloat(document.getElementById("subscriptions").value) || 0;
-      const maintenance = parseFloat(document.getElementById("maintenance").value) || 0;
-
-      // Calculations
-      const totalUnitCost = buyPrice + intlShipping + customs + manufacturing + packaging + storage + insurance + qualityControl;
-      const totalFixedCosts = salaries + subscriptions + maintenance + contentCost + adManagement;
-      const totalAdCost = adBudget || (cpc * visitors * ctr);
-      const completedOrders = orders * (1 - cancelRate) * deliveryRate;
-      const returnedOrders = completedOrders * returnRate;
-      const totalReturnCost = returnedOrders * (returnShipping + extraStorage);
-      const totalCostPerOrder = totalUnitCost + (totalFixedCosts + totalAdCost + totalReturnCost + codFees) / (completedOrders || 1);
-      const idealPrice = Math.round(totalCostPerOrder * 1.5); // 50% profit margin
-      const revenue = idealPrice * completedOrders;
-      const netProfitPerOrder = idealPrice - totalCostPerOrder;
-      const totalNetProfit = netProfitPerOrder * completedOrders;
-      const profitMargin = (netProfitPerOrder / idealPrice) * 100;
-      const breakEvenPrice = totalCostPerOrder;
-      const breakEvenPoint = totalFixedCosts / (netProfitPerOrder || 1);
-      const roas = totalAdCost ? (revenue / totalAdCost) : 0;
-      const idealCPA = idealPrice * 0.3; // 30% of selling price as ideal CPA
-      const cashFlow = revenue - (totalFixedCosts + totalAdCost + totalReturnCost);
-      const minOrdersForCashFlow = totalFixedCosts / (netProfitPerOrder || 1);
-
-      // Update Dashboard
-      document.getElementById("totalRevenue").textContent = `${currency} ${revenue.toFixed(2)}`;
-      const netProfitEl = document.getElementById("netProfit");
-      netProfitEl.textContent = `${currency} ${totalNetProfit.toFixed(2)}`;
-      netProfitEl.classList.toggle("text-red-600", totalNetProfit < 0);
-      document.getElementById("breakEven").textContent = `${Math.ceil(breakEvenPoint)} طلب`;
-      document.getElementById("roas").textContent = `${(roas * 100).toFixed(2)}%`;
-
-      // Update Chart
-      updateChart(totalUnitCost * completedOrders, totalAdCost, totalReturnCost);
-
-      // Recommendations
-      const recommendationList = document.getElementById("recommendationList");
-      recommendationList.innerHTML = "";
-      if (profitMargin < 10) {
-        recommendationList.innerHTML += `<li>هامش الربح (${profitMargin.toFixed(2)}%) ضعيف، جرب تقلل التكاليف أو تزود السعر!</li>`;
-      }
-      if (roas < 1) {
-        recommendationList.innerHTML += `<li>الإعلانات مش مربحة (ROAS: ${(roas * 100).toFixed(2)}%)، جرب تحسن الاستهداف!</li>`;
-      } else if (roas > 3) {
-        recommendationList.innerHTML += `<li>الإعلانات قوية (ROAS: ${(roas * 100).toFixed(2)}%)، زود الميزانية عشان تبيع أكتر!</li>`;
-      }
-      if (returnRate > 0.2) {
-        recommendationList.innerHTML += `<li>المرتجعات عالية (${(returnRate * 100).toFixed(2)}%)، أكد الطلبات قبل الشحن!</li>`;
-      }
-      if (abandonRate > 0.5) {
-        recommendationList.innerHTML += `<li>التخلي عن السلة عالي (${(abandonRate * 100).toFixed(2)}%)، جرب عرض خصم للي يسيبوا السلة!</li>`;
-      }
-      if (cashFlow < 0) {
-        recommendationList.innerHTML += `<li>التدفق النقدي سالب (${cashFlow.toFixed(2)} ج.م)، جرب تقلل المصاريف!</li>`;
-      }
-      if (idealPrice < totalCostPerOrder) {
-        recommendationList.innerHTML += `<li>السعر المثالي (${idealPrice} ج.م) أقل من التكلفة (${totalCostPerOrder.toFixed(2)} ج.م)، لازم تزوده!</li>`;
-      }
-    }
-
-    // Update Chart
-    function updateChart(productCost, adCost, returnCost) {
-      if (costChart) costChart.destroy();
-      costChart = new Chart(document.getElementById("costBreakdownChart").getContext("2d"), {
-        type: "pie",
-        data: {
-          labels: ["تكلفة المنتجات", "الإعلانات", "المرتجعات"],
-          datasets: [{
-            data: [productCost, adCost, returnCost],
-            backgroundColor: ["#3b82f6", "#ef4444", "#f59e0b"],
-            borderWidth: 1,
-            borderColor: "#fff"
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { position: "bottom", labels: { font: { size: 10 } } },
-            title: { display: true, text: "تفصيل المصاريف", font: { size: 14 } }
-          }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aff Price - مستشار أعمالك الرقمي</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #f0f4f8;
+            color: #1a202c;
+            min-height: 100vh;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            transition: background 0.3s ease;
         }
-      });
-    }
+        .light-mode { background: #f0f4f8; color: #1a202c; }
+        .dark-mode { background: #1a202c; color: #e2e8f0; }
+        .container {
+            background: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            max-width: 900px;
+            margin: 0 auto;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            animation: fadeIn 0.5s ease;
+        }
+        .dark-mode .container { background: #2d3748; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); }
 
-    // Event Listeners
-    document.querySelectorAll("input").forEach(input => {
-      input.addEventListener("input", () => {
-        saveData(input.id, input.value);
-        debounce(calculateAll, 200)();
-      });
-    });
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes glow { 0% { text-shadow: 0 0 5px rgba(66, 153, 225, 0.7); } 50% { text-shadow: 0 0 10px rgba(66, 153, 225, 1); } 100% { text-shadow: 0 0 5px rgba(66, 153, 225, 0.7); } }
+        @keyframes scaleUp { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
-    document.getElementById("calculate").addEventListener("click", () => {
-      calculateAll();
-      showAlert("كل حاجة اتحسبت بنجاح!", "success");
-    });
+        /* Header */
+        .header { text-align: center; padding: 1rem; }
+        .profile-card { background: #f7fafc; border-radius: 1rem; padding: 1rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
+        .dark-mode .profile-card { background: #3d4a5a; }
+        .profile-pic { width: 100px; height: 100px; border-radius: 50%; border: 4px solid #4299e1; margin: 0 auto; }
+        .dark-mode .profile-pic { border-color: #63b3ed; }
+        .profile-name { font-size: 1.5rem; font-weight: 900; color: #4299e1; animation: glow 2s infinite; }
+        .dark-mode .profile-name { color: #63b3ed; }
+        .creator-name { font-size: 1rem; color: #4a5568; }
+        .dark-mode .creator-name { color: #a0aec0; }
+        .social-links { display: flex; justify-content: center; gap: 0.5rem; margin-top: 0.5rem; }
+        .social-links a { font-size: 1.2rem; padding: 0.5rem; border-radius: 50%; transition: transform 0.3s; }
+        .social-links a:hover { transform: scale(1.1); }
 
-    document.getElementById("reset").addEventListener("click", () => {
-      document.querySelectorAll("input").forEach(input => input.value = "0");
-      const transaction = db.transaction(["data"], "readwrite");
-      const store = transaction.objectStore("data");
-      store.clear();
-      calculateAll();
-      showAlert("كل حاجة رجعت زي الأول!", "success");
-    });
+        /* Controls */
+        .controls { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; }
+        .mode-toggle, .market-toggle { display: flex; align-items: center; gap: 0.5rem; }
+        .toggle-switch { position: relative; width: 40px; height: 20px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: #a0aec0; border-radius: 20px; transition: 0.3s; }
+        input:checked + .slider { background: #4299e1; }
+        .slider:before { content: ''; position: absolute; width: 16px; height: 16px; left: 2px; bottom: 2px; background: #fff; border-radius: 50%; transition: 0.3s; }
+        input:checked + .slider:before { transform: translateX(20px); }
+        .mode-toggle i { font-size: 1rem; }
+        .light-mode .fa-sun { color: #f6ad55; }
+        .dark-mode .fa-moon { color: #63b3ed; }
 
-    document.getElementById("print").addEventListener("click", () => {
-      window.print();
-      showAlert("التقرير بيطبع دلوقتي!", "success");
-    });
+        /* Dropdown */
+        .custom-dropdown { position: relative; width: 120px; }
+        .dropdown-selected { padding: 0.5rem; border: 1px solid #4299e1; border-radius: 0.5rem; background: #f7fafc; cursor: pointer; display: flex; align-items: center; justify-content: space-between; }
+        .dark-mode .dropdown-selected { background: #3d4a5a; border-color: #63b3ed; }
+        .dropdown-options { position: absolute; top: 100%; right: 0; width: 100%; background: #fff; border-radius: 0.5rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: none; z-index: 10; }
+        .dark-mode .dropdown-options { background: #3d4a5a; }
+        .dropdown-options.active { display: block; }
+        .dropdown-option { padding: 0.5rem; cursor: pointer; }
+        .dropdown-option:hover { background: #e2e8f0; }
+        .dark-mode .dropdown-option:hover { background: #4a5568; }
 
-    // Show Alert
-    function showAlert(message, type) {
-      const alertDiv = document.createElement("div");
-      alertDiv.className = `alert alert-${type}`;
-      alertDiv.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i> ${message}`;
-      document.querySelector(".container").prepend(alertDiv);
-      setTimeout(() => alertDiv.remove(), 4000);
-    }
+        /* Inputs Section */
+        .inputs-section { background: #edf2f7; border-radius: 0.75rem; padding: 1rem; }
+        .dark-mode .inputs-section { background: #2d3748; }
+        .inputs-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
+        .input-group { position: relative; }
+        .input-group label { font-size: 0.9rem; font-weight: 700; color: #4299e1; display: flex; align-items: center; gap: 0.3rem; }
+        .dark-mode .input-group label { color: #63b3ed; }
+        .input-group input { width: 100%; padding: 0.5rem; border: 1px solid #4299e1; border-radius: 0.5rem; font-size: 1rem; background: #fff; }
+        .dark-mode .input-group input { background: #3d4a5a; color: #fff; border-color: #63b3ed; }
+        .input-group input:focus { border-color: #63b3ed; box-shadow: 0 0 8px rgba(99, 179, 237, 0.3); outline: none; }
+        .tooltip { display: none; position: absolute; background: #2d3748; color: #fff; padding: 0.5rem; border-radius: 0.3rem; font-size: 0.8rem; top: -40px; left: 50%; transform: translateX(-50%); z-index: 10; }
+        .input-group:hover .tooltip { display: block; }
 
-    // Debounce Function
-    function debounce(func, delay) {
-      let timeout;
-      return function (...args) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func(...args), delay);
-      };
-    }
+        /* Results Section */
+        .results-section { padding: 1rem; }
+        .results-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
+        .result-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 1rem; text-align: center; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); }
+        .dark-mode .result-card { background: #3d4a5a; border-color: #4a5568; }
+        .result-card p:first-child { font-size: 0.9rem; font-weight: 700; color: #4299e1; }
+        .dark-mode .result-card p:first-child { color: #63b3ed; }
+        .result-card p:last-child { font-size: 1.2rem; font-weight: 900; margin-top: 0.5rem; }
+        .result-card.bg-blue-50 { background: #e6fffa; grid-column: 1 / -1; }
+        .dark-mode .result-card.bg-blue-50 { background: #2b6cb0; }
 
-    // Initial Calculation
-    calculateAll();
-  </script>
+        /* Recommendations Section */
+        .recommendations-section { padding: 1rem; background: #fefcbf; border-radius: 0.75rem; }
+        .dark-mode .recommendations-section { background: #4a5568; }
+        .recommendations-section h3 { font-size: 1.2rem; font-weight: 900; color: #744210; }
+        .dark-mode .recommendations-section h3 { color: #ecc94b; }
+        .recommendations-section ul { list-style: none; margin-top: 0.5rem; }
+        .recommendations-section li { font-size: 0.9rem; margin-bottom: 0.5rem; }
+
+        /* Buttons */
+        .buttons-container { display: flex; justify-content: space-between; padding: 1rem 0; }
+        .show-more-btn, .reset-btn { padding: 0.5rem 1.5rem; border-radius: 0.5rem; font-weight: 700; cursor: pointer; transition: opacity 0.3s; }
+        .show-more-btn { background: #4299e1; color: #fff; }
+        .dark-mode .show-more-btn { background: #63b3ed; }
+        .reset-btn { background: #e53e3e; color: #fff; }
+        .show-more-btn:hover, .reset-btn:hover { opacity: 0.9; }
+    </style>
+</head>
+<body class="light-mode">
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="profile-card">
+                <div class="profile-pic">
+                    <img src="https://scontent.faly1-2.fna.fbcdn.net/v/t39.30808-6/478724180_2012750999223754_4950667810291165018_n.jpg" alt="Ahmed Muhammed Abdeslam">
+                </div>
+                <div class="profile-info">
+                    <span class="profile-name">Aff Price <i class="fas fa-brain"></i></span>
+                    <span class="creator-name">Ahmed Muhammed Abdeslam</span>
+                    <div class="social-links">
+                        <a href="https://web.facebook.com/ahmed10az" target="_blank" class="facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="https://wa.me/201282512082" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://instagram.com/ahmed10az" target="_blank" class="instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://tiktok.com/@elarshedok" target="_blank" class="tiktok"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://linkedin.com/in/elarshedok" target="_blank" class="linkedin"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="controls">
+                <div class="mode-toggle">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="darkModeToggle">
+                        <span class="slider"></span>
+                    </label>
+                    <i class="fas fa-sun mode-icon light-mode-icon"></i>
+                    <i class="fas fa-moon mode-icon dark-mode-icon" style="display: none;"></i>
+                    <span id="modeLabel">نهار</span>
+                </div>
+                <div class="custom-dropdown">
+                    <div class="dropdown-selected" id="marketSelected">
+                        <span class="flag-icon flag-icon-eg"></span> مصر
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="dropdown-options" id="marketOptions">
+                        <div class="dropdown-option" data-value="EG"><span class="flag-icon flag-icon-eg"></span> مصر</div>
+                        <div class="dropdown-option" data-value="SA"><span class="flag-icon flag-icon-sa"></span> السعودية</div>
+                        <div class="dropdown-option" data-value="AE"><span class="flag-icon flag-icon-ae"></span> الإمارات</div>
+                    </div>
+                    <input type="hidden" id="market" value="EG">
+                </div>
+            </div>
+        </header>
+
+        <!-- Inputs Section -->
+        <div class="inputs-section">
+            <div class="inputs-container">
+                <!-- Product Costs -->
+                <div class="input-group">
+                    <label><i class="fas fa-dollar-sign"></i> سعر الشراء</label>
+                    <input type="number" id="purchasePrice" step="any" min="0" value="324">
+                    <span class="tooltip">سعر شراء المنتج من المورد</span>
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-truck"></i> شحن دولي</label>
+                    <input type="number" id="intlShipping" step="any" min="0" value="0">
+                    <span class="tooltip">تكلفة الشحن الدولي لكل وحدة</span>
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-percentage"></i> الجمارك (%)</label>
+                    <input type="number" id="customsRate" step="any" min="0" max="100" value="5">
+                    <span class="tooltip">نسبة الجمارك على سعر الشراء</span>
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-warehouse"></i> تكلفة التخزين</label>
+                    <input type="number" id="storageCost" step="any" min="0" value="2">
+                    <span class="tooltip">تكلفة التخزين لكل وحدة</span>
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-box"></i> تكلفة التغليف</label>
+                    <input type="number" id="packagingCost" step="any" min="0" value="3">
+                    <span class="tooltip">تكلفة تعبئة المنتج لكل وحدة</span>
+                </div>
+
+                <!-- Marketing Costs -->
+                <div class="input-group">
+                    <label><i class="fas fa-ad"></i> ميزانية الإعلانات</label>
+                    <input type="number" id="adBudget" step="any" min="0" value="7456">
+                    <span class="tooltip">الميزانية الشهرية للإعلانات</span>
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-mouse-pointer"></i> تكلفة النقرة</label>
+                    <input type="number" id="cpc" step="any" min="0" value="0.5">
+                    <span class="tooltip">تكلفة النقرة الواحدة (CPC)</span>
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-percentage"></i> نسبة النقر (%)</label>
+                    <input type="number" id="ctr" step="any" min="0" max="100" value="2">
+                    <span class="tooltip">نسبة النقر على الإعلان (CTR)</span>
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-percentage"></i> نسبة التحويل (%)</label>
+                    <input type="number" id="conversionRate" step="any" min="0" max="100" value="5">
+                    <span class="tooltip">نسبة الشراء بعد النقر</span>
+                </div>
+
+                <!-- Shipping & Orders -->
+                <div class="input-group">
+                    <label><i class="fas fa-shopping-cart"></i> سعر البيع</label>
+                    <input type="number" id="sellingPrice" step="any" min="0" value="550">
+                    <span class="tooltip">سعر بيع المنتج للعميل</span>
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-truck"></i> تكلفة الشحن</label>
+                    <input type="number" id="shippingCost" step="any" min="0" value="55">
+                    <span class="tooltip">تكلفة شحن الطلب للعميل</span>
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-boxes"></i> عدد الطلبات</label>
+                    <input type="number" id="targetOrders" step="1" min="0" value="438">
+                    <span class="tooltip">عدد الطلبات المتوقع شهريًا</span>
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-percentage"></i> نسبة التسليم (%)</label>
+                    <input type="number" id="deliveryRate" step="any" min="0" max="100" value="15">
+                    <span class="tooltip">نسبة الطلبات المسلمة بنجاح</span>
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-money-check-alt"></i> رسوم COD</label>
+                    <input type="number" id="codFees" step="any" min="0" value="10">
+                    <span class="tooltip">رسوم الدفع عند الاستلام لكل طلب</span>
+                </div>
+
+                <!-- Operational Costs -->
+                <div class="input-group">
+                    <label><i class="fas fa-users"></i> رواتب الموظفين</label>
+                    <input type="number" id="staffSalaries" step="any" min="0" value="5000">
+                    <span class="tooltip">إجمالي رواتب الموظفين شهريًا</span>
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-percentage"></i> عمولة الدفع (%)</label>
+                    <input type="number" id="paymentGatewayFee" step="any" min="0" max="100" value="2.5">
+                    <span class="tooltip">عمولة بوابة الدفع على كل معاملة</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-section">
+            <div class="results-container" id="results">
+                <div class="result-card">
+                    <p><i class="fas fa-coins"></i> تكلفة الطلب</p>
+                    <p id="totalCostPerOrder" class="result-value"></p>
+                </div>
+                <div class="result-card">
+                    <p><i class="fas fa-dollar-sign"></i> سعر البيع المقترح</p>
+                    <p id="suggestedSellingPrice" class="result-value"></p>
+                </div>
+                <div class="result-card">
+                    <p><i class="fas fa-coins"></i> ربح الطلب</p>
+                    <p id="netProfitPerOrder" class="result-value"></p>
+                </div>
+                <div class="result-card">
+                    <p><i class="fas fa-chart-line"></i> هامش الربح</p>
+                    <p id="profitMargin" class="result-value"></p>
+                </div>
+                <div class="result-card">
+                    <p><i class="fas fa-ad"></i> عائد الإعلانات (ROAS)</p>
+                    <p id="roas" class="result-value"></p>
+                </div>
+                <div class="result-card bg-blue-50">
+                    <p><i class="fas fa-wallet"></i> صافي الربح الشهري</p>
+                    <p id="netProfitAfterAds" class="result-value"></p>
+                </div>
+            </div>
+            <div class="buttons-container">
+                <button class="reset-btn" onclick="resetValues()">محو البيانات</button>
+                <button class="show-more-btn" id="showMoreBtn" onclick="showRecommendations()">عرض التوصيات</button>
+            </div>
+        </div>
+
+        <!-- Recommendations Section -->
+        <div class="recommendations-section" id="recommendations" style="display: none;">
+            <h3><i class="fas fa-lightbulb"></i> توصيات ذكية</h3>
+            <ul id="recommendationsList"></ul>
+        </div>
+    </div>
+
+    <script>
+        const marketSettings = {
+            EG: { currency: 'EGP', symbol: 'ج.م', taxRate: 14 },
+            SA: { currency: 'SAR', symbol: 'ر.س', taxRate: 15 },
+            AE: { currency: 'AED', symbol: 'د.إ', taxRate: 5 }
+        };
+        let previousProfit = 0;
+
+        const getMarketSettings = () => marketSettings[document.getElementById('market').value];
+        const getCurrencySymbol = () => getMarketSettings().symbol;
+
+        const calculateResults = () => {
+            const market = getMarketSettings();
+            const currencySymbol = market.symbol;
+
+            // Product Costs
+            const purchasePrice = parseFloat(document.getElementById('purchasePrice').value) || 0;
+            const intlShipping = parseFloat(document.getElementById('intlShipping').value) || 0;
+            const customsRate = parseFloat(document.getElementById('customsRate').value) || 0;
+            const storageCost = parseFloat(document.getElementById('storageCost').value) || 0;
+            const packagingCost = parseFloat(document.getElementById('packagingCost').value) || 0;
+
+            // Marketing Costs
+            const adBudget = parseFloat(document.getElementById('adBudget').value) || 0;
+            const cpc = parseFloat(document.getElementById('cpc').value) || 0;
+            const ctr = parseFloat(document.getElementById('ctr').value) || 0;
+            const conversionRate = parseFloat(document.getElementById('conversionRate').value) || 0;
+
+            // Orders & Shipping
+            const sellingPrice = parseFloat(document.getElementById('sellingPrice').value) || 0;
+            const shippingCost = parseFloat(document.getElementById('shippingCost').value) || 0;
+            const targetOrders = parseFloat(document.getElementById('targetOrders').value) || 0;
+            const deliveryRate = parseFloat(document.getElementById('deliveryRate').value) || 0;
+            const codFees = parseFloat(document.getElementById('codFees').value) || 0;
+
+            // Operational Costs
+            const staffSalaries = parseFloat(document.getElementById('staffSalaries').value) || 0;
+            const paymentGatewayFee = parseFloat(document.getElementById('paymentGatewayFee').value) || 0;
+
+            // Calculations
+            const customsCost = purchasePrice * (customsRate / 100);
+            const productCostPerUnit = purchasePrice + intlShipping + customsCost + storageCost + packagingCost;
+            const deliveredOrders = targetOrders * (deliveryRate / 100);
+            const adCostPerOrder = adBudget / targetOrders || 0;
+            const paymentFeePerOrder = sellingPrice * (paymentGatewayFee / 100);
+            const operationalCostPerOrder = staffSalaries / targetOrders || 0;
+
+            const totalCostPerOrder = productCostPerUnit + shippingCost + codFees + adCostPerOrder + paymentFeePerOrder + operationalCostPerOrder;
+            const suggestedSellingPrice = totalCostPerOrder * 1.3; // 30% profit margin
+            const netProfitPerOrder = sellingPrice - totalCostPerOrder;
+            const profitMargin = sellingPrice ? (netProfitPerOrder / sellingPrice) * 100 : 0;
+            const revenue = deliveredOrders * sellingPrice;
+            const roas = adBudget ? revenue / adBudget : 0;
+            const netProfitAfterAds = (deliveredOrders * netProfitPerOrder) - (adBudget * (1 + market.taxRate / 100));
+
+            // Update Results
+            const updateElement = (id, value, isPercentage = false) => {
+                const element = document.getElementById(id);
+                element.textContent = isPercentage ? `${value.toFixed(2)}%` : `${currencySymbol} ${value.toFixed(2)}`;
+                element.classList.remove('text-red-600', 'text-green-600', 'text-gray-600');
+                element.classList.add(value > 0 ? 'text-green-600' : value < 0 ? 'text-red-600' : 'text-gray-600');
+                element.style.animation = 'scaleUp 0.5s ease';
+                setTimeout(() => element.style.animation = '', 500);
+            };
+
+            updateElement('totalCostPerOrder', totalCostPerOrder);
+            updateElement('suggestedSellingPrice', suggestedSellingPrice);
+            updateElement('netProfitPerOrder', netProfitPerOrder);
+            updateElement('profitMargin', profitMargin, true);
+            updateElement('roas', roas);
+            updateElement('netProfitAfterAds', netProfitAfterAds);
+
+            // Recommendations
+            const recommendations = [];
+            if (netProfitAfterAds < 0) recommendations.push("خفض تكلفة الإعلانات أو زيادة سعر البيع لتجنب الخسارة.");
+            if (profitMargin < 20) recommendations.push("هامش الربح منخفض، جرب زيادة السعر أو تقليل التكاليف.");
+            if (roas < 2) recommendations.push("عائد الإعلانات منخفض، راجع استراتيجية التسويق.");
+            if (deliveryRate < 50) recommendations.push("نسبة التسليم منخفضة، حسّن جودة المنتج أو الشحن.");
+            document.getElementById('recommendationsList').innerHTML = recommendations.map(r => `<li>${r}</li>`).join('');
+
+            previousProfit = netProfitAfterAds;
+        };
+
+        const showRecommendations = () => {
+            document.getElementById('recommendations').style.display = 'block';
+            document.getElementById('showMoreBtn').style.display = 'none';
+        };
+
+        const resetValues = () => {
+            document.querySelectorAll('input[type="number"]').forEach(input => input.value = 0);
+            calculateResults();
+            document.getElementById('recommendations').style.display = 'none';
+            document.getElementById('showMoreBtn').style.display = 'block';
+        };
+
+        // Event Listeners
+        document.getElementById('darkModeToggle').addEventListener('change', () => {
+            document.body.classList.toggle('light-mode', !document.getElementById('darkModeToggle').checked);
+            document.body.classList.toggle('dark-mode', document.getElementById('darkModeToggle').checked);
+            document.getElementById('modeLabel').textContent = document.getElementById('darkModeToggle').checked ? 'ليل' : 'نهار';
+            document.querySelector('.light-mode-icon').style.display = document.getElementById('darkModeToggle').checked ? 'none' : 'inline';
+            document.querySelector('.dark-mode-icon').style.display = document.getElementById('darkModeToggle').checked ? 'inline' : 'none';
+        });
+
+        const marketSelected = document.getElementById('marketSelected');
+        const marketOptions = document.getElementById('marketOptions');
+        const marketInput = document.getElementById('market');
+        document.querySelectorAll('.dropdown-option').forEach(option => {
+            option.addEventListener('click', () => {
+                const value = option.getAttribute('data-value');
+                marketSelected.innerHTML = `<span class="${option.querySelector('span').className}"></span> ${option.textContent.trim()} <i class="fas fa-chevron-down"></i>`;
+                marketInput.value = value;
+                marketOptions.classList.remove('active');
+                calculateResults();
+            });
+        });
+        marketSelected.addEventListener('click', () => marketOptions.classList.toggle('active'));
+        document.addEventListener('click', (e) => {
+            if (!marketSelected.contains(e.target) && !marketOptions.contains(e.target)) {
+                marketOptions.classList.remove('active');
+            }
+        });
+
+        document.querySelectorAll('input').forEach(input => input.addEventListener('input', calculateResults));
+        calculateResults(); // Initial calculation
+    </script>
 </body>
 </html>
