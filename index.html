@@ -1,411 +1,224 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aff Price - Ahmed Muhammed Abdeslam</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Cairo', sans-serif;
-            background: radial-gradient(circle at center, #0d1b2a, #1b263b);
-            color: #e0e0e0;
-            min-height: 100vh;
-            padding: 2rem;
-            overflow-x: hidden;
-            position: relative;
-        }
-        .container {
-            background: rgba(27, 38, 59, 0.9);
-            border-radius: 1rem;
-            padding: 2rem;
-            max-width: 1100px;
-            margin: 0 auto;
-            box-shadow: 0 0 30px rgba(69, 123, 157, 0.5);
-            position: relative;
-            z-index: 2;
-            backdrop-filter: blur(10px);
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 2rem;
-            animation: glowPulse 2s infinite;
-        }
-        .profile-card {
-            display: inline-block;
-            background: rgba(69, 123, 157, 0.3);
-            padding: 1rem;
-            border-radius: 1rem;
-            box-shadow: 0 0 20px rgba(69, 123, 157, 0.7);
-            transition: transform 0.3s ease;
-        }
-        .profile-card:hover { transform: scale(1.05); }
-        .profile-pic {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 4px solid #457b9d;
-            box-shadow: 0 0 15px rgba(69, 123, 157, 0.8);
-        }
-        .profile-pic img { width: 100%; height: 100%; object-fit: cover; }
-        .profile-name { font-size: 1.8rem; font-weight: 900; color: #a8dadc; text-shadow: 0 0 10px #457b9d; }
-        .creator-name { font-size: 1.1rem; color: #e0e0e0; }
-        .social-links { display: flex; justify-content: center; gap: 0.5rem; margin-top: 0.5rem; }
-        .social-links a {
-            font-size: 1.2rem;
-            padding: 0.5rem;
-            color: #e0e0e0;
-            transition: color 0.3s ease, transform 0.3s ease;
-        }
-        .social-links a:hover { transform: scale(1.2); }
-        .social-links .facebook:hover { color: #1877F2; }
-        .social-links .whatsapp:hover { color: #25D366; }
-        .social-links .instagram:hover { color: #E1306C; }
-        .social-links .tiktok:hover { color: #000000; }
-        .social-links .linkedin:hover { color: #0077B5; }
-
-        /* Controls */
-        .controls {
-            display: flex;
-            justify-content: space-between;
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(69, 123, 157, 0.5);
-        }
-        .mode-toggle { display: flex; align-items: center; gap: 0.5rem; }
-        .toggle-switch { position: relative; width: 40px; height: 20px; }
-        .toggle-switch input { opacity: 0; width: 0; height: 0; }
-        .slider {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: #457b9d;
-            border-radius: 20px;
-            transition: 0.3s;
-        }
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 16px;
-            width: 16px;
-            left: 2px;
-            bottom: 2px;
-            background: #e0e0e0;
-            border-radius: 50%;
-            transition: 0.3s;
-        }
-        input:checked + .slider { background: #a8dadc; }
-        input:checked + .slider:before { transform: translateX(20px); }
-        .mode-toggle span { font-weight: 700; color: #e0e0e0; }
-
-        /* Dropdown */
-        .custom-dropdown { width: 120px; position: relative; }
-        .dropdown-selected {
-            padding: 0.5rem;
-            background: rgba(69, 123, 157, 0.3);
-            border: 1px solid #457b9d;
-            border-radius: 0.5rem;
-            color: #e0e0e0;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .dropdown-options {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            width: 100%;
-            background: rgba(27, 38, 59, 0.9);
-            border-radius: 0.5rem;
-            box-shadow: 0 0 20px rgba(69, 123, 157, 0.5);
-            display: none;
-            z-index: 10;
-        }
-        .dropdown-options.active { display: block; }
-        .dropdown-option {
-            padding: 0.5rem;
-            color: #e0e0e0;
-            cursor: pointer;
-        }
-        .dropdown-option:hover { background: rgba(69, 123, 157, 0.5); }
-
-        /* Inputs and Results */
-        .inputs-section, .results-section {
-            background: rgba(43, 58, 85, 0.7);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 0 20px rgba(69, 123, 157, 0.3);
-        }
-        .inputs-container, .results-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-        .input-group { position: relative; }
-        .input-group label {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: #a8dadc;
-            text-shadow: 0 0 5px #457b9d;
-        }
-        .input-group input {
-            padding: 0.5rem;
-            border: 1px solid #457b9d;
-            border-radius: 0.5rem;
-            background: rgba(27, 38, 59, 0.8);
-            color: #e0e0e0;
-            font-weight: 700;
-            transition: box-shadow 0.3s ease;
-        }
-        .input-group input:focus {
-            box-shadow: 0 0 10px rgba(69, 123, 157, 0.8);
-            outline: none;
-        }
-        .result-card {
-            background: rgba(69, 123, 157, 0.2);
-            border: 1px solid #457b9d;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .result-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 15px rgba(69, 123, 157, 0.7);
-        }
-        .result-card p:first-child { font-weight: 700; color: #a8dadc; }
-        .result-card p:last-child { font-weight: 900; font-size: 1.1rem; }
-        .text-green-600 { color: #48bb78; }
-        .text-red-600 { color: #e63946; }
-
-        /* Animations */
-        @keyframes glowPulse {
-            0% { text-shadow: 0 0 5px rgba(69, 123, 157, 0.5); }
-            50% { text-shadow: 0 0 15px rgba(69, 123, 157, 1); }
-            100% { text-shadow: 0 0 5px rgba(69, 123, 157, 0.5); }
-        }
-        .dashboard-title { font-size: 1.5rem; color: #a8dadc; text-shadow: 0 0 10px #457b9d; margin-bottom: 1rem; }
-    </style>
+  <meta charset="UTF-8" />
+  <!-- إعدادات العرض لتحسين تجربة المستخدم على الموبايل -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>لوحة التحكم - Ahmed Muhammed Abdeslam</title>
+  <!-- ربط ملف الماني فست الخاص بالتطبيق -->
+  <link rel="manifest" href="manifest.json">
+  <!-- استخدام خط "Orbitron" لإضفاء طابع مستقبلي -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+  <style>
+    /* إعادة تعيين الأنماط الأساسية */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    /* تصميم خلفية داكنة مع تأثيرات نيون */
+    body {
+      background: radial-gradient(circle, #0c0c0c, #050505, #0c0c0c);
+      font-family: 'Orbitron', sans-serif;
+      color: #fff;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    header {
+      background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
+      padding: 20px;
+      text-align: center;
+      border-bottom: 3px solid #39ff14;
+    }
+    /* القسم الخاص بالملف الشخصي */
+    .profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .profile img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid #39ff14;
+      margin-bottom: 10px;
+      box-shadow: 0 0 10px #39ff14;
+    }
+    .profile h1 {
+      font-size: 2rem;
+      color: #39ff14;
+      margin-bottom: 5px;
+    }
+    .social-links {
+      margin-top: 10px;
+    }
+    .social-links a {
+      color: #39ff14;
+      margin: 0 8px;
+      text-decoration: none;
+      font-size: 1.2em;
+      transition: color 0.3s;
+    }
+    .social-links a:hover {
+      color: #fff;
+    }
+    main {
+      padding: 20px;
+    }
+    /* تصميم لوحة التحكم بكروت متجاوبة */
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid rgba(57, 255, 20, 0.5);
+      box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 25px rgba(57, 255, 20, 0.5);
+    }
+    .card h2 {
+      margin-bottom: 15px;
+      color: #39ff14;
+    }
+    .card p {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+    .input-group {
+      margin-bottom: 15px;
+      display: flex;
+      flex-direction: column;
+    }
+    .input-group label {
+      margin-bottom: 5px;
+      color: #bbb;
+    }
+    .input-group input {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
+    .btn {
+      padding: 10px 20px;
+      background: linear-gradient(45deg, #39ff14, #0f2027);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: #fff;
+      font-size: 1rem;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: linear-gradient(45deg, #0f2027, #39ff14);
+    }
+    .result {
+      margin-top: 15px;
+      font-size: 1.2rem;
+      color: #39ff14;
+    }
+    /* تحسين عرض المكونات على أجهزة الموبايل */
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+      .profile img {
+        width: 100px;
+        height: 100px;
+      }
+      .social-links a {
+        font-size: 1rem;
+        margin: 0 5px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="profile-card">
-                <div class="profile-pic">
-                    <img src="https://scontent.faly1-2.fna.fbcdn.net/v/t39.30808-6/478724180_2012750999223754_4950667810291165018_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHGVoV1nv_uBT6VDiUmkTUBt9Lm4gk8hxC30ubiCTyHECTpTi2wl8gfRfMESNTozonQZKpDfqy38PE-slzWn9Ck&_nc_ohc=v_k1rOPK2F0Q7kNvgFLv1QA&_nc_oc=AdhvcaU_nFdQ4Z3Kg3E9swCkPRk7JtChJHFOQT9zYUpJ2idA5GZBKG6zFFvqxVjJidw&_nc_zt=23&_nc_ht=scontent.faly1-2.fna&_nc_gid=A_mUbigqD8_rNyd4OoHW9AM&oh=00_AYFDdgaYR159DtFUSCb60jQqfWAmWMrG9davjLCYD83ONw&oe=67D0AAED" alt="Ahmed Muhammed Abdeslam">
-                </div>
-                <div class="profile-info">
-                    <span class="profile-name">Aff Price</span>
-                    <span class="creator-name">Ahmed Muhammed Abdeslam</span>
-                    <div class="social-links">
-                        <a href="https://web.facebook.com/ahmed10az" target="_blank" class="facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="https://wa.me/201282512082" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
-                        <a href="https://instagram.com/ahmed10az" target="_blank" class="instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="https://tiktok.com/@elarshedok" target="_blank" class="tiktok"><i class="fab fa-tiktok"></i></a>
-                        <a href="https://linkedin.com/in/elarshedok" target="_blank" class="linkedin"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="controls">
-                <div class="mode-toggle">
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="darkModeToggle">
-                        <span class="slider"></span>
-                    </label>
-                    <span id="modeLabel">نهار</span>
-                </div>
-                <div class="custom-dropdown">
-                    <div class="dropdown-selected" id="dropdownSelected">
-                        <span class="flag-icon flag-icon-eg"></span> EGP
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="dropdown-options" id="dropdownOptions">
-                        <div class="dropdown-option" data-value="EGP"><span class="flag-icon flag-icon-eg"></span> EGP</div>
-                        <div class="dropdown-option" data-value="LYD"><span class="flag-icon flag-icon-ly"></span> LYD</div>
-                        <div class="dropdown-option" data-value="SAR"><span class="flag-icon flag-icon-sa"></span> SAR</div>
-                        <div class="dropdown-option" data-value="AED"><span class="flag-icon flag-icon-ae"></span> AED</div>
-                    </div>
-                    <input type="hidden" id="currency" value="EGP">
-                </div>
-            </div>
-        </header>
-
-        <!-- Inputs Section -->
-        <div class="inputs-section">
-            <h2 class="dashboard-title">لوحة المدخلات المالية</h2>
-            <div class="inputs-container">
-                <div class="input-group">
-                    <label><i class="fas fa-box"></i> سعر المنتج</label>
-                    <input type="number" id="productCost" step="any" min="0" value="100">
-                </div>
-                <div class="input-group">
-                    <label><i class="fas fa-warehouse"></i> تكلفة التخزين الشهرية</label>
-                    <input type="number" id="storageCost" step="any" min="0" value="500">
-                </div>
-                <div class="input-group">
-                    <label><i class="fas fa-truck"></i> تكلفة الشحن لكل طلب</label>
-                    <input type="number" id="shippingCost" step="any" min="0" value="20">
-                </div>
-                <div class="input-group">
-                    <label><i class="fas fa-ad"></i> تكلفة الإعلان لكل طلب</label>
-                    <input type="number" id="adCostPerOrder" step="any" min="0" value="15">
-                </div>
-                <div class="input-group">
-                    <label><i class="fas fa-dollar-sign"></i> سعر البيع لكل طلب</label>
-                    <input type="number" id="sellingPrice" step="any" min="0" value="200">
-                </div>
-                <div class="input-group">
-                    <label><i class="fas fa-percentage"></i> نسبة التسليم الناجح (%)</label>
-                    <input type="number" id="deliveryRate" step="any" min="0" max="100" value="80">
-                </div>
-                <div class="input-group">
-                    <label><i class="fas fa-cogs"></i> تكاليف التشغيل الشهرية</label>
-                    <input type="number" id="operationalCost" step="any" min="0" value="1000">
-                </div>
-                <div class="input-group">
-                    <label><i class="fas fa-shopping-cart"></i> عدد الطلبات المستهدفة</label>
-                    <input type="number" id="targetOrders" step="1" min="0" value="50">
-                </div>
-            </div>
-        </div>
-
-        <!-- Results Section -->
-        <div class="results-section">
-            <h2 class="dashboard-title">لوحة النتائج المالية</h2>
-            <div class="results-container">
-                <div class="result-card">
-                    <p><i class="fas fa-coins"></i> إجمالي تكلفة كل طلب</p>
-                    <p id="totalCostPerOrder"></p>
-                </div>
-                <div class="result-card">
-                    <p><i class="fas fa-arrow-down"></i> السعر الأدنى للبيع</p>
-                    <p id="breakevenPrice"></p>
-                </div>
-                <div class="result-card">
-                    <p><i class="fas fa-arrow-up"></i> السعر المناسب للبيع</p>
-                    <p id="recommendedPrice"></p>
-                </div>
-                <div class="result-card">
-                    <p><i class="fas fa-chart-line"></i> هامش الربح لكل طلب</p>
-                    <p id="profitMargin"></p>
-                </div>
-                <div class="result-card">
-                    <p><i class="fas fa-wallet"></i> صافي الربح الشهري</p>
-                    <p id="netProfitMonthly"></p>
-                </div>
-                <div class="result-card">
-                    <p><i class="fas fa-bullhorn"></i> العائد على الإعلانات</p>
-                    <p id="roas"></p>
-                </div>
-                <div class="result-card">
-                    <p><i class="fas fa-boxes"></i> طلبات لتغطية التكاليف</p>
-                    <p id="ordersToCoverCosts"></p>
-                </div>
-                <div class="result-card">
-                    <p><i class="fas fa-money-bill-wave"></i> التدفق النقدي</p>
-                    <p id="cashFlow"></p>
-                </div>
-                <div class="result-card">
-                    <p><i class="fas fa-undo"></i> الخسائر من المرتجعات</p>
-                    <p id="returnLosses"></p>
-                </div>
-            </div>
-        </div>
+  <!-- رأس الصفحة مع الملف الشخصي -->
+  <header>
+    <div class="profile">
+      <!-- استبدل "your-profile-picture.jpg" بمسار صورتك -->
+      <img src="your-profile-picture.jpg" alt="Ahmed Muhammed Abdeslam">
+      <h1>Ahmed Muhammed Abdeslam</h1>
+      <div class="social-links">
+        <a href="https://facebook.com/ahmed" target="_blank">Facebook</a>
+        <a href="https://twitter.com/ahmed" target="_blank">Twitter</a>
+        <a href="https://linkedin.com/in/ahmed" target="_blank">LinkedIn</a>
+      </div>
     </div>
+  </header>
 
-    <script>
-        const currencySymbols = { EGP: 'ج.م', LYD: 'د.ل', SAR: 'ر.س', AED: 'د.إ' };
-        const getCurrencySymbol = () => currencySymbols[document.getElementById('currency').value];
+  <!-- المحتوى الرئيسي -->
+  <main>
+    <div class="dashboard">
+      <!-- كارت نظرة عامة مالية -->
+      <div class="card">
+        <h2>نظرة عامة مالية</h2>
+        <p>الرصيد الحالي: <span id="current-balance">15,000</span> جنيه</p>
+        <p>الإيرادات الشهرية: <span id="monthly-revenue">3,200</span> جنيه</p>
+        <p>المصاريف الشهرية: <span id="monthly-expenses">1,800</span> جنيه</p>
+      </div>
 
-        const calculateResults = () => {
-            const productCost = parseFloat(document.getElementById('productCost').value) || 0;
-            const storageCost = parseFloat(document.getElementById('storageCost').value) || 0;
-            const shippingCost = parseFloat(document.getElementById('shippingCost').value) || 0;
-            const adCostPerOrder = parseFloat(document.getElementById('adCostPerOrder').value) || 0;
-            const sellingPrice = parseFloat(document.getElementById('sellingPrice').value) || 0;
-            const deliveryRate = parseFloat(document.getElementById('deliveryRate').value) || 0;
-            const operationalCost = parseFloat(document.getElementById('operationalCost').value) || 0;
-            const targetOrders = parseFloat(document.getElementById('targetOrders').value) || 0;
-            const currencySymbol = getCurrencySymbol();
+      <!-- كارت حاسبة الفائدة المركبة -->
+      <div class="card">
+        <h2>حاسبة الفائدة المركبة</h2>
+        <div class="input-group">
+          <label for="principal">رأس المال (جنيه):</label>
+          <input type="number" id="principal" placeholder="أدخل رأس المال">
+        </div>
+        <div class="input-group">
+          <label for="rate">معدل الفائدة السنوي (%):</label>
+          <input type="number" id="rate" placeholder="أدخل معدل الفائدة">
+        </div>
+        <div class="input-group">
+          <label for="years">عدد السنوات:</label>
+          <input type="number" id="years" placeholder="أدخل عدد السنوات">
+        </div>
+        <button class="btn" id="calculateBtn">احسب القيمة المستقبلية</button>
+        <div class="result" id="result"></div>
+      </div>
+    </div>
+  </main>
 
-            const storageCostPerOrder = targetOrders ? storageCost / targetOrders : 0;
-            const totalCostPerOrder = productCost + shippingCost + adCostPerOrder + storageCostPerOrder;
-            const breakevenPrice = totalCostPerOrder;
-            const profitMarginTarget = 0.3;
-            const recommendedPrice = totalCostPerOrder / (1 - profitMarginTarget);
-            const profitPerOrder = sellingPrice - totalCostPerOrder;
-            const profitMargin = sellingPrice ? (profitPerOrder / sellingPrice) * 100 : 0;
-
-            const deliveredOrders = targetOrders * (deliveryRate / 100);
-            const returnRate = 100 - deliveryRate;
-            const returnedOrders = targetOrders * (returnRate / 100);
-            const returnLosses = returnedOrders * totalCostPerOrder;
-
-            const revenue = deliveredOrders * sellingPrice;
-            const totalAdSpend = targetOrders * adCostPerOrder;
-            const roas = totalAdSpend ? revenue / totalAdSpend : 0;
-            const netProfitMonthly = revenue - (deliveredOrders * totalCostPerOrder) - operationalCost;
-            const cashFlow = netProfitMonthly - returnLosses;
-            const ordersToCoverCosts = profitPerOrder > 0 ? (operationalCost + storageCost) / profitPerOrder : 0;
-
-            const updateElement = (id, value, isPercentage = false, isNumberOnly = false) => {
-                const element = document.getElementById(id);
-                element.textContent = isPercentage ? `${value.toFixed(2)}%` : 
-                                     isNumberOnly ? Math.ceil(value) : `${currencySymbol} ${value.toFixed(2)}`;
-                element.classList.remove('text-red-600', 'text-green-600');
-                element.classList.add(value >= 0 ? 'text-green-600' : 'text-red-600');
-            };
-
-            updateElement('totalCostPerOrder', totalCostPerOrder);
-            updateElement('breakevenPrice', breakevenPrice);
-            updateElement('recommendedPrice', recommendedPrice);
-            updateElement('profitMargin', profitMargin, true);
-            updateElement('netProfitMonthly', netProfitMonthly);
-            updateElement('roas', roas);
-            updateElement('ordersToCoverCosts', ordersToCoverCosts, false, true);
-            updateElement('cashFlow', cashFlow);
-            updateElement('returnLosses', returnLosses);
-        };
-
-        // Dark Mode Toggle
-        document.getElementById('darkModeToggle').addEventListener('change', () => {
-            document.getElementById('modeLabel').textContent = document.getElementById('darkModeToggle').checked ? 'ليل' : 'نهار';
-        });
-
-        // Currency Dropdown
-        const dropdownSelected = document.getElementById('dropdownSelected');
-        const dropdownOptions = document.getElementById('dropdownOptions');
-        document.querySelectorAll('.dropdown-option').forEach(option => {
-            option.addEventListener('click', () => {
-                const value = option.getAttribute('data-value');
-                dropdownSelected.innerHTML = `<span class="${option.querySelector('span').className}"></span> ${value} <i class="fas fa-chevron-down"></i>`;
-                document.getElementById('currency').value = value;
-                dropdownOptions.classList.remove('active');
-                calculateResults();
-            });
-        });
-        dropdownSelected.addEventListener('click', () => dropdownOptions.classList.toggle('active'));
-        document.addEventListener('click', (e) => {
-            if (!dropdownSelected.contains(e.target) && !dropdownOptions.contains(e.target)) {
-                dropdownOptions.classList.remove('active');
-            }
-        });
-
-        // Event Listeners for Inputs
-        document.querySelectorAll('input').forEach(input => {
-            input.addEventListener('input', calculateResults);
-        });
-
-        // Initial Calculation
-        calculateResults();
-    </script>
+  <!-- تسجيل Service Worker لتفعيل ميزات تطبيق الويب التقدمي (PWA) -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(function(registration) {
+            console.log('تم تسجيل الـ Service Worker بنجاح وبنطاق:', registration.scope);
+          }, function(err) {
+            console.log('فشل تسجيل الـ Service Worker:', err);
+          });
+      });
+    }
+    
+    document.getElementById('calculateBtn').addEventListener('click', function() {
+      const principal = parseFloat(document.getElementById('principal').value);
+      const rate = parseFloat(document.getElementById('rate').value) / 100;
+      const years = parseFloat(document.getElementById('years').value);
+      
+      if (isNaN(principal) || isNaN(rate) || isNaN(years)) {
+        document.getElementById('result').innerText = 'يرجى إدخال كافة القيم بشكل صحيح.';
+        return;
+      }
+      
+      // معادلة الفائدة المركبة:
+      // القيمة المستقبلية = رأس المال * (1 + معدل الفائدة)^عدد السنوات
+      const futureValue = principal * Math.pow((1 + rate), years);  
+      
+      document.getElementById('result').innerText =
+        'القيمة المستقبلية: ' + futureValue.toFixed(2) + ' جنيه';
+    });
+  </script>
 </body>
 </html>
