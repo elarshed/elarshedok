@@ -1,364 +1,411 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="theme-color" content="#2b6cb0">
-  <title>Aff Price - Ahmed Muhammed Abdeslam</title>
-  <!-- ربط Tailwind CSS وخطوط Google -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-  <!-- ربط ملف manifest للتطبيق -->
-  <link rel="manifest" href="manifest.json">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Cairo', sans-serif;
-      background: linear-gradient(135deg, #74ebd5, #9face6);
-      color: #1a202c;
-      min-height: 100vh;
-      padding: 0.5rem;
-      display: flex;
-      flex-direction: column;
-      overflow-x: hidden;
-      transition: background 0.3s ease;
-    }
-    .light-mode { background: linear-gradient(135deg, #74ebd5, #9face6); color: #1a202c; }
-    .dark-mode { background: #1a202c; color: #ffffff; }
-    .container {
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(5px);
-      border-radius: 1rem;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-      padding: 1rem;
-      max-width: 100%;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      position: relative;
-      animation: fadeIn 0.5s ease;
-      z-index: 2;
-    }
-    .dark-mode .container {
-      background: rgba(45, 55, 72, 0.9);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35);
-    }
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes glow {
-      0% { text-shadow: 0 0 5px rgba(56, 161, 105, 0.7); }
-      50% { text-shadow: 0 0 10px rgba(56, 161, 105, 1), 0 0 20px rgba(56, 161, 105, 0.7); }
-      100% { text-shadow: 0 0 5px rgba(56, 161, 105, 0.7); }
-    }
-    @keyframes scaleUp {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
-    /* باقي التنسيقات تبقى مشابهة مع تعديلات طفيفة على الهوامش والحواف لإضفاء طابع عصري */
-    /* ... (يمكنك الاحتفاظ بالكود الأصلي مع إضافة تحسينات بسيطة مثل استخدام rgba وألوان متناسقة) ... */
-  </style>
-</head>
-<body class="light-mode">
-  <div class="container">
-    <!-- Header مع تحسينات للبطاقة باستخدام تأثيرات الظل والتوهج -->
-    <header class="header flex flex-col items-center gap-3 p-3 rounded-lg">
-      <div class="profile-card bg-white/90 p-4 rounded-xl shadow-lg transform transition duration-500 hover:scale-105">
-        <div class="profile-pic w-20 h-20 rounded-full border-4 border-blue-600 overflow-hidden shadow-md">
-          <img src="https://scontent.faly1-2.fna.fbcdn.net/v/t39.30808-6/478724180_2012750999223754_4950667810291165018_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHGVoV1nv_uBT6VDiUmkTUBt9Lm4gk8hxC30ubiCTyHECTpTi2wl8gfRfMESNTozonQZKpDfqy38PE-slzWn9Ck&_nc_ohc=v_k1rOPK2F0Q7kNvgFLv1QA&_nc_oc=AdhvcaU_nFdQ4Z3Kg3E9swCkPRk7JtChJHFOQT9zYUpJ2idA5GZBKG6zFFvqxVjJidw&_nc_zt=23&_nc_ht=scontent.faly1-2.fna&_nc_gid=A_mUbigqD8_rNyd4OoHW9AM&oh=00_AYFDdgaYR159DtFUSCb60jQqfWAmWMrG9davjLCYD83ONw&oe=67D0AAED" alt="Ahmed Muhammed Abdeslam">
-        </div>
-        <div class="profile-info flex flex-col items-center gap-1">
-          <span class="profile-name text-xl font-black text-blue-600 flex items-center gap-1">
-            Aff Price <i class="fas fa-calculator animate-bounce"></i>
-          </span>
-          <span class="creator-name text-sm font-bold text-gray-700">Ahmed Muhammed Abdeslam</span>
-          <div class="social-links flex gap-2 mt-1">
-            <a href="https://web.facebook.com/ahmed10az" target="_blank" class="facebook text-blue-600"><i class="fab fa-facebook"></i></a>
-            <a href="https://wa.me/201282512082" target="_blank" class="whatsapp text-green-500"><i class="fab fa-whatsapp"></i></a>
-            <a href="https://instagram.com/ahmed10az" target="_blank" class="instagram text-pink-500"><i class="fab fa-instagram"></i></a>
-            <a href="https://tiktok.com/@elarshedok" target="_blank" class="tiktok text-black"><i class="fab fa-tiktok"></i></a>
-            <a href="https://linkedin.com/in/elarshedok" target="_blank" class="linkedin text-blue-500"><i class="fab fa-linkedin"></i></a>
-          </div>
-        </div>
-      </div>
-      <!-- Controls مع تبديل الوضع وإختيار العملة -->
-      <div class="controls flex justify-between items-center w-full px-3">
-        <div class="mode-toggle flex items-center gap-2">
-          <label class="toggle-switch relative w-9 h-4">
-            <input type="checkbox" id="darkModeToggle" class="absolute opacity-0 w-0 h-0">
-            <span class="slider absolute top-0 left-0 right-0 bottom-0 bg-gray-400 rounded-full border border-blue-600 transition"></span>
-          </label>
-          <i class="fas fa-sun mode-icon light-mode-icon text-yellow-500"></i>
-          <i class="fas fa-moon mode-icon dark-mode-icon text-gray-300" style="display: none;"></i>
-          <span id="modeLabel" class="text-sm font-bold">نهار</span>
-        </div>
-        <div class="custom-dropdown relative w-28">
-          <div class="dropdown-selected flex items-center justify-center p-2 border border-blue-600 rounded-md bg-white cursor-pointer" id="dropdownSelected">
-            <span class="flag-icon flag-icon-eg"></span> EGP <i class="fas fa-chevron-down text-sm"></i>
-          </div>
-          <div class="dropdown-options absolute top-full right-0 w-full bg-white rounded-md shadow-lg hidden" id="dropdownOptions">
-            <div class="dropdown-option flex items-center p-2 text-sm cursor-pointer hover:bg-gray-200" data-value="EGP">
-              <span class="flag-icon flag-icon-eg"></span> EGP
-            </div>
-            <div class="dropdown-option flex items-center p-2 text-sm cursor-pointer hover:bg-gray-200" data-value="LYD">
-              <span class="flag-icon flag-icon-ly"></span> LYD
-            </div>
-            <div class="dropdown-option flex items-center p-2 text-sm cursor-pointer hover:bg-gray-200" data-value="SAR">
-              <span class="flag-icon flag-icon-sa"></span> SAR
-            </div>
-            <div class="dropdown-option flex items-center p-2 text-sm cursor-pointer hover:bg-gray-200" data-value="AED">
-              <span class="flag-icon flag-icon-ae"></span> AED
-            </div>
-          </div>
-          <input type="hidden" id="currency" value="EGP">
-        </div>
-      </div>
-    </header>
-
-    <!-- Inputs Section -->
-    <div class="inputs-section bg-blue-100 p-4 rounded-xl shadow-md animate-slideIn">
-      <div class="inputs-container grid grid-cols-2 md:grid-cols-3 gap-3">
-        <!-- عناصر الإدخال تبقى كما هي مع تحسينات طفيفة للمظهر -->
-        <div class="input-group" style="--order: 1;">
-          <label class="text-blue-600 font-bold flex items-center gap-1"><i class="fas fa-dollar-sign"></i> سعر الجملة</label>
-          <input type="number" id="productPrice" step="any" min="0" value="324" class="w-full p-2 border border-blue-600 rounded-md focus:outline-none">
-        </div>
-        <div class="input-group" style="--order: 2;">
-          <label class="text-blue-600 font-bold flex items-center gap-1"><i class="fas fa-shopping-cart"></i> سعر البيع بالشحن</label>
-          <input type="number" id="sellingPrice" step="any" min="0" value="550" class="w-full p-2 border border-blue-600 rounded-md focus:outline-none">
-        </div>
-        <div class="input-group" style="--order: 3;">
-          <label class="text-blue-600 font-bold flex items-center gap-1"><i class="fas fa-truck"></i> تكلفة الشحن</label>
-          <input type="number" id="shippingCost" step="any" min="0" value="55" class="w-full p-2 border border-blue-600 rounded-md focus:outline-none">
-        </div>
-        <div class="input-group" style="--order: 4;">
-          <label class="text-blue-600 font-bold flex items-center gap-1"><i class="fas fa-boxes"></i> الأوردرات</label>
-          <input type="number" id="targetOrders" step="1" min="0" value="438" class="w-full p-2 border border-blue-600 rounded-md focus:outline-none">
-        </div>
-        <div class="input-group" style="--order: 5;">
-          <label class="text-blue-600 font-bold flex items-center gap-1"><i class="fas fa-percentage"></i> نسبة التسليم</label>
-          <input type="number" id="deliveryRate" step="any" min="0" max="100" value="15" class="w-full p-2 border border-blue-600 rounded-md focus:outline-none">
-        </div>
-        <div class="input-group" style="--order: 6;">
-          <label class="text-blue-600 font-bold flex items-center gap-1"><i class="fas fa-ad"></i> تكلفة الأوردر</label>
-          <input type="number" id="adCostPerOrder" step="any" min="0" value="17" class="w-full p-2 border border-blue-600 rounded-md focus:outline-none">
-        </div>
-        <div class="input-group tax-group flex flex-row items-center justify-between" style="--order: 7;">
-          <label class="text-blue-600 font-bold flex items-center gap-1"><i class="fas fa-tax"></i> ضريبة 14%</label>
-          <div class="tax-toggle flex items-center gap-1">
-            <label class="toggle-switch relative w-9 h-4">
-              <input type="checkbox" id="applyTax" checked class="absolute opacity-0 w-0 h-0">
-              <span class="slider absolute top-0 left-0 right-0 bottom-0 bg-gray-400 rounded-full border border-blue-600 transition"></span>
-            </label>
-            <span id="taxStatus" class="flex items-center gap-1"><span class="status-dot w-2 h-2 rounded-full bg-blue-600"></span> <span id="taxText">مفعل</span></span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Decorative Line -->
-    <div class="decorative-line h-1 rounded-full bg-gradient-to-r from-transparent via-blue-600 to-transparent my-3"></div>
-
-    <!-- Results Section -->
-    <div class="results-section p-4 animate-slideIn">
-      <div class="results-container grid grid-cols-2 md:grid-cols-3 gap-3" id="results">
-        <div class="result-card p-3 border rounded-md shadow-sm" style="--order: 1;">
-          <p class="flex items-center gap-1 text-blue-600 font-bold"><i class="fas fa-coins"></i> ربح الأوردر</p>
-          <p id="netProfitPerOrder" class="result-value text-lg"></p>
-        </div>
-        <div class="result-card p-3 border rounded-md shadow-sm" style="--order: 2;">
-          <p class="flex items-center gap-1 text-blue-600 font-bold"><i class="fas fa-chart-line"></i> هامش الربح</p>
-          <p id="profitMargin" class="result-value text-lg"></p>
-        </div>
-        <div class="result-card p-3 border rounded-md shadow-sm" style="--order: 3;">
-          <p class="flex items-center gap-1 text-blue-600 font-bold"><i class="fas fa-truck-loading"></i> الأوردرات المسلمة</p>
-          <p id="deliveredOrders" class="result-value text-lg"></p>
-        </div>
-        <!-- باقي البطاقات تبقى كما هي مع إضافة تأثيرات ظهور -->
-        <div class="result-card hidden" id="profitBeforeAdsCard" style="--order: 4;">
-          <p class="flex items-center gap-1 text-blue-600 font-bold"><i class="fas fa-money-bill-wave"></i> الربح قبل الإنفاق</p>
-          <p id="profitBeforeAds" class="result-value"></p>
-        </div>
-        <div class="result-card hidden" id="totalAdSpendCard" style="--order: 5;">
-          <p class="flex items-center gap-1 text-blue-600 font-bold"><i class="fas fa-bullhorn"></i> إنفاق الإعلانات</p>
-          <p id="totalAdSpend" class="result-value"></p>
-        </div>
-        <div class="result-card hidden" id="adSpendWithTaxCard" style="--order: 6;">
-          <p class="flex items-center gap-1 text-blue-600 font-bold"><i class="fas fa-calculator"></i> الإنفاق شامل الضريبة</p>
-          <p id="adSpendWithTax" class="result-value"></p>
-        </div>
-        <div class="result-card bg-blue-50 p-3 rounded-md shadow-lg" style="--order: 7;">
-          <p class="flex items-center gap-1 text-blue-600 font-bold"><i class="fas fa-wallet"></i> صافي الربح</p>
-          <div class="profit-indicators flex items-center gap-1">
-            <p id="netProfitAfterAds" class="result-value text-2xl"></p>
-            <i id="profitIndicator" class="fas fa-arrow-up profit-indicator" style="display: none;"></i>
-            <i id="trendIndicator" class="fas fa-arrow-up trend-indicator" style="display: none;"></i>
-          </div>
-        </div>
-      </div>
-      <div class="buttons-container flex justify-between mt-4">
-        <button class="reset-btn bg-red-500 text-white px-4 py-2 rounded-md shadow hover:opacity-90" onclick="resetValues()">محو البيانات</button>
-        <button class="show-more-btn bg-blue-600 text-white px-4 py-2 rounded-md shadow hover:opacity-90" id="showMoreBtn" onclick="showMoreResults()">إظهار المزيد</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- سكربتات الجافا سكريبت تبقى مشابهة مع تحسينات بسيطة للتعامل مع الأحداث -->
-  <script>
-    let previousProfit = 0;
-    const currencySymbols = { EGP: 'ج.م', LYD: 'د.ل', SAR: 'ر.س', AED: 'د.إ' };
-    const getCurrencySymbol = () => currencySymbols[document.getElementById('currency').value];
-
-    const calculateResults = () => {
-      // نفس الحسابات كما في الكود الأصلي
-      const productPrice = parseFloat(document.getElementById('productPrice').value) || 0;
-      const sellingPrice = parseFloat(document.getElementById('sellingPrice').value) || 0;
-      const shippingCost = parseFloat(document.getElementById('shippingCost').value) || 0;
-      const targetOrders = parseFloat(document.getElementById('targetOrders').value) || 0;
-      const deliveryRate = parseFloat(document.getElementById('deliveryRate').value) || 0;
-      const adCostPerOrder = parseFloat(document.getElementById('adCostPerOrder').value) || 0;
-      const applyTax = document.getElementById('applyTax').checked;
-      const currencySymbol = getCurrencySymbol();
-
-      const netProfitPerOrder = sellingPrice - productPrice - shippingCost;
-      const profitMargin = sellingPrice ? (netProfitPerOrder / sellingPrice) * 100 : 0;
-      const deliveredOrders = (targetOrders * deliveryRate) / 100;
-      const profitBeforeAds = deliveredOrders * netProfitPerOrder;
-      const totalAdSpend = targetOrders * adCostPerOrder;
-      const adSpendWithTax = applyTax ? totalAdSpend * 1.14 : totalAdSpend;
-      const netProfitAfterAds = profitBeforeAds - adSpendWithTax;
-
-      const updateElement = (id, value, isPercentage = false, isNumberOnly = false) => {
-        const element = document.getElementById(id);
-        const oldValue = parseFloat(element.textContent.replace(/[^\d.-]/g, '')) || 0;
-        element.textContent = isPercentage ? `${value.toFixed(2)}%` : (isNumberOnly ? value.toFixed(0) : `${currencySymbol} ${value.toFixed(2)}`);
-        element.classList.remove('text-red-600', 'text-green-600', 'text-gray-600');
-        if (value > 0) element.classList.add('text-green-600', 'glow');
-        else if (value < 0) element.classList.add('text-red-600', 'glow');
-        else element.classList.add('text-gray-600');
-        if (value !== oldValue) {
-          element.style.animation = 'scaleUp 0.5s ease';
-          setTimeout(() => element.style.animation = '', 500);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aff Price - Ahmed Muhammed Abdeslam</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: radial-gradient(circle at center, #0d1b2a, #1b263b);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 2rem;
+            overflow-x: hidden;
+            position: relative;
         }
-      };
+        .container {
+            background: rgba(27, 38, 59, 0.9);
+            border-radius: 1rem;
+            padding: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            box-shadow: 0 0 30px rgba(69, 123, 157, 0.5);
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            animation: glowPulse 2s infinite;
+        }
+        .profile-card {
+            display: inline-block;
+            background: rgba(69, 123, 157, 0.3);
+            padding: 1rem;
+            border-radius: 1rem;
+            box-shadow: 0 0 20px rgba(69, 123, 157, 0.7);
+            transition: transform 0.3s ease;
+        }
+        .profile-card:hover { transform: scale(1.05); }
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid #457b9d;
+            box-shadow: 0 0 15px rgba(69, 123, 157, 0.8);
+        }
+        .profile-pic img { width: 100%; height: 100%; object-fit: cover; }
+        .profile-name { font-size: 1.8rem; font-weight: 900; color: #a8dadc; text-shadow: 0 0 10px #457b9d; }
+        .creator-name { font-size: 1.1rem; color: #e0e0e0; }
+        .social-links { display: flex; justify-content: center; gap: 0.5rem; margin-top: 0.5rem; }
+        .social-links a {
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            color: #e0e0e0;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .social-links a:hover { transform: scale(1.2); }
+        .social-links .facebook:hover { color: #1877F2; }
+        .social-links .whatsapp:hover { color: #25D366; }
+        .social-links .instagram:hover { color: #E1306C; }
+        .social-links .tiktok:hover { color: #000000; }
+        .social-links .linkedin:hover { color: #0077B5; }
 
-      updateElement('netProfitPerOrder', netProfitPerOrder);
-      updateElement('profitMargin', profitMargin, true);
-      updateElement('deliveredOrders', deliveredOrders, false, true);
-      updateElement('profitBeforeAds', profitBeforeAds);
-      updateElement('totalAdSpend', totalAdSpend);
-      updateElement('adSpendWithTax', adSpendWithTax);
-      updateElement('netProfitAfterAds', netProfitAfterAds);
+        /* Controls */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(69, 123, 157, 0.5);
+        }
+        .mode-toggle { display: flex; align-items: center; gap: 0.5rem; }
+        .toggle-switch { position: relative; width: 40px; height: 20px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #457b9d;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 2px;
+            bottom: 2px;
+            background: #e0e0e0;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+        input:checked + .slider { background: #a8dadc; }
+        input:checked + .slider:before { transform: translateX(20px); }
+        .mode-toggle span { font-weight: 700; color: #e0e0e0; }
 
-      const indicator = document.getElementById('profitIndicator');
-      indicator.style.display = netProfitAfterAds !== 0 ? 'inline' : 'none';
-      indicator.classList.remove('fa-arrow-up', 'fa-arrow-down', 'up', 'down');
-      indicator.classList.add(netProfitAfterAds > 0 ? 'fa-arrow-up' : 'fa-arrow-down', netProfitAfterAds > 0 ? 'up' : 'down');
+        /* Dropdown */
+        .custom-dropdown { width: 120px; position: relative; }
+        .dropdown-selected {
+            padding: 0.5rem;
+            background: rgba(69, 123, 157, 0.3);
+            border: 1px solid #457b9d;
+            border-radius: 0.5rem;
+            color: #e0e0e0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .dropdown-options {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 100%;
+            background: rgba(27, 38, 59, 0.9);
+            border-radius: 0.5rem;
+            box-shadow: 0 0 20px rgba(69, 123, 157, 0.5);
+            display: none;
+            z-index: 10;
+        }
+        .dropdown-options.active { display: block; }
+        .dropdown-option {
+            padding: 0.5rem;
+            color: #e0e0e0;
+            cursor: pointer;
+        }
+        .dropdown-option:hover { background: rgba(69, 123, 157, 0.5); }
 
-      const trendIndicator = document.getElementById('trendIndicator');
-      if (netProfitAfterAds !== previousProfit) {
-        trendIndicator.style.display = 'inline';
-        trendIndicator.classList.remove('fa-arrow-up', 'fa-arrow-down', 'up-trend', 'down-trend');
-        trendIndicator.classList.add(netProfitAfterAds > previousProfit ? 'fa-arrow-up' : 'fa-arrow-down', netProfitAfterAds > previousProfit ? 'up-trend' : 'down-trend');
-        setTimeout(() => trendIndicator.style.display = 'none', 2000);
-      }
-      previousProfit = netProfitAfterAds;
-    };
+        /* Inputs and Results */
+        .inputs-section, .results-section {
+            background: rgba(43, 58, 85, 0.7);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 20px rgba(69, 123, 157, 0.3);
+        }
+        .inputs-container, .results-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .input-group { position: relative; }
+        .input-group label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #a8dadc;
+            text-shadow: 0 0 5px #457b9d;
+        }
+        .input-group input {
+            padding: 0.5rem;
+            border: 1px solid #457b9d;
+            border-radius: 0.5rem;
+            background: rgba(27, 38, 59, 0.8);
+            color: #e0e0e0;
+            font-weight: 700;
+            transition: box-shadow 0.3s ease;
+        }
+        .input-group input:focus {
+            box-shadow: 0 0 10px rgba(69, 123, 157, 0.8);
+            outline: none;
+        }
+        .result-card {
+            background: rgba(69, 123, 157, 0.2);
+            border: 1px solid #457b9d;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px rgba(69, 123, 157, 0.7);
+        }
+        .result-card p:first-child { font-weight: 700; color: #a8dadc; }
+        .result-card p:last-child { font-weight: 900; font-size: 1.1rem; }
+        .text-green-600 { color: #48bb78; }
+        .text-red-600 { color: #e63946; }
 
-    const updateTaxStatus = () => {
-      const applyTax = document.getElementById('applyTax').checked;
-      document.getElementById('taxText').textContent = applyTax ? 'مفعل' : 'غير مفعل';
-      document.querySelector('.status-dot').classList.toggle('bg-blue-600', applyTax);
-      document.querySelector('.status-dot').classList.toggle('bg-red-600', !applyTax);
-    };
+        /* Animations */
+        @keyframes glowPulse {
+            0% { text-shadow: 0 0 5px rgba(69, 123, 157, 0.5); }
+            50% { text-shadow: 0 0 15px rgba(69, 123, 157, 1); }
+            100% { text-shadow: 0 0 5px rgba(69, 123, 157, 0.5); }
+        }
+        .dashboard-title { font-size: 1.5rem; color: #a8dadc; text-shadow: 0 0 10px #457b9d; margin-bottom: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="profile-card">
+                <div class="profile-pic">
+                    <img src="https://scontent.faly1-2.fna.fbcdn.net/v/t39.30808-6/478724180_2012750999223754_4950667810291165018_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHGVoV1nv_uBT6VDiUmkTUBt9Lm4gk8hxC30ubiCTyHECTpTi2wl8gfRfMESNTozonQZKpDfqy38PE-slzWn9Ck&_nc_ohc=v_k1rOPK2F0Q7kNvgFLv1QA&_nc_oc=AdhvcaU_nFdQ4Z3Kg3E9swCkPRk7JtChJHFOQT9zYUpJ2idA5GZBKG6zFFvqxVjJidw&_nc_zt=23&_nc_ht=scontent.faly1-2.fna&_nc_gid=A_mUbigqD8_rNyd4OoHW9AM&oh=00_AYFDdgaYR159DtFUSCb60jQqfWAmWMrG9davjLCYD83ONw&oe=67D0AAED" alt="Ahmed Muhammed Abdeslam">
+                </div>
+                <div class="profile-info">
+                    <span class="profile-name">Aff Price</span>
+                    <span class="creator-name">Ahmed Muhammed Abdeslam</span>
+                    <div class="social-links">
+                        <a href="https://web.facebook.com/ahmed10az" target="_blank" class="facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="https://wa.me/201282512082" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://instagram.com/ahmed10az" target="_blank" class="instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://tiktok.com/@elarshedok" target="_blank" class="tiktok"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://linkedin.com/in/elarshedok" target="_blank" class="linkedin"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="controls">
+                <div class="mode-toggle">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="darkModeToggle">
+                        <span class="slider"></span>
+                    </label>
+                    <span id="modeLabel">نهار</span>
+                </div>
+                <div class="custom-dropdown">
+                    <div class="dropdown-selected" id="dropdownSelected">
+                        <span class="flag-icon flag-icon-eg"></span> EGP
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="dropdown-options" id="dropdownOptions">
+                        <div class="dropdown-option" data-value="EGP"><span class="flag-icon flag-icon-eg"></span> EGP</div>
+                        <div class="dropdown-option" data-value="LYD"><span class="flag-icon flag-icon-ly"></span> LYD</div>
+                        <div class="dropdown-option" data-value="SAR"><span class="flag-icon flag-icon-sa"></span> SAR</div>
+                        <div class="dropdown-option" data-value="AED"><span class="flag-icon flag-icon-ae"></span> AED</div>
+                    </div>
+                    <input type="hidden" id="currency" value="EGP">
+                </div>
+            </div>
+        </header>
 
-    const showMoreResults = () => {
-      const hiddenCards = document.querySelectorAll('.result-card.hidden');
-      hiddenCards.forEach((card, index) => {
-        card.classList.remove('hidden');
-        card.style.display = 'flex';
-        setTimeout(() => card.classList.add('visible'), index * 100);
-      });
-      document.getElementById('showMoreBtn').style.display = 'none';
-    };
+        <!-- Inputs Section -->
+        <div class="inputs-section">
+            <h2 class="dashboard-title">لوحة المدخلات المالية</h2>
+            <div class="inputs-container">
+                <div class="input-group">
+                    <label><i class="fas fa-box"></i> سعر المنتج</label>
+                    <input type="number" id="productCost" step="any" min="0" value="100">
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-warehouse"></i> تكلفة التخزين الشهرية</label>
+                    <input type="number" id="storageCost" step="any" min="0" value="500">
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-truck"></i> تكلفة الشحن لكل طلب</label>
+                    <input type="number" id="shippingCost" step="any" min="0" value="20">
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-ad"></i> تكلفة الإعلان لكل طلب</label>
+                    <input type="number" id="adCostPerOrder" step="any" min="0" value="15">
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-dollar-sign"></i> سعر البيع لكل طلب</label>
+                    <input type="number" id="sellingPrice" step="any" min="0" value="200">
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-percentage"></i> نسبة التسليم الناجح (%)</label>
+                    <input type="number" id="deliveryRate" step="any" min="0" max="100" value="80">
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-cogs"></i> تكاليف التشغيل الشهرية</label>
+                    <input type="number" id="operationalCost" step="any" min="0" value="1000">
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-shopping-cart"></i> عدد الطلبات المستهدفة</label>
+                    <input type="number" id="targetOrders" step="1" min="0" value="50">
+                </div>
+            </div>
+        </div>
 
-    document.getElementById('darkModeToggle').addEventListener('change', () => {
-      document.body.classList.toggle('light-mode', !document.getElementById('darkModeToggle').checked);
-      document.body.classList.toggle('dark-mode', document.getElementById('darkModeToggle').checked);
-      document.getElementById('modeLabel').textContent = document.getElementById('darkModeToggle').checked ? 'ليل' : 'نهار';
-      document.querySelector('.light-mode-icon').style.display = document.getElementById('darkModeToggle').checked ? 'none' : 'inline';
-      document.querySelector('.dark-mode-icon').style.display = document.getElementById('darkModeToggle').checked ? 'inline' : 'none';
-    });
+        <!-- Results Section -->
+        <div class="results-section">
+            <h2 class="dashboard-title">لوحة النتائج المالية</h2>
+            <div class="results-container">
+                <div class="result-card">
+                    <p><i class="fas fa-coins"></i> إجمالي تكلفة كل طلب</p>
+                    <p id="totalCostPerOrder"></p>
+                </div>
+                <div class="result-card">
+                    <p><i class="fas fa-arrow-down"></i> السعر الأدنى للبيع</p>
+                    <p id="breakevenPrice"></p>
+                </div>
+                <div class="result-card">
+                    <p><i class="fas fa-arrow-up"></i> السعر المناسب للبيع</p>
+                    <p id="recommendedPrice"></p>
+                </div>
+                <div class="result-card">
+                    <p><i class="fas fa-chart-line"></i> هامش الربح لكل طلب</p>
+                    <p id="profitMargin"></p>
+                </div>
+                <div class="result-card">
+                    <p><i class="fas fa-wallet"></i> صافي الربح الشهري</p>
+                    <p id="netProfitMonthly"></p>
+                </div>
+                <div class="result-card">
+                    <p><i class="fas fa-bullhorn"></i> العائد على الإعلانات</p>
+                    <p id="roas"></p>
+                </div>
+                <div class="result-card">
+                    <p><i class="fas fa-boxes"></i> طلبات لتغطية التكاليف</p>
+                    <p id="ordersToCoverCosts"></p>
+                </div>
+                <div class="result-card">
+                    <p><i class="fas fa-money-bill-wave"></i> التدفق النقدي</p>
+                    <p id="cashFlow"></p>
+                </div>
+                <div class="result-card">
+                    <p><i class="fas fa-undo"></i> الخسائر من المرتجعات</p>
+                    <p id="returnLosses"></p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    const dropdownSelected = document.getElementById('dropdownSelected');
-    const dropdownOptions = document.getElementById('dropdownOptions');
-    const currencyInput = document.getElementById('currency');
-    document.querySelectorAll('.dropdown-option').forEach(option => {
-      option.addEventListener('click', () => {
-        const value = option.getAttribute('data-value');
-        dropdownSelected.innerHTML = `<span class="${option.querySelector('span').className}"></span> ${value} <i class="fas fa-chevron-down text-sm"></i>`;
-        currencyInput.value = value;
-        dropdownOptions.classList.add('hidden');
+    <script>
+        const currencySymbols = { EGP: 'ج.م', LYD: 'د.ل', SAR: 'ر.س', AED: 'د.إ' };
+        const getCurrencySymbol = () => currencySymbols[document.getElementById('currency').value];
+
+        const calculateResults = () => {
+            const productCost = parseFloat(document.getElementById('productCost').value) || 0;
+            const storageCost = parseFloat(document.getElementById('storageCost').value) || 0;
+            const shippingCost = parseFloat(document.getElementById('shippingCost').value) || 0;
+            const adCostPerOrder = parseFloat(document.getElementById('adCostPerOrder').value) || 0;
+            const sellingPrice = parseFloat(document.getElementById('sellingPrice').value) || 0;
+            const deliveryRate = parseFloat(document.getElementById('deliveryRate').value) || 0;
+            const operationalCost = parseFloat(document.getElementById('operationalCost').value) || 0;
+            const targetOrders = parseFloat(document.getElementById('targetOrders').value) || 0;
+            const currencySymbol = getCurrencySymbol();
+
+            const storageCostPerOrder = targetOrders ? storageCost / targetOrders : 0;
+            const totalCostPerOrder = productCost + shippingCost + adCostPerOrder + storageCostPerOrder;
+            const breakevenPrice = totalCostPerOrder;
+            const profitMarginTarget = 0.3;
+            const recommendedPrice = totalCostPerOrder / (1 - profitMarginTarget);
+            const profitPerOrder = sellingPrice - totalCostPerOrder;
+            const profitMargin = sellingPrice ? (profitPerOrder / sellingPrice) * 100 : 0;
+
+            const deliveredOrders = targetOrders * (deliveryRate / 100);
+            const returnRate = 100 - deliveryRate;
+            const returnedOrders = targetOrders * (returnRate / 100);
+            const returnLosses = returnedOrders * totalCostPerOrder;
+
+            const revenue = deliveredOrders * sellingPrice;
+            const totalAdSpend = targetOrders * adCostPerOrder;
+            const roas = totalAdSpend ? revenue / totalAdSpend : 0;
+            const netProfitMonthly = revenue - (deliveredOrders * totalCostPerOrder) - operationalCost;
+            const cashFlow = netProfitMonthly - returnLosses;
+            const ordersToCoverCosts = profitPerOrder > 0 ? (operationalCost + storageCost) / profitPerOrder : 0;
+
+            const updateElement = (id, value, isPercentage = false, isNumberOnly = false) => {
+                const element = document.getElementById(id);
+                element.textContent = isPercentage ? `${value.toFixed(2)}%` : 
+                                     isNumberOnly ? Math.ceil(value) : `${currencySymbol} ${value.toFixed(2)}`;
+                element.classList.remove('text-red-600', 'text-green-600');
+                element.classList.add(value >= 0 ? 'text-green-600' : 'text-red-600');
+            };
+
+            updateElement('totalCostPerOrder', totalCostPerOrder);
+            updateElement('breakevenPrice', breakevenPrice);
+            updateElement('recommendedPrice', recommendedPrice);
+            updateElement('profitMargin', profitMargin, true);
+            updateElement('netProfitMonthly', netProfitMonthly);
+            updateElement('roas', roas);
+            updateElement('ordersToCoverCosts', ordersToCoverCosts, false, true);
+            updateElement('cashFlow', cashFlow);
+            updateElement('returnLosses', returnLosses);
+        };
+
+        // Dark Mode Toggle
+        document.getElementById('darkModeToggle').addEventListener('change', () => {
+            document.getElementById('modeLabel').textContent = document.getElementById('darkModeToggle').checked ? 'ليل' : 'نهار';
+        });
+
+        // Currency Dropdown
+        const dropdownSelected = document.getElementById('dropdownSelected');
+        const dropdownOptions = document.getElementById('dropdownOptions');
+        document.querySelectorAll('.dropdown-option').forEach(option => {
+            option.addEventListener('click', () => {
+                const value = option.getAttribute('data-value');
+                dropdownSelected.innerHTML = `<span class="${option.querySelector('span').className}"></span> ${value} <i class="fas fa-chevron-down"></i>`;
+                document.getElementById('currency').value = value;
+                dropdownOptions.classList.remove('active');
+                calculateResults();
+            });
+        });
+        dropdownSelected.addEventListener('click', () => dropdownOptions.classList.toggle('active'));
+        document.addEventListener('click', (e) => {
+            if (!dropdownSelected.contains(e.target) && !dropdownOptions.contains(e.target)) {
+                dropdownOptions.classList.remove('active');
+            }
+        });
+
+        // Event Listeners for Inputs
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', calculateResults);
+        });
+
+        // Initial Calculation
         calculateResults();
-      });
-    });
-    dropdownSelected.addEventListener('click', () => dropdownOptions.classList.toggle('hidden'));
-    document.addEventListener('click', (e) => {
-      if (!dropdownSelected.contains(e.target) && !dropdownOptions.contains(e.target)) {
-        dropdownOptions.classList.add('hidden');
-      }
-    });
-
-    function resetValues() {
-      document.getElementById('productPrice').value = 0;
-      document.getElementById('sellingPrice').value = 0;
-      document.getElementById('shippingCost').value = 0;
-      document.getElementById('targetOrders').value = 0;
-      document.getElementById('deliveryRate').value = 0;
-      document.getElementById('adCostPerOrder').value = 0;
-      document.getElementById('applyTax').checked = false;
-      calculateResults();
-      updateTaxStatus();
-      const hiddenCards = document.querySelectorAll('.result-card.hidden');
-      hiddenCards.forEach(card => {
-        card.classList.add('hidden');
-        card.style.display = 'none';
-      });
-      document.getElementById('showMoreBtn').style.display = 'block';
-    }
-
-    document.querySelectorAll('input, #currency, #applyTax').forEach(input => {
-      input.addEventListener('input', () => {
-        calculateResults();
-        updateTaxStatus();
-      });
-    });
-
-    // تعيين القيمة الابتدائية لمجرد العرض التجريبي
-    document.getElementById('netProfitAfterAds').textContent = 'ج.م 2746.26';
-    document.getElementById('netProfitAfterAds').classList.add('text-green-600', 'glow');
-    calculateResults();
-    updateTaxStatus();
-
-    // تسجيل Service Worker لتحويل الصفحة إلى تطبيق ويب تقدمي
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js')
-          .then(registration => console.log('Service Worker registered:', registration))
-          .catch(error => console.error('Service Worker registration failed:', error));
-      });
-    }
-  </script>
+    </script>
 </body>
 </html>
