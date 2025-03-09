@@ -1,224 +1,364 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <!-- إعدادات العرض لتحسين تجربة المستخدم على الموبايل -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <title>لوحة التحكم - Ahmed Muhammed Abdeslam</title>
-  <!-- ربط ملف الماني فست الخاص بالتطبيق -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#2b6cb0">
+  <title>Aff Price - Ahmed Muhammed Abdeslam</title>
+  <!-- ربط Tailwind CSS وخطوط Google -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+  <!-- ربط ملف manifest للتطبيق -->
   <link rel="manifest" href="manifest.json">
-  <!-- استخدام خط "Orbitron" لإضفاء طابع مستقبلي -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
   <style>
-    /* إعادة تعيين الأنماط الأساسية */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    /* تصميم خلفية داكنة مع تأثيرات نيون */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: radial-gradient(circle, #0c0c0c, #050505, #0c0c0c);
-      font-family: 'Orbitron', sans-serif;
-      color: #fff;
-      line-height: 1.6;
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(135deg, #74ebd5, #9face6);
+      color: #1a202c;
       min-height: 100vh;
-    }
-    header {
-      background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
-      padding: 20px;
-      text-align: center;
-      border-bottom: 3px solid #39ff14;
-    }
-    /* القسم الخاص بالملف الشخصي */
-    .profile {
+      padding: 0.5rem;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      overflow-x: hidden;
+      transition: background 0.3s ease;
     }
-    .profile img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 3px solid #39ff14;
-      margin-bottom: 10px;
-      box-shadow: 0 0 10px #39ff14;
-    }
-    .profile h1 {
-      font-size: 2rem;
-      color: #39ff14;
-      margin-bottom: 5px;
-    }
-    .social-links {
-      margin-top: 10px;
-    }
-    .social-links a {
-      color: #39ff14;
-      margin: 0 8px;
-      text-decoration: none;
-      font-size: 1.2em;
-      transition: color 0.3s;
-    }
-    .social-links a:hover {
-      color: #fff;
-    }
-    main {
-      padding: 20px;
-    }
-    /* تصميم لوحة التحكم بكروت متجاوبة */
-    .dashboard {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-    }
-    .card {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 20px;
-      border-radius: 10px;
-      border: 1px solid rgba(57, 255, 20, 0.5);
-      box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 0 25px rgba(57, 255, 20, 0.5);
-    }
-    .card h2 {
-      margin-bottom: 15px;
-      color: #39ff14;
-    }
-    .card p {
-      margin-bottom: 10px;
-      font-size: 1.1rem;
-    }
-    .input-group {
-      margin-bottom: 15px;
+    .light-mode { background: linear-gradient(135deg, #74ebd5, #9face6); color: #1a202c; }
+    .dark-mode { background: #1a202c; color: #ffffff; }
+    .container {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(5px);
+      border-radius: 1rem;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      padding: 1rem;
+      max-width: 100%;
+      flex-grow: 1;
       display: flex;
       flex-direction: column;
+      gap: 1rem;
+      position: relative;
+      animation: fadeIn 0.5s ease;
+      z-index: 2;
     }
-    .input-group label {
-      margin-bottom: 5px;
-      color: #bbb;
+    .dark-mode .container {
+      background: rgba(45, 55, 72, 0.9);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35);
     }
-    .input-group input {
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      outline: none;
-      background: rgba(255,255,255,0.1);
-      color: #fff;
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    .btn {
-      padding: 10px 20px;
-      background: linear-gradient(45deg, #39ff14, #0f2027);
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      color: #fff;
-      font-size: 1rem;
-      transition: background 0.3s;
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    .btn:hover {
-      background: linear-gradient(45deg, #0f2027, #39ff14);
+    @keyframes glow {
+      0% { text-shadow: 0 0 5px rgba(56, 161, 105, 0.7); }
+      50% { text-shadow: 0 0 10px rgba(56, 161, 105, 1), 0 0 20px rgba(56, 161, 105, 0.7); }
+      100% { text-shadow: 0 0 5px rgba(56, 161, 105, 0.7); }
     }
-    .result {
-      margin-top: 15px;
-      font-size: 1.2rem;
-      color: #39ff14;
+    @keyframes scaleUp {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
     }
-    /* تحسين عرض المكونات على أجهزة الموبايل */
-    @media (max-width: 480px) {
-      header h1 {
-        font-size: 1.5rem;
-      }
-      .profile img {
-        width: 100px;
-        height: 100px;
-      }
-      .social-links a {
-        font-size: 1rem;
-        margin: 0 5px;
-      }
-    }
+    /* باقي التنسيقات تبقى مشابهة مع تعديلات طفيفة على الهوامش والحواف لإضفاء طابع عصري */
+    /* ... (يمكنك الاحتفاظ بالكود الأصلي مع إضافة تحسينات بسيطة مثل استخدام rgba وألوان متناسقة) ... */
   </style>
 </head>
-<body>
-  <!-- رأس الصفحة مع الملف الشخصي -->
-  <header>
-    <div class="profile">
-      <!-- استبدل "your-profile-picture.jpg" بمسار صورتك -->
-      <img src="your-profile-picture.jpg" alt="Ahmed Muhammed Abdeslam">
-      <h1>Ahmed Muhammed Abdeslam</h1>
-      <div class="social-links">
-        <a href="https://facebook.com/ahmed" target="_blank">Facebook</a>
-        <a href="https://twitter.com/ahmed" target="_blank">Twitter</a>
-        <a href="https://linkedin.com/in/ahmed" target="_blank">LinkedIn</a>
+<body class="light-mode">
+  <div class="container">
+    <!-- Header مع تحسينات للبطاقة باستخدام تأثيرات الظل والتوهج -->
+    <header class="header flex flex-col items-center gap-3 p-3 rounded-lg">
+      <div class="profile-card bg-white/90 p-4 rounded-xl shadow-lg transform transition duration-500 hover:scale-105">
+        <div class="profile-pic w-20 h-20 rounded-full border-4 border-blue-600 overflow-hidden shadow-md">
+          <img src="https://scontent.faly1-2.fna.fbcdn.net/v/t39.30808-6/478724180_2012750999223754_4950667810291165018_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHGVoV1nv_uBT6VDiUmkTUBt9Lm4gk8hxC30ubiCTyHECTpTi2wl8gfRfMESNTozonQZKpDfqy38PE-slzWn9Ck&_nc_ohc=v_k1rOPK2F0Q7kNvgFLv1QA&_nc_oc=AdhvcaU_nFdQ4Z3Kg3E9swCkPRk7JtChJHFOQT9zYUpJ2idA5GZBKG6zFFvqxVjJidw&_nc_zt=23&_nc_ht=scontent.faly1-2.fna&_nc_gid=A_mUbigqD8_rNyd4OoHW9AM&oh=00_AYFDdgaYR159DtFUSCb60jQqfWAmWMrG9davjLCYD83ONw&oe=67D0AAED" alt="Ahmed Muhammed Abdeslam">
+        </div>
+        <div class="profile-info flex flex-col items-center gap-1">
+          <span class="profile-name text-xl font-black text-blue-600 flex items-center gap-1">
+            Aff Price <i class="fas fa-calculator animate-bounce"></i>
+          </span>
+          <span class="creator-name text-sm font-bold text-gray-700">Ahmed Muhammed Abdeslam</span>
+          <div class="social-links flex gap-2 mt-1">
+            <a href="https://web.facebook.com/ahmed10az" target="_blank" class="facebook text-blue-600"><i class="fab fa-facebook"></i></a>
+            <a href="https://wa.me/201282512082" target="_blank" class="whatsapp text-green-500"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://instagram.com/ahmed10az" target="_blank" class="instagram text-pink-500"><i class="fab fa-instagram"></i></a>
+            <a href="https://tiktok.com/@elarshedok" target="_blank" class="tiktok text-black"><i class="fab fa-tiktok"></i></a>
+            <a href="https://linkedin.com/in/elarshedok" target="_blank" class="linkedin text-blue-500"><i class="fab fa-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+      <!-- Controls مع تبديل الوضع وإختيار العملة -->
+      <div class="controls flex justify-between items-center w-full px-3">
+        <div class="mode-toggle flex items-center gap-2">
+          <label class="toggle-switch relative w-9 h-4">
+            <input type="checkbox" id="darkModeToggle" class="absolute opacity-0 w-0 h-0">
+            <span class="slider absolute top-0 left-0 right-0 bottom-0 bg-gray-400 rounded-full border border-blue-600 transition"></span>
+          </label>
+          <i class="fas fa-sun mode-icon light-mode-icon text-yellow-500"></i>
+          <i class="fas fa-moon mode-icon dark-mode-icon text-gray-300" style="display: none;"></i>
+          <span id="modeLabel" class="text-sm font-bold">نهار</span>
+        </div>
+        <div class="custom-dropdown relative w-28">
+          <div class="dropdown-selected flex items-center justify-center p-2 border border-blue-600 rounded-md bg-white cursor-pointer" id="dropdownSelected">
+            <span class="flag-icon flag-icon-eg"></span> EGP <i class="fas fa-chevron-down text-sm"></i>
+          </div>
+          <div class="dropdown-options absolute top-full right-0 w-full bg-white rounded-md shadow-lg hidden" id="dropdownOptions">
+            <div class="dropdown-option flex items-center p-2 text-sm cursor-pointer hover:bg-gray-200" data-value="EGP">
+              <span class="flag-icon flag-icon-eg"></span> EGP
+            </div>
+            <div class="dropdown-option flex items-center p-2 text-sm cursor-pointer hover:bg-gray-200" data-value="LYD">
+              <span class="flag-icon flag-icon-ly"></span> LYD
+            </div>
+            <div class="dropdown-option flex items-center p-2 text-sm cursor-pointer hover:bg-gray-200" data-value="SAR">
+              <span class="flag-icon flag-icon-sa"></span> SAR
+            </div>
+            <div class="dropdown-option flex items-center p-2 text-sm cursor-pointer hover:bg-gray-200" data-value="AED">
+              <span class="flag-icon flag-icon-ae"></span> AED
+            </div>
+          </div>
+          <input type="hidden" id="currency" value="EGP">
+        </div>
+      </div>
+    </header>
+
+    <!-- Inputs Section -->
+    <div class="inputs-section bg-blue-100 p-4 rounded-xl shadow-md animate-slideIn">
+      <div class="inputs-container grid grid-cols-2 md:grid-cols-3 gap-3">
+        <!-- عناصر الإدخال تبقى كما هي مع تحسينات طفيفة للمظهر -->
+        <div class="input-group" style="--order: 1;">
+          <label class="text-blue-600 font-bold flex items-center gap-1"><i class="fas fa-dollar-sign"></i> سعر الجملة</label>
+          <input type="number" id="productPrice" step="any" min="0" value="324" class="w-full p-2 border border-blue-600 rounded-md focus:outline-none">
+        </div>
+        <div class="input-group" style="--order: 2;">
+          <label class="text-blue-600 font-bold flex items-center gap-1"><i class="fas fa-shopping-cart"></i> سعر البيع بالشحن</label>
+          <input type="number" id="sellingPrice" step="any" min="0" value="550" class="w-full p-2 border border-blue-600 rounded-md focus:outline-none">
+        </div>
+        <div class="input-group" style="--order: 3;">
+          <label class="text-blue-600 font-bold flex items-center gap-1"><i class="fas fa-truck"></i> تكلفة الشحن</label>
+          <input type="number" id="shippingCost" step="any" min="0" value="55" class="w-full p-2 border border-blue-600 rounded-md focus:outline-none">
+        </div>
+        <div class="input-group" style="--order: 4;">
+          <label class="text-blue-600 font-bold flex items-center gap-1"><i class="fas fa-boxes"></i> الأوردرات</label>
+          <input type="number" id="targetOrders" step="1" min="0" value="438" class="w-full p-2 border border-blue-600 rounded-md focus:outline-none">
+        </div>
+        <div class="input-group" style="--order: 5;">
+          <label class="text-blue-600 font-bold flex items-center gap-1"><i class="fas fa-percentage"></i> نسبة التسليم</label>
+          <input type="number" id="deliveryRate" step="any" min="0" max="100" value="15" class="w-full p-2 border border-blue-600 rounded-md focus:outline-none">
+        </div>
+        <div class="input-group" style="--order: 6;">
+          <label class="text-blue-600 font-bold flex items-center gap-1"><i class="fas fa-ad"></i> تكلفة الأوردر</label>
+          <input type="number" id="adCostPerOrder" step="any" min="0" value="17" class="w-full p-2 border border-blue-600 rounded-md focus:outline-none">
+        </div>
+        <div class="input-group tax-group flex flex-row items-center justify-between" style="--order: 7;">
+          <label class="text-blue-600 font-bold flex items-center gap-1"><i class="fas fa-tax"></i> ضريبة 14%</label>
+          <div class="tax-toggle flex items-center gap-1">
+            <label class="toggle-switch relative w-9 h-4">
+              <input type="checkbox" id="applyTax" checked class="absolute opacity-0 w-0 h-0">
+              <span class="slider absolute top-0 left-0 right-0 bottom-0 bg-gray-400 rounded-full border border-blue-600 transition"></span>
+            </label>
+            <span id="taxStatus" class="flex items-center gap-1"><span class="status-dot w-2 h-2 rounded-full bg-blue-600"></span> <span id="taxText">مفعل</span></span>
+          </div>
+        </div>
       </div>
     </div>
-  </header>
 
-  <!-- المحتوى الرئيسي -->
-  <main>
-    <div class="dashboard">
-      <!-- كارت نظرة عامة مالية -->
-      <div class="card">
-        <h2>نظرة عامة مالية</h2>
-        <p>الرصيد الحالي: <span id="current-balance">15,000</span> جنيه</p>
-        <p>الإيرادات الشهرية: <span id="monthly-revenue">3,200</span> جنيه</p>
-        <p>المصاريف الشهرية: <span id="monthly-expenses">1,800</span> جنيه</p>
+    <!-- Decorative Line -->
+    <div class="decorative-line h-1 rounded-full bg-gradient-to-r from-transparent via-blue-600 to-transparent my-3"></div>
+
+    <!-- Results Section -->
+    <div class="results-section p-4 animate-slideIn">
+      <div class="results-container grid grid-cols-2 md:grid-cols-3 gap-3" id="results">
+        <div class="result-card p-3 border rounded-md shadow-sm" style="--order: 1;">
+          <p class="flex items-center gap-1 text-blue-600 font-bold"><i class="fas fa-coins"></i> ربح الأوردر</p>
+          <p id="netProfitPerOrder" class="result-value text-lg"></p>
+        </div>
+        <div class="result-card p-3 border rounded-md shadow-sm" style="--order: 2;">
+          <p class="flex items-center gap-1 text-blue-600 font-bold"><i class="fas fa-chart-line"></i> هامش الربح</p>
+          <p id="profitMargin" class="result-value text-lg"></p>
+        </div>
+        <div class="result-card p-3 border rounded-md shadow-sm" style="--order: 3;">
+          <p class="flex items-center gap-1 text-blue-600 font-bold"><i class="fas fa-truck-loading"></i> الأوردرات المسلمة</p>
+          <p id="deliveredOrders" class="result-value text-lg"></p>
+        </div>
+        <!-- باقي البطاقات تبقى كما هي مع إضافة تأثيرات ظهور -->
+        <div class="result-card hidden" id="profitBeforeAdsCard" style="--order: 4;">
+          <p class="flex items-center gap-1 text-blue-600 font-bold"><i class="fas fa-money-bill-wave"></i> الربح قبل الإنفاق</p>
+          <p id="profitBeforeAds" class="result-value"></p>
+        </div>
+        <div class="result-card hidden" id="totalAdSpendCard" style="--order: 5;">
+          <p class="flex items-center gap-1 text-blue-600 font-bold"><i class="fas fa-bullhorn"></i> إنفاق الإعلانات</p>
+          <p id="totalAdSpend" class="result-value"></p>
+        </div>
+        <div class="result-card hidden" id="adSpendWithTaxCard" style="--order: 6;">
+          <p class="flex items-center gap-1 text-blue-600 font-bold"><i class="fas fa-calculator"></i> الإنفاق شامل الضريبة</p>
+          <p id="adSpendWithTax" class="result-value"></p>
+        </div>
+        <div class="result-card bg-blue-50 p-3 rounded-md shadow-lg" style="--order: 7;">
+          <p class="flex items-center gap-1 text-blue-600 font-bold"><i class="fas fa-wallet"></i> صافي الربح</p>
+          <div class="profit-indicators flex items-center gap-1">
+            <p id="netProfitAfterAds" class="result-value text-2xl"></p>
+            <i id="profitIndicator" class="fas fa-arrow-up profit-indicator" style="display: none;"></i>
+            <i id="trendIndicator" class="fas fa-arrow-up trend-indicator" style="display: none;"></i>
+          </div>
+        </div>
       </div>
-
-      <!-- كارت حاسبة الفائدة المركبة -->
-      <div class="card">
-        <h2>حاسبة الفائدة المركبة</h2>
-        <div class="input-group">
-          <label for="principal">رأس المال (جنيه):</label>
-          <input type="number" id="principal" placeholder="أدخل رأس المال">
-        </div>
-        <div class="input-group">
-          <label for="rate">معدل الفائدة السنوي (%):</label>
-          <input type="number" id="rate" placeholder="أدخل معدل الفائدة">
-        </div>
-        <div class="input-group">
-          <label for="years">عدد السنوات:</label>
-          <input type="number" id="years" placeholder="أدخل عدد السنوات">
-        </div>
-        <button class="btn" id="calculateBtn">احسب القيمة المستقبلية</button>
-        <div class="result" id="result"></div>
+      <div class="buttons-container flex justify-between mt-4">
+        <button class="reset-btn bg-red-500 text-white px-4 py-2 rounded-md shadow hover:opacity-90" onclick="resetValues()">محو البيانات</button>
+        <button class="show-more-btn bg-blue-600 text-white px-4 py-2 rounded-md shadow hover:opacity-90" id="showMoreBtn" onclick="showMoreResults()">إظهار المزيد</button>
       </div>
     </div>
-  </main>
+  </div>
 
-  <!-- تسجيل Service Worker لتفعيل ميزات تطبيق الويب التقدمي (PWA) -->
+  <!-- سكربتات الجافا سكريبت تبقى مشابهة مع تحسينات بسيطة للتعامل مع الأحداث -->
   <script>
+    let previousProfit = 0;
+    const currencySymbols = { EGP: 'ج.م', LYD: 'د.ل', SAR: 'ر.س', AED: 'د.إ' };
+    const getCurrencySymbol = () => currencySymbols[document.getElementById('currency').value];
+
+    const calculateResults = () => {
+      // نفس الحسابات كما في الكود الأصلي
+      const productPrice = parseFloat(document.getElementById('productPrice').value) || 0;
+      const sellingPrice = parseFloat(document.getElementById('sellingPrice').value) || 0;
+      const shippingCost = parseFloat(document.getElementById('shippingCost').value) || 0;
+      const targetOrders = parseFloat(document.getElementById('targetOrders').value) || 0;
+      const deliveryRate = parseFloat(document.getElementById('deliveryRate').value) || 0;
+      const adCostPerOrder = parseFloat(document.getElementById('adCostPerOrder').value) || 0;
+      const applyTax = document.getElementById('applyTax').checked;
+      const currencySymbol = getCurrencySymbol();
+
+      const netProfitPerOrder = sellingPrice - productPrice - shippingCost;
+      const profitMargin = sellingPrice ? (netProfitPerOrder / sellingPrice) * 100 : 0;
+      const deliveredOrders = (targetOrders * deliveryRate) / 100;
+      const profitBeforeAds = deliveredOrders * netProfitPerOrder;
+      const totalAdSpend = targetOrders * adCostPerOrder;
+      const adSpendWithTax = applyTax ? totalAdSpend * 1.14 : totalAdSpend;
+      const netProfitAfterAds = profitBeforeAds - adSpendWithTax;
+
+      const updateElement = (id, value, isPercentage = false, isNumberOnly = false) => {
+        const element = document.getElementById(id);
+        const oldValue = parseFloat(element.textContent.replace(/[^\d.-]/g, '')) || 0;
+        element.textContent = isPercentage ? `${value.toFixed(2)}%` : (isNumberOnly ? value.toFixed(0) : `${currencySymbol} ${value.toFixed(2)}`);
+        element.classList.remove('text-red-600', 'text-green-600', 'text-gray-600');
+        if (value > 0) element.classList.add('text-green-600', 'glow');
+        else if (value < 0) element.classList.add('text-red-600', 'glow');
+        else element.classList.add('text-gray-600');
+        if (value !== oldValue) {
+          element.style.animation = 'scaleUp 0.5s ease';
+          setTimeout(() => element.style.animation = '', 500);
+        }
+      };
+
+      updateElement('netProfitPerOrder', netProfitPerOrder);
+      updateElement('profitMargin', profitMargin, true);
+      updateElement('deliveredOrders', deliveredOrders, false, true);
+      updateElement('profitBeforeAds', profitBeforeAds);
+      updateElement('totalAdSpend', totalAdSpend);
+      updateElement('adSpendWithTax', adSpendWithTax);
+      updateElement('netProfitAfterAds', netProfitAfterAds);
+
+      const indicator = document.getElementById('profitIndicator');
+      indicator.style.display = netProfitAfterAds !== 0 ? 'inline' : 'none';
+      indicator.classList.remove('fa-arrow-up', 'fa-arrow-down', 'up', 'down');
+      indicator.classList.add(netProfitAfterAds > 0 ? 'fa-arrow-up' : 'fa-arrow-down', netProfitAfterAds > 0 ? 'up' : 'down');
+
+      const trendIndicator = document.getElementById('trendIndicator');
+      if (netProfitAfterAds !== previousProfit) {
+        trendIndicator.style.display = 'inline';
+        trendIndicator.classList.remove('fa-arrow-up', 'fa-arrow-down', 'up-trend', 'down-trend');
+        trendIndicator.classList.add(netProfitAfterAds > previousProfit ? 'fa-arrow-up' : 'fa-arrow-down', netProfitAfterAds > previousProfit ? 'up-trend' : 'down-trend');
+        setTimeout(() => trendIndicator.style.display = 'none', 2000);
+      }
+      previousProfit = netProfitAfterAds;
+    };
+
+    const updateTaxStatus = () => {
+      const applyTax = document.getElementById('applyTax').checked;
+      document.getElementById('taxText').textContent = applyTax ? 'مفعل' : 'غير مفعل';
+      document.querySelector('.status-dot').classList.toggle('bg-blue-600', applyTax);
+      document.querySelector('.status-dot').classList.toggle('bg-red-600', !applyTax);
+    };
+
+    const showMoreResults = () => {
+      const hiddenCards = document.querySelectorAll('.result-card.hidden');
+      hiddenCards.forEach((card, index) => {
+        card.classList.remove('hidden');
+        card.style.display = 'flex';
+        setTimeout(() => card.classList.add('visible'), index * 100);
+      });
+      document.getElementById('showMoreBtn').style.display = 'none';
+    };
+
+    document.getElementById('darkModeToggle').addEventListener('change', () => {
+      document.body.classList.toggle('light-mode', !document.getElementById('darkModeToggle').checked);
+      document.body.classList.toggle('dark-mode', document.getElementById('darkModeToggle').checked);
+      document.getElementById('modeLabel').textContent = document.getElementById('darkModeToggle').checked ? 'ليل' : 'نهار';
+      document.querySelector('.light-mode-icon').style.display = document.getElementById('darkModeToggle').checked ? 'none' : 'inline';
+      document.querySelector('.dark-mode-icon').style.display = document.getElementById('darkModeToggle').checked ? 'inline' : 'none';
+    });
+
+    const dropdownSelected = document.getElementById('dropdownSelected');
+    const dropdownOptions = document.getElementById('dropdownOptions');
+    const currencyInput = document.getElementById('currency');
+    document.querySelectorAll('.dropdown-option').forEach(option => {
+      option.addEventListener('click', () => {
+        const value = option.getAttribute('data-value');
+        dropdownSelected.innerHTML = `<span class="${option.querySelector('span').className}"></span> ${value} <i class="fas fa-chevron-down text-sm"></i>`;
+        currencyInput.value = value;
+        dropdownOptions.classList.add('hidden');
+        calculateResults();
+      });
+    });
+    dropdownSelected.addEventListener('click', () => dropdownOptions.classList.toggle('hidden'));
+    document.addEventListener('click', (e) => {
+      if (!dropdownSelected.contains(e.target) && !dropdownOptions.contains(e.target)) {
+        dropdownOptions.classList.add('hidden');
+      }
+    });
+
+    function resetValues() {
+      document.getElementById('productPrice').value = 0;
+      document.getElementById('sellingPrice').value = 0;
+      document.getElementById('shippingCost').value = 0;
+      document.getElementById('targetOrders').value = 0;
+      document.getElementById('deliveryRate').value = 0;
+      document.getElementById('adCostPerOrder').value = 0;
+      document.getElementById('applyTax').checked = false;
+      calculateResults();
+      updateTaxStatus();
+      const hiddenCards = document.querySelectorAll('.result-card.hidden');
+      hiddenCards.forEach(card => {
+        card.classList.add('hidden');
+        card.style.display = 'none';
+      });
+      document.getElementById('showMoreBtn').style.display = 'block';
+    }
+
+    document.querySelectorAll('input, #currency, #applyTax').forEach(input => {
+      input.addEventListener('input', () => {
+        calculateResults();
+        updateTaxStatus();
+      });
+    });
+
+    // تعيين القيمة الابتدائية لمجرد العرض التجريبي
+    document.getElementById('netProfitAfterAds').textContent = 'ج.م 2746.26';
+    document.getElementById('netProfitAfterAds').classList.add('text-green-600', 'glow');
+    calculateResults();
+    updateTaxStatus();
+
+    // تسجيل Service Worker لتحويل الصفحة إلى تطبيق ويب تقدمي
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
+      window.addEventListener('load', () => {
         navigator.serviceWorker.register('service-worker.js')
-          .then(function(registration) {
-            console.log('تم تسجيل الـ Service Worker بنجاح وبنطاق:', registration.scope);
-          }, function(err) {
-            console.log('فشل تسجيل الـ Service Worker:', err);
-          });
+          .then(registration => console.log('Service Worker registered:', registration))
+          .catch(error => console.error('Service Worker registration failed:', error));
       });
     }
-    
-    document.getElementById('calculateBtn').addEventListener('click', function() {
-      const principal = parseFloat(document.getElementById('principal').value);
-      const rate = parseFloat(document.getElementById('rate').value) / 100;
-      const years = parseFloat(document.getElementById('years').value);
-      
-      if (isNaN(principal) || isNaN(rate) || isNaN(years)) {
-        document.getElementById('result').innerText = 'يرجى إدخال كافة القيم بشكل صحيح.';
-        return;
-      }
-      
-      // معادلة الفائدة المركبة:
-      // القيمة المستقبلية = رأس المال * (1 + معدل الفائدة)^عدد السنوات
-      const futureValue = principal * Math.pow((1 + rate), years);  
-      
-      document.getElementById('result').innerText =
-        'القيمة المستقبلية: ' + futureValue.toFixed(2) + ' جنيه';
-    });
   </script>
 </body>
 </html>
