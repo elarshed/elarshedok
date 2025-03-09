@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aff Price - Ahmed Muhammed Abdeslam</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
@@ -383,6 +384,17 @@
     .reset-btn { background: #e53e3e; color: #ffffff; }
     .reset-btn:hover { opacity: 0.9; transform: scale(1.02); }
 
+    /* قسم الرسم البياني */
+    .chart-section {
+      margin-top: 1rem;
+      background: #f7fafc;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .dark-mode .chart-section { background: #3d4a5a; }
+    canvas { max-width: 100%; }
+
     /* Responsive Adjustments */
     @media (min-width: 768px) {
       .container { padding: 1rem; max-width: 800px; margin: 0 auto; }
@@ -534,6 +546,12 @@
         <button class="show-more-btn" id="showMoreBtn" onclick="showMoreResults()">إظهار المزيد</button>
       </div>
     </div>
+
+    <!-- Chart Section -->
+    <div class="chart-section">
+      <h2 class="text-center font-bold text-lg mb-4">مبيعات الأسبوع الماضي</h2>
+      <canvas id="salesChart"></canvas>
+    </div>
   </div>
 
   <script>
@@ -670,7 +688,7 @@
     calculateResults();
     updateTaxStatus();
 
-    /* تأثير الظلال الديناميكي عند التمرير */
+    /* تأثير الظلال عند التمرير */
     window.addEventListener('scroll', () => {
       const cards = document.querySelectorAll('.result-card, .profile-card');
       cards.forEach(card => {
@@ -681,6 +699,44 @@
           card.classList.remove('visible');
         }
       });
+    });
+
+    // رسم بياني باستخدام Chart.js
+    const ctx = document.getElementById('salesChart').getContext('2d');
+    const salesChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'],
+        datasets: [{
+          label: 'المبيعات',
+          data: [1200, 1500, 1800, 1700, 1600, 1900, 2100],
+          backgroundColor: 'rgba(43, 108, 176, 0.2)',
+          borderColor: 'rgba(43, 108, 176, 1)',
+          borderWidth: 2,
+          tension: 0.4,
+          fill: true,
+          pointRadius: 4,
+          pointBackgroundColor: 'rgba(43, 108, 176, 1)'
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: { color: '#1a202c' },
+            grid: { color: 'rgba(26, 32, 44, 0.1)' }
+          },
+          x: {
+            ticks: { color: '#1a202c' },
+            grid: { display: false }
+          }
+        },
+        plugins: {
+          legend: { labels: { color: '#1a202c' } }
+        }
+      }
     });
   </script>
 </body>
