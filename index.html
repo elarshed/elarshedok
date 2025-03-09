@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>أداة دراسة جدوى المتجر الإلكتروني</title>
+  <title>مستشار التسعير الذكي للتجارة الإلكترونية</title>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -17,178 +17,132 @@
   <style>
     body {
       font-family: 'Cairo', sans-serif;
-      background: linear-gradient(135deg, #dbe2ef, #c0c8e0);
+      background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
       margin: 0;
       padding: 0;
       overflow-x: hidden;
     }
     .container {
-      max-width: 2100px;
+      max-width: 2200px;
       margin: 0 auto;
-      padding: 5.5rem;
+      padding: 6rem;
     }
     .section {
       background: white;
-      border-radius: 2.75rem;
-      box-shadow: 0 18px 55px rgba(0,0,0,0.15);
-      padding: 5.5rem;
-      margin-bottom: 5.5rem;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      border-radius: 3rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      padding: 6rem;
+      margin-bottom: 6rem;
+      transition: transform 0.4s ease;
     }
     .section:hover {
-      transform: translateY(-22px);
-      box-shadow: 0 22px 60px rgba(0,0,0,0.25);
+      transform: translateY(-25px);
     }
     .tab {
-      padding: 2.5rem 5rem;
-      border-bottom: 10px solid transparent;
+      padding: 2.75rem 5.5rem;
+      border-bottom: 12px solid transparent;
       cursor: pointer;
       font-weight: 700;
-      color: #4b5563;
+      color: #374151;
       transition: all 0.3s ease;
-      border-radius: 2.25rem 2.25rem 0 0;
-      background: #f1f5f9;
+      border-radius: 2.5rem 2.5rem 0 0;
+      background: #e5e7eb;
     }
     .tab.active {
-      border-color: #1e40af;
-      color: #1e40af;
+      border-color: #2563eb;
+      color: #2563eb;
       background: #dbeafe;
     }
     .tab:hover {
-      color: #1e40af;
-      background: #eff6ff;
+      color: #2563eb;
+      background: #f3f4f6;
     }
     .input-group {
       position: relative;
-      margin-bottom: 5rem;
+      margin-bottom: 5.5rem;
     }
     .input {
       width: 100%;
-      padding: 1.6rem 6rem 1.6rem 1.6rem;
+      padding: 1.75rem 6.5rem 1.75rem 1.75rem;
       border: 1px solid #d1d5db;
-      border-radius: 2rem;
+      border-radius: 2.25rem;
       transition: all 0.3s ease;
       background: #f9fafb;
-      font-size: 1.3rem;
+      font-size: 1.35rem;
     }
     .input:focus {
-      border-color: #1e40af;
-      box-shadow: 0 0 22px rgba(30, 64, 175, 0.5);
+      border-color: #2563eb;
+      box-shadow: 0 0 25px rgba(37, 99, 235, 0.5);
       outline: none;
       background: white;
     }
     .input-icon {
       position: absolute;
-      right: 2.5rem;
+      right: 2.75rem;
       top: 50%;
       transform: translateY(-50%);
       color: #6b7280;
     }
     .input-desc {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       color: #6b7280;
-      margin-top: 1.5rem;
-      line-height: 1.9;
+      margin-top: 1.75rem;
+      line-height: 2;
     }
     .btn {
-      padding: 1.6rem 5rem;
-      border-radius: 2rem;
+      padding: 1.75rem 5.5rem;
+      border-radius: 2.25rem;
       font-weight: 700;
       transition: all 0.4s ease;
       display: flex;
       align-items: center;
-      gap: 2rem;
-      box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+      gap: 2.25rem;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.2);
     }
     .btn:hover {
-      transform: translateY(-12px);
-      box-shadow: 0 20px 45px rgba(0,0,0,0.3);
+      transform: translateY(-15px);
+      box-shadow: 0 22px 50px rgba(0,0,0,0.3);
     }
     .dashboard-card {
-      background: linear-gradient(145deg, #ffffff, #f8fafc);
-      border-radius: 2.5rem;
-      padding: 5rem;
+      background: linear-gradient(145deg, #ffffff, #f9fafb);
+      border-radius: 2.75rem;
+      padding: 5.5rem;
       text-align: center;
-      box-shadow: 0 16px 45px rgba(0,0,0,0.2);
+      box-shadow: 0 18px 50px rgba(0,0,0,0.2);
       transition: all 0.4s ease;
       position: relative;
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.9);
     }
     .dashboard-card:hover {
-      transform: scale(1.18) rotate(5deg);
-      box-shadow: 0 22px 55px rgba(0,0,0,0.3);
-    }
-    .dashboard-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 16px;
-      background: linear-gradient(to right, #1e40af, #60a5fa, #93c5fd);
-      animation: gradientShift 2s infinite linear;
-    }
-    .dashboard-card::after {
-      content: '';
-      position: absolute;
-      top: -90%;
-      left: -90%;
-      width: 280%;
-      height: 280%;
-      background: radial-gradient(circle, rgba(30,64,175,0.3) 0%, rgba(255,255,255,0) 70%);
-      animation: pulse 3.5s infinite ease-in-out;
+      transform: scale(1.2) rotate(6deg);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.35);
     }
     .dashboard-desc {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       color: #6b7280;
-      margin-top: 2rem;
-      line-height: 1.9;
+      margin-top: 2.25rem;
+      line-height: 2;
     }
     .chart-container {
-      position: relative;
-      height: 750px;
+      height: 800px;
       width: 100%;
       background: white;
-      border-radius: 2.75rem;
-      padding: 5rem;
-      box-shadow: 0 18px 50px rgba(0,0,0,0.15);
-    }
-    .profile-card {
-      background: linear-gradient(135deg, #1e40af, #1e3a8a);
-      color: white;
+      border-radius: 3rem;
       padding: 5.5rem;
-      border-radius: 2.75rem;
-      display: flex;
-      align-items: center;
-      gap: 5rem;
-      box-shadow: 0 18px 55px rgba(0,0,0,0.25);
-      position: relative;
-      overflow: hidden;
-    }
-    .profile-card::after {
-      content: '';
-      position: absolute;
-      bottom: -110%;
-      left: -55%;
-      width: 210%;
-      height: 210%;
-      background: rgba(255,255,255,0.4);
-      transform: skewY(-15deg);
-      z-index: 0;
+      box-shadow: 0 20px 55px rgba(0,0,0,0.15);
     }
     .table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 4.5rem;
+      margin-top: 5rem;
       background: #f9fafb;
-      border-radius: 2.25rem;
+      border-radius: 2.5rem;
       overflow: hidden;
-      box-shadow: 0 14px 40px rgba(0,0,0,0.15);
+      box-shadow: 0 16px 45px rgba(0,0,0,0.15);
     }
     .table th, .table td {
       border: 1px solid #e5e7eb;
-      padding: 3.5rem;
+      padding: 4rem;
       text-align: center;
     }
     .table th {
@@ -196,376 +150,192 @@
       font-weight: 700;
       color: #1f2937;
     }
-    .table tbody tr:nth-child(even) {
-      background: #f1f5f9;
-    }
-    .table tbody tr:hover {
-      background: #dbeafe;
-      transition: background 0.2s ease;
-    }
     .alert {
-      padding: 3.5rem;
-      border-radius: 2rem;
-      margin-bottom: 4.5rem;
-      animation: fadeIn 1s ease-in-out;
+      padding: 4rem;
+      border-radius: 2.25rem;
+      margin-bottom: 5rem;
+      animation: fadeIn 1.2s ease-in-out;
       display: flex;
       align-items: center;
-      gap: 3rem;
-      box-shadow: 0 14px 40px rgba(0,0,0,0.18);
+      gap: 3.5rem;
+      box-shadow: 0 16px 45px rgba(0,0,0,0.2);
     }
-    .alert-error {
-      background-color: #fee2e2;
-      color: #991b1b;
-    }
-    .alert-success {
-      background-color: #d1fae5;
-      color: #065f46;
-    }
-    .alert-info {
-      background-color: #dbeafe;
-      color: #1e40af;
-    }
-    .currency-select {
-      padding: 1.6rem;
-      border: 1px solid #d1d5db;
-      border-radius: 2rem;
-      background: white;
-      transition: all 0.3s ease;
-      font-weight: 600;
-    }
-    .currency-select:focus {
-      border-color: #1e40af;
-      box-shadow: 0 0 14px rgba(30, 64, 175, 0.5);
-      outline: none;
-    }
-    .negative {
-      color: #ef4444;
+    .alert-error { background-color: #fee2e2; color: #991b1b; }
+    .alert-success { background-color: #d1fae5; color: #065f46; }
+    .alert-info { background-color: #dbeafe; color: #1e40af; }
+    .slider { width: 100%; margin-top: 1.75rem; }
+    .recommendation {
+      background: #fef3c7;
+      padding: 4rem;
+      border-radius: 2.25rem;
+      margin-top: 5rem;
+      box-shadow: 0 16px 45px rgba(0,0,0,0.15);
     }
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-45px); }
+      from { opacity: 0; transform: translateY(-50px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); opacity: 0.9; }
-      50% { transform: scale(1.6); opacity: 0.6; }
-      100% { transform: scale(1); opacity: 0.9; }
-    }
     @media (max-width: 768px) {
-      .container { padding: 4.5rem; }
-      .section { padding: 5rem; }
-      .tab { padding: 2.25rem 4.5rem; }
-      .dashboard-card { padding: 4.5rem; }
-      .profile-card { flex-direction: column; text-align: center; gap: 4.5rem; }
+      .container { padding: 5rem; }
+      .section { padding: 5.5rem; }
+      .tab { padding: 2.5rem 5rem; }
+      .dashboard-card { padding: 5rem; }
     }
     @media print {
       .no-print { display: none; }
       body { background: white; }
       .section { box-shadow: none; }
-      .dashboard-card { box-shadow: none; border: 1px solid #e5e7eb; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- Profile Card -->
-    <div class="profile-card mb-20 no-print">
-      <img src="https://via.placeholder.com/100" alt="أحمد محمد" class="rounded-full w-52 h-52 object-cover border-4 border-white relative z-10" />
-      <div class="relative z-10">
-        <h1 class="text-8xl font-bold">أحمد محمد عبد السلام</h1>
-        <p class="text-6xl opacity-90">خبير التجارة الإلكترونية</p>
-      </div>
-      <div class="ml-auto flex items-center gap-18 relative z-10">
-        <label class="text-white font-semibold text-6xl">العملة:</label>
-        <select id="currency" class="currency-select">
-          <option value="ج.م">ج.م</option>
-          <option value="$">دولار</option>
-          <option value="€">يورو</option>
-          <option value="ر.س">ريال سعودي</option>
-        </select>
-      </div>
-    </div>
-
     <!-- Tabs -->
-    <div class="flex flex-wrap gap-14 mb-20 border-b border-gray-200 no-print">
+    <div class="flex flex-wrap gap-16 mb-22 border-b border-gray-200 no-print">
       <span class="tab active" data-tab="products">المنتجات</span>
-      <span class="tab" data-tab="orders">الطلب</span>
-      <span class="tab" data-tab="pricing">التسعير</span>
-      <span class="tab" data-tab="dashboard">لوحة المعلومات</span>
+      <span class="tab" data-tab="competition">المنافسة</span>
+      <span class="tab" data-tab="ads">الإعلانات</span>
+      <span class="tab" data-tab="dashboard">لوحة التحكم</span>
     </div>
 
     <!-- Products Section -->
     <div id="products" class="section tab-content active">
-      <h2 class="text-8xl font-bold mb-20 flex items-center gap-14">
-        <i class="fas fa-box"></i> المنتجات
+      <h2 class="text-9xl font-bold mb-22 flex items-center gap-16">
+        <i class="fas fa-box"></i> المنتجات بتاعتك
       </h2>
-      <div id="productList" class="space-y-18"></div>
-      <button id="addProduct" class="btn bg-blue-600 text-white hover:bg-blue-700 mt-18 no-print">
-        <i class="fas fa-plus"></i> إضافة منتج
+      <div id="productList" class="space-y-20"></div>
+      <button id="addProduct" class="btn bg-blue-600 text-white hover:bg-blue-700 mt-20 no-print">
+        <i class="fas fa-plus"></i> زوّد منتج جديد
+      </button>
+      <button id="calculateIdealPrice" class="btn bg-green-600 text-white hover:bg-green-700 mt-20 no-print">
+        <i class="fas fa-calculator"></i> احسب لي السعر المثالي
       </button>
     </div>
 
-    <!-- Orders Section -->
-    <div id="orders" class="section tab-content hidden">
-      <h2 class="text-8xl font-bold mb-20 flex items-center gap-14">
-        <i class="fas fa-shopping-cart"></i> الطلب
+    <!-- Competition Section -->
+    <div id="competition" class="section tab-content hidden">
+      <h2 class="text-9xl font-bold mb-22 flex items-center gap-16">
+        <i class="fas fa-users"></i> المنافسين بتوعك
       </h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-20">
-        <div class="input-group">
-          <label class="block mb-2 font-semibold">نسبة التسليم الافتراضية (%)</label>
-          <input id="defaultDeliveryRate" type="number" class="input" value="0" min="0" max="100" />
-          <i class="fas fa-percentage input-icon"></i>
-          <p class="input-desc">نسبة التسليم العامة إذا لم تُحدد للمنتج (مثل: 85%).</p>
-        </div>
-        <div class="input-group">
-          <label class="block mb-2 font-semibold">تكلفة الإعلان لكل طلب</label>
-          <input id="adCostPerOrder" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-ad input-icon"></i>
-          <p class="input-desc">متوسط تكلفة جذب طلب واحد (مثل: 15 ج.م).</p>
-        </div>
-        <div class="input-group">
-          <label class="block mb-2 font-semibold">تكلفة المرتجع لكل طلب</label>
-          <input id="returnCostPerOrder" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-undo input-icon"></i>
-          <p class="input-desc">تكلفة معالجة الطلب المرتجع (مثل: 20 ج.م).</p>
-        </div>
-        <div class="input-group">
-          <label class="block mb-2 font-semibold">رواتب الموظفين الشهرية</label>
-          <input id="staffCost" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-users input-icon"></i>
-          <p class="input-desc">إجمالي رواتب الفريق شهريًا (مثل: 5000 ج.م).</p>
-        </div>
-        <div class="input-group">
-          <label class="block mb-2 font-semibold">تكلفة تشغيل الموقع</label>
-          <input id="websiteCost" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-globe input-icon"></i>
-          <p class="input-desc">تكاليف استضافة الموقع (مثل: 200 ج.م).</p>
-        </div>
-        <div class="input-group">
-          <label class="block mb-2 font-semibold">تكلفة التغليف لكل طلب</label>
-          <input id="packagingCost" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-box-open input-icon"></i>
-          <p class="input-desc">تكلفة مواد التغليف لكل طلب (مثل: 5 ج.م).</p>
-        </div>
-        <div class="input-group">
-          <label class="block mb-2 font-semibold">تكلفة التخزين الشهرية</label>
-          <input id="storageCost" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-warehouse input-icon"></i>
-          <p class="input-desc">تكلفة تخزين المنتجات شهريًا (مثل: 1000 ج.م).</p>
-        </div>
-        <div class="input-group">
-          <label class="block mb-2 font-semibold">تكلفة التسويق غير المدفوع</label>
-          <input id="organicMarketingCost" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-bullhorn input-icon"></i>
-          <p class="input-desc">تكلفة التسويق العضوي شهريًا (مثل: 500 ج.م).</p>
-        </div>
-        <div class="input-group">
-          <label class="block mb-2 font-semibold">تكلفة دعم العملاء</label>
-          <input id="supportCost" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-headset input-icon"></i>
-          <p class="input-desc">تكلفة خدمة العملاء شهريًا (مثل: 300 ج.م).</p>
-        </div>
-        <div class="input-group">
-          <label class="block mb-2 font-semibold">تكلفة الصيانة الشهرية</label>
-          <input id="maintenanceCost" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-tools input-icon"></i>
-          <p class="input-desc">تكلفة صيانة الموقع أو المعدات (مثل: 400 ج.م).</p>
-        </div>
-        <div class="input-group">
-          <label class="block mb-2 font-semibold">تكلفة التدريب الشهرية</label>
-          <input id="trainingCost" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-chalkboard-teacher input-icon"></i>
-          <p class="input-desc">تكلفة تدريب الموظفين شهريًا (مثل: 200 ج.م).</p>
-        </div>
-      </div>
+      <div id="competitorList" class="space-y-20"></div>
+      <button id="addCompetitor" class="btn bg-blue-600 text-white hover:bg-blue-700 mt-20 no-print">
+        <i class="fas fa-plus"></i> زوّد منافس جديد
+      </button>
     </div>
 
-    <!-- Pricing Section -->
-    <div id="pricing" class="section tab-content hidden">
-      <h2 class="text-8xl font-bold mb-20 flex items-center gap-14">
-        <i class="fas fa-dollar-sign"></i> التسعير
+    <!-- Ads Section -->
+    <div id="ads" class="section tab-content hidden">
+      <h2 class="text-9xl font-bold mb-22 flex items-center gap-16">
+        <i class="fas fa-ad"></i> الإعلانات بتاعتك
       </h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-20">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-22">
         <div class="input-group">
-          <label class="block mb-2 font-semibold">الربح الافتراضي لكل طلب</label>
-          <input id="defaultDesiredProfit" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-coins input-icon"></i>
-          <p class="input-desc">الربح الصافي الافتراضي لتغطية التكاليف بدون مكسب أو خسارة (يمكنك زيادته).</p>
+          <label class="block mb-2 font-semibold">تكلفة النقرة (CPC)</label>
+          <input id="cpc" type="number" class="input" value="0" min="0" step="0.01" />
+          <i class="fas fa-mouse-pointer input-icon"></i>
+          <p class="input-desc">كام بتصرف على كل نقرة في الإعلان؟ (مثل: 10 جنيه)</p>
         </div>
         <div class="input-group">
-          <label class="block mb-2 font-semibold">نسبة الخصم (%)</label>
-          <input id="discountRate" type="number" class="input" value="0" min="0" max="100" />
-          <i class="fas fa-tags input-icon"></i>
-          <p class="input-desc">نسبة الخصم للعملاء (مثل: 10%).</p>
+          <label class="block mb-2 font-semibold">عدد النقرات الشهرية</label>
+          <input id="clicks" type="number" class="input" value="0" min="0" />
+          <i class="fas fa-hand-pointer input-icon"></i>
+          <p class="input-desc">كام واحد بينقر على إعلانك كل شهر؟ (مثل: 500)</p>
         </div>
         <div class="input-group">
-          <label class="block mb-2 font-semibold">تكلفة الدفع عند الاستلام</label>
-          <input id="codCost" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-money-bill input-icon"></i>
-          <p class="input-desc">رسوم الدفع عند الاستلام (مثل: 10 ج.م).</p>
+          <label class="block mb-2 font-semibold">نسبة التحويل (%)</label>
+          <input id="conversionRate" type="number" class="input" value="0" min="0" max="100" />
+          <i class="fas fa-percentage input-icon"></i>
+          <p class="input-desc">كام في المية بيشتروا من النقرات؟ (مثل: 5%)</p>
         </div>
         <div class="input-group">
-          <label class="block mb-2 font-semibold">نسبة الضرائب (%)</label>
-          <input id="taxRate" type="number" class="input" value="0" min="0" max="100" />
-          <i class="fas fa-calculator input-icon"></i>
-          <p class="input-desc">نسبة الضرائب على الطلب (مثل: 14%).</p>
+          <label class="block mb-2 font-semibold">نسبة المرتجعات من COD (%)</label>
+          <input id="codReturnRate" type="number" class="input" value="0" min="0" max="100" />
+          <i class="fas fa-undo input-icon"></i>
+          <p class="input-desc">كام في المية بيرجّعوا الطلبات؟ (مثل: 20%)</p>
         </div>
-        <div class="input-group">
-          <label class="block mb-2 font-semibold">رسوم بوابة الدفع (%)</label>
-          <input id="paymentGatewayFee" type="number" class="input" value="0" min="0" max="100" />
-          <i class="fas fa-credit-card input-icon"></i>
-          <p class="input-desc">نسبة رسوم الدفع الإلكتروني (مثل: 2.5%).</p>
-        </div>
-        <div class="input-group">
-          <label class="block mb-2 font-semibold">نسبة العمولة للمنصة (%)</label>
-          <input id="platformCommission" type="number" class="input" value="0" min="0" max="100" />
-          <i class="fas fa-store input-icon"></i>
-          <p class="input-desc">نسبة العمولة لمنصة البيع (مثل: 5%).</p>
-        </div>
-        <div class="input-group">
-          <label class="block mb-2 font-semibold">الهدف من ROAS</label>
-          <input id="targetROAS" type="number" class="input" value="0" min="0" step="0.01" />
-          <i class="fas fa-bullseye input-icon"></i>
-          <p class="input-desc">العائد المستهدف على الإنفاق الإعلاني (مثل: 3).</p>
-        </div>
-        <div class="input-group">
-          <label class="block mb-2 font-semibold">نسبة العملاء المتكررين (%)</label>
-          <input id="repeatCustomerRate" type="number" class="input" value="0" min="0" max="100" />
-          <i class="fas fa-users input-icon"></i>
-          <p class="input-desc">نسبة العملاء الذين يعودون للشراء (مثل: 20%).</p>
-        </div>
-      </div>
-      <div class="mt-20">
-        <h3 class="text-7xl font-semibold mb-18 flex items-center gap-14">
-          <i class="fas fa-table"></i> أسعار البيع المقترحة
-        </h3>
-        <table class="table" id="pricingTable">
-          <thead><tr><th>المنتج</th><th>التكلفة الإجمالية</th><th>السعر قبل الخصم</th><th>السعر بعد الخصم</th><th>الضرائب</th><th>رسوم البوابة</th><th>عمولة المنصة</th><th>الربح لكل طلب</th></tr></thead>
-          <tbody></tbody>
-        </table>
       </div>
     </div>
 
     <!-- Dashboard Section -->
     <div id="dashboard" class="section tab-content hidden">
-      <h2 class="text-8xl font-bold mb-22 flex items-center gap-14">
-        <i class="fas fa-tachometer-alt"></i> لوحة المعلومات
+      <h2 class="text-9xl font-bold mb-24 flex items-center gap-16">
+        <i class="fas fa-tachometer-alt"></i> لوحة التحكم بتاعتك
       </h2>
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-20 mb-22">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-22 mb-24">
         <div class="dashboard-card">
-          <p class="text-gray-600 font-semibold text-4xl">إجمالي المبيعات</p>
-          <p id="dashRevenue" class="text-9xl font-bold text-blue-600">ج.م 0</p>
-          <p class="dashboard-desc">إجمالي الإيرادات بعد الخصم والضرائب.</p>
+          <p class="text-gray-600 font-semibold text-5xl">إجمالي المبيعات</p>
+          <p id="dashRevenue" class="text-10xl font-bold text-blue-600">ج.م 0</p>
+          <p class="dashboard-desc">الفلوس اللي هتدخل جيبك بعد كل حاجة.</p>
         </div>
         <div class="dashboard-card">
-          <p class="text-gray-600 font-semibold text-4xl">صافي الربح</p>
-          <p id="dashNetProfit" class="text-9xl font-bold">ج.م 0</p>
-          <p class="dashboard-desc">الربح بعد خصم كل التكاليف.</p>
+          <p class="text-gray-600 font-semibold text-5xl">صافي الربح</p>
+          <p id="dashNetProfit" class="text-10xl font-bold">ج.م 0</p>
+          <p class="dashboard-desc">اللي هيفضل لك بعد ما تدفع كل المصاريف.</p>
         </div>
         <div class="dashboard-card">
-          <p class="text-gray-600 font-semibold text-4xl">نقطة التعادل</p>
-          <p id="dashBreakEven" class="text-9xl font-bold text-yellow-600">0 طلب</p>
-          <p class="dashboard-desc">عدد الطلبات لتغطية التكاليف.</p>
+          <p class="text-gray-600 font-semibold text-5xl">نقطة التعادل</p>
+          <p id="dashBreakEven" class="text-10xl font-bold text-yellow-600">0 طلب</p>
+          <p class="dashboard-desc">كام طلب لازم تبيعهم عشان تغطي التكاليف؟</p>
         </div>
         <div class="dashboard-card">
-          <p class="text-gray-600 font-semibold text-4xl">ROAS</p>
-          <p id="dashROAS" class="text-9xl font-bold text-purple-600">0</p>
-          <p class="dashboard-desc">العائد على الإنفاق الإعلاني.</p>
-        </div>
-        <div class="dashboard-card">
-          <p class="text-gray-600 font-semibold text-4xl">متوسط تكلفة الطلب</p>
-          <p id="dashAvgOrderCost" class="text-9xl font-bold text-teal-600">ج.م 0</p>
-          <p class="dashboard-desc">متوسط التكلفة لكل طلب.</p>
-        </div>
-        <div class="dashboard-card">
-          <p class="text-gray-600 font-semibold text-4xl">نسبة المرتجعات (%)</p>
-          <p id="dashReturnRate" class="text-9xl font-bold text-red-600">0%</p>
-          <p class="dashboard-desc">نسبة الطلبات المرتجعة.</p>
-        </div>
-        <div class="dashboard-card">
-          <p class="text-gray-600 font-semibold text-4xl">إجمالي الضرائب</p>
-          <p id="dashTotalTax" class="text-9xl font-bold text-orange-600">ج.م 0</p>
-          <p class="dashboard-desc">إجمالي الضرائب على المبيعات.</p>
-        </div>
-        <div class="dashboard-card">
-          <p class="text-gray-600 font-semibold text-4xl">هامش الربح (%)</p>
-          <p id="dashProfitMargin" class="text-9xl font-bold text-green-600">0%</p>
-          <p class="dashboard-desc">نسبة الربح من المبيعات.</p>
-        </div>
-        <div class="dashboard-card">
-          <p class="text-gray-600 font-semibold text-4xl">إجمالي رسوم البوابة</p>
-          <p id="dashGatewayFees" class="text-9xl font-bold text-pink-600">ج.م 0</p>
-          <p class="dashboard-desc">إجمالي رسوم الدفع الإلكتروني.</p>
-        </div>
-        <div class="dashboard-card">
-          <p class="text-gray-600 font-semibold text-4xl">إجمالي تكلفة التخزين</p>
-          <p id="dashStorageCost" class="text-9xl font-bold text-indigo-600">ج.م 0</p>
-          <p class="dashboard-desc">إجمالي تكاليف التخزين الشهرية.</p>
-        </div>
-        <div class="dashboard-card">
-          <p class="text-gray-600 font-semibold text-4xl">إجمالي تكلفة التسويق العضوي</p>
-          <p id="dashOrganicMarketingCost" class="text-9xl font-bold text-cyan-600">ج.م 0</p>
-          <p class="dashboard-desc">إجمالي تكاليف التسويق غير المدفوع.</p>
-        </div>
-        <div class="dashboard-card">
-          <p class="text-gray-600 font-semibold text-4xl">إجمالي عمولة المنصة</p>
-          <p id="dashPlatformCommission" class="text-9xl font-bold text-amber-600">ج.م 0</p>
-          <p class="dashboard-desc">إجمالي عمولة منصة البيع.</p>
-        </div>
-        <div class="dashboard-card">
-          <p class="text-gray-600 font-semibold text-4xl">إجمالي تكلفة دعم العملاء</p>
-          <p id="dashSupportCost" class="text-9xl font-bold text-gray-600">ج.م 0</p>
-          <p class="dashboard-desc">إجمالي تكاليف خدمة العملاء.</p>
-        </div>
-        <div class="dashboard-card">
-          <p class="text-gray-600 font-semibold text-4xl">إجمالي تكلفة الصيانة</p>
-          <p id="dashMaintenanceCost" class="text-9xl font-bold text-blue-800">ج.م 0</p>
-          <p class="dashboard-desc">إجمالي تكاليف الصيانة الشهرية.</p>
-        </div>
-        <div class="dashboard-card">
-          <p class="text-gray-600 font-semibold text-4xl">المبلغ المطلوب للإعلانات</p>
-          <p id="dashRequiredAdSpend" class="text-9xl font-bold text-violet-600">ج.م 0</p>
-          <p class="dashboard-desc">الإنفاق الإعلاني لتحقيق هدف ROAS.</p>
-        </div>
-        <div class="dashboard-card">
-          <p class="text-gray-600 font-semibold text-4xl">إجمالي تكلفة التدريب</p>
-          <p id="dashTrainingCost" class="text-9xl font-bold text-lime-600">ج.م 0</p>
-          <p class="dashboard-desc">إجمالي تكاليف تدريب الموظفين.</p>
-        </div>
-        <div class="dashboard-card">
-          <p class="text-gray-600 font-semibold text-4xl">إيرادات العملاء المتكررين</p>
-          <p id="dashRepeatRevenue" class="text-9xl font-bold text-emerald-600">ج.م 0</p>
-          <p class="dashboard-desc">الإيرادات من العملاء المتكررين.</p>
+          <p class="text-gray-600 font-semibold text-5xl">ROI الإعلانات</p>
+          <p id="dashROI" class="text-10xl font-bold text-purple-600">0%</p>
+          <p class="dashboard-desc">كل جنيه بتصرفه بيرجع لك كام؟</p>
         </div>
       </div>
       <div class="chart-container">
         <canvas id="costBreakdownChart"></canvas>
       </div>
+      <div id="recommendations" class="recommendation">
+        <h3 class="text-7xl font-bold mb-18">نصايح ذكية عشان تكسب أكتر</h3>
+        <ul id="recommendationList" class="list-disc pr-16 text-6xl"></ul>
+      </div>
+      <div class="mt-24">
+        <h3 class="text-7xl font-bold mb-18">جرب بنفسك: ماذا لو؟</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-22">
+          <div class="input-group">
+            <label class="block mb-2 font-semibold">السعر</label>
+            <input type="range" id="priceSlider" class="slider" min="0" max="2000" value="0" />
+            <p id="priceValue" class="input-desc">ج.م 0</p>
+          </div>
+          <div class="input-group">
+            <label class="block mb-2 font-semibold">تكلفة الإعلان لكل طلب</label>
+            <input type="range" id="adCostSlider" class="slider" min="0" max="50" value="0" />
+            <p id="adCostValue" class="input-desc">ج.م 0</p>
+          </div>
+          <div class="input-group">
+            <label class="block mb-2 font-semibold">نسبة المرتجعات</label>
+            <input type="range" id="returnRateSlider" class="slider" min="0" max="100" value="0" />
+            <p id="returnRateValue" class="input-desc">0%</p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Action Buttons -->
-    <div class="flex flex-wrap gap-18 mt-20 no-print">
+    <div class="flex flex-wrap gap-20 mt-22 no-print">
       <button id="calculate" class="btn bg-green-600 text-white hover:bg-green-700">
-        <i class="fas fa-calculator"></i> حساب النتائج
+        <i class="fas fa-calculator"></i> احسب كل حاجة
       </button>
       <button id="reset" class="btn bg-red-600 text-white hover:bg-red-700">
-        <i class="fas fa-undo"></i> إعادة تعيين
+        <i class="fas fa-undo"></i> ابدأ من الأول
       </button>
       <button id="print" class="btn bg-gray-600 text-white hover:bg-gray-700">
-        <i class="fas fa-print"></i> طباعة
+        <i class="fas fa-print"></i> اطبع التقرير
       </button>
     </div>
   </div>
 
   <script>
     // البيانات العالمية
-    let products = [{ name: "منتج 1", buyPrice: 0, shipping: 0, otherCosts: 0, expectedDeliveries: 0, desiredProfit: 0 }];
-    let currency = document.getElementById("currency").value;
+    let products = [{ name: "منتج 1", buyPrice: 0, shipping: 0, otherCosts: 0, expectedDeliveries: 0, targetSegment: "متوسطة" }];
+    let competitors = [];
+    let currency = "ج.م";
     let costChart = null;
+
+    // تحميل البيانات من LocalStorage
+    if (localStorage.getItem("products")) products = JSON.parse(localStorage.getItem("products"));
+    if (localStorage.getItem("competitors")) competitors = JSON.parse(localStorage.getItem("competitors"));
 
     // تبديل التبويبات
     document.querySelectorAll(".tab").forEach(tab => {
@@ -583,59 +353,64 @@
       productList.innerHTML = "";
       products.forEach((product, index) => {
         const div = document.createElement("div");
-        div.className = "border rounded-lg p-18 bg-gray-50 shadow-sm transition-all duration-300 hover:bg-gray-100";
+        div.className = "border rounded-lg p-20 bg-gray-50 shadow-sm transition-all duration-300 hover:bg-gray-100";
         div.innerHTML = `
-          <div class="flex justify-between items-center mb-18">
+          <div class="flex justify-between items-center mb-20">
             <div class="input-group w-1/4">
               <input type="text" value="${product.name}" class="input" data-index="${index}" data-field="name" placeholder="اسم المنتج" />
               <i class="fas fa-tag input-icon"></i>
-              <p class="input-desc">اسم المنتج أو نوعه (مثل: تيشيرت، حذاء).</p>
+              <p class="input-desc">المنتج ده اسمه إيه؟ (مثل: تيشيرت، حذاء)</p>
             </div>
             <button class="text-red-600 hover:text-red-800 no-print" data-index="${index}">
-              <i class="fas fa-trash"></i> حذف
+              <i class="fas fa-trash"></i> امسح المنتج
             </button>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-5 gap-18">
+          <div class="grid grid-cols-1 md:grid-cols-5 gap-20">
             <div class="input-group">
               <label class="block mb-2 font-semibold">سعر الشراء</label>
               <input type="number" value="${product.buyPrice}" class="input" data-index="${index}" data-field="buyPrice" min="0" step="0.01" />
               <i class="fas fa-shopping-cart input-icon"></i>
-              <p class="input-desc">تكلفة شراء المنتج (مثل: 50 ج.م).</p>
+              <p class="input-desc">جبت المنتج ده بكام؟ (مثل: 50 جنيه)</p>
             </div>
             <div class="input-group">
               <label class="block mb-2 font-semibold">تكلفة الشحن</label>
               <input type="number" value="${product.shipping}" class="input" data-index="${index}" data-field="shipping" min="0" step="0.01" />
               <i class="fas fa-truck input-icon"></i>
-              <p class="input-desc">تكلفة شحن المنتج (مثل: 20 ج.م).</p>
+              <p class="input-desc">الشحن كلفك كام؟ (مثل: 20 جنيه)</p>
             </div>
             <div class="input-group">
-              <label class="block mb-2 font-semibold">تكاليف أخرى</label>
+              <label class="block mb-2 font-semibold">تكاليف تانية</label>
               <input type="number" value="${product.otherCosts}" class="input" data-index="${index}" data-field="otherCosts" min="0" step="0.01" />
               <i class="fas fa-tools input-icon"></i>
-              <p class="input-desc">مصروفات إضافية (مثل: 10 ج.م).</p>
+              <p class="input-desc">مصاريف زيادة؟ (مثل: 10 جنيه)</p>
             </div>
             <div class="input-group">
               <label class="block mb-2 font-semibold">التسليمات المتوقعة</label>
               <input type="number" value="${product.expectedDeliveries}" class="input" data-index="${index}" data-field="expectedDeliveries" min="0" />
               <i class="fas fa-shopping-bag input-icon"></i>
-              <p class="input-desc">عدد التسليمات الشهرية (مثل: 50 طلب).</p>
+              <p class="input-desc">هتبيع كام وحدة في الشهر؟ (مثل: 50)</p>
             </div>
             <div class="input-group">
-              <label class="block mb-2 font-semibold">الربح المطلوب</label>
-              <input type="number" value="${product.desiredProfit}" class="input" data-index="${index}" data-field="desiredProfit" min="0" step="0.01" />
-              <i class="fas fa-coins input-icon"></i>
-              <p class="input-desc">الربح الصافي لكل طلب (مثل: 30 ج.م).</p>
+              <label class="block mb-2 font-semibold">الفئة المستهدفة</label>
+              <select class="input" data-index="${index}" data-field="targetSegment">
+                <option value="رخيصة" ${product.targetSegment === "رخيصة" ? "selected" : ""}>رخيصة (أقل من 300 جنيه)</option>
+                <option value="متوسطة" ${product.targetSegment === "متوسطة" ? "selected" : ""}>متوسطة (300-1000 جنيه)</option>
+                <option value="فاخرة" ${product.targetSegment === "فاخرة" ? "selected" : ""}>فاخرة (أكتر من 1000 جنيه)</option>
+              </select>
+              <i class="fas fa-users input-icon"></i>
+              <p class="input-desc">هتبيع لمين؟ (رخيصة، متوسطة، فاخرة)</p>
             </div>
           </div>
         `;
         productList.appendChild(div);
       });
 
-      productList.querySelectorAll("input").forEach(input => {
+      productList.querySelectorAll("input, select").forEach(input => {
         input.addEventListener("input", (e) => {
           const index = e.target.dataset.index;
           const field = e.target.dataset.field;
-          products[index][field] = field === "name" ? e.target.value : Math.max(parseFloat(e.target.value) || 0, 0);
+          products[index][field] = field === "name" || field === "targetSegment" ? e.target.value : Math.max(parseFloat(e.target.value) || 0, 0);
+          localStorage.setItem("products", JSON.stringify(products));
           calculateAll();
         });
       });
@@ -644,233 +419,240 @@
         btn.addEventListener("click", () => {
           if (products.length > 1) {
             products.splice(btn.dataset.index, 1);
+            localStorage.setItem("products", JSON.stringify(products));
             renderProducts();
             calculateAll();
-            showAlert("تم حذف المنتج بنجاح!", "success");
+            showAlert("المنتج اتشال بنجاح!", "success");
           } else {
-            showAlert("لا يمكن حذف المنتج الوحيد!", "error");
+            showAlert("مش هينفع تمسح المنتج الوحيد!", "error");
           }
+        });
+      });
+    }
+
+    // عرض المنافسين
+    function renderCompetitors() {
+      const competitorList = document.getElementById("competitorList");
+      competitorList.innerHTML = "";
+      competitors.forEach((competitor, index) => {
+        const div = document.createElement("div");
+        div.className = "border rounded-lg p-20 bg-gray-50 shadow-sm transition-all duration-300 hover:bg-gray-100";
+        div.innerHTML = `
+          <div class="flex justify-between items-center mb-20">
+            <div class="input-group w-1/4">
+              <input type="text" value="${competitor.name}" class="input" data-index="${index}" data-field="name" placeholder="اسم المنافس" />
+              <i class="fas fa-store input-icon"></i>
+              <p class="input-desc">اسم المنافس ده إيه؟ (مثل: متجر فلان)</p>
+            </div>
+            <button class="text-red-600 hover:text-red-800 no-print" data-index="${index}">
+              <i class="fas fa-trash"></i> امسح المنافس
+            </button>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
+            <div class="input-group">
+              <label class="block mb-2 font-semibold">سعر المنافس</label>
+              <input type="number" value="${competitor.price}" class="input" data-index="${index}" data-field="price" min="0" step="0.01" />
+              <i class="fas fa-dollar-sign input-icon"></i>
+              <p class="input-desc">المنافس بيبيع المنتج بكام؟ (مثل: 200 جنيه)</p>
+            </div>
+            <div class="input-group">
+              <label class="block mb-2 font-semibold">عدد المبيعات الشهرية</label>
+              <input type="number" value="${competitor.sales}" class="input" data-index="${index}" data-field="sales" min="0" />
+              <i class="fas fa-shopping-bag input-icon"></i>
+              <p class="input-desc">كام وحدة بيبيعها في الشهر؟ (مثل: 100)</p>
+            </div>
+          </div>
+        `;
+        competitorList.appendChild(div);
+      });
+
+      competitorList.querySelectorAll("input").forEach(input => {
+        input.addEventListener("input", (e) => {
+          const index = e.target.dataset.index;
+          const field = e.target.dataset.field;
+          competitors[index][field] = field === "name" ? e.target.value : Math.max(parseFloat(e.target.value) || 0, 0);
+          localStorage.setItem("competitors", JSON.stringify(competitors));
+          calculateAll();
+        });
+      });
+
+      competitorList.querySelectorAll("button").forEach(btn => {
+        btn.addEventListener("click", () => {
+          competitors.splice(btn.dataset.index, 1);
+          localStorage.setItem("competitors", JSON.stringify(competitors));
+          renderCompetitors();
+          calculateAll();
+          showAlert("المنافس اتشال بنجاح!", "success");
         });
       });
     }
 
     // إضافة منتج
     document.getElementById("addProduct").addEventListener("click", () => {
-      products.push({ name: `منتج ${products.length + 1}`, buyPrice: 0, shipping: 0, otherCosts: 0, expectedDeliveries: 0, desiredProfit: 0 });
+      products.push({ name: `منتج ${products.length + 1}`, buyPrice: 0, shipping: 0, otherCosts: 0, expectedDeliveries: 0, targetSegment: "متوسطة" });
+      localStorage.setItem("products", JSON.stringify(products));
       renderProducts();
       calculateAll();
-      showAlert("تم إضافة منتج جديد!", "success");
+      showAlert("منتج جديد اتزوّد!", "success");
+    });
+
+    // إضافة منافس
+    document.getElementById("addCompetitor").addEventListener("click", () => {
+      competitors.push({ name: `منافس ${competitors.length + 1}`, price: 0, sales: 0 });
+      localStorage.setItem("competitors", JSON.stringify(competitors));
+      renderCompetitors();
+      calculateAll();
+      showAlert("منافس جديد اتزوّد!", "success");
     });
 
     // الحسابات الأساسية
     function calculateAll() {
       if (products.length === 0) {
-        showAlert("يرجى إضافة منتج واحد على الأقل!", "error");
+        showAlert("لازم تزوّد منتج واحد على الأقل!", "error");
         return;
       }
 
-      currency = document.getElementById("currency").value;
+      const cpc = Math.max(parseFloat(document.getElementById("cpc").value) || 0, 0);
+      const clicks = Math.max(parseFloat(document.getElementById("clicks").value) || 0, 0);
+      const conversionRate = Math.min(Math.max(parseFloat(document.getElementById("conversionRate").value) || 0, 0), 100);
+      const codReturnRate = Math.min(Math.max(parseFloat(document.getElementById("codReturnRate").value) || 0, 0), 100);
 
-      // تكاليف المنتجات
       const productCosts = products.map(p => ({
         name: p.name,
-        totalCost: Math.max(p.buyPrice + p.shipping + p.otherCosts, 0),
-        expectedDeliveries: Math.max(p.expectedDeliveries, 0),
-        desiredProfit: Math.max(p.desiredProfit, 0)
+        totalCost: p.buyPrice + p.shipping + p.otherCosts + 15, // 15 جنيه COD وتغليف افتراضي
+        expectedDeliveries: p.expectedDeliveries,
+        targetSegment: p.targetSegment
       }));
 
-      const defaultDeliveryRate = Math.min(Math.max(parseFloat(document.getElementById("defaultDeliveryRate").value) || 0, 0), 100);
-      const adCostPerOrder = Math.max(parseFloat(document.getElementById("adCostPerOrder").value) || 0, 0);
-      const returnCostPerOrder = Math.max(parseFloat(document.getElementById("returnCostPerOrder").value) || 0, 0);
-      const staffCost = Math.max(parseFloat(document.getElementById("staffCost").value) || 0, 0);
-      const websiteCost = Math.max(parseFloat(document.getElementById("websiteCost").value) || 0, 0);
-      const packagingCost = Math.max(parseFloat(document.getElementById("packagingCost").value) || 0, 0);
-      const storageCost = Math.max(parseFloat(document.getElementById("storageCost").value) || 0, 0);
-      const organicMarketingCost = Math.max(parseFloat(document.getElementById("organicMarketingCost").value) || 0, 0);
-      const supportCost = Math.max(parseFloat(document.getElementById("supportCost").value) || 0, 0);
-      const maintenanceCost = Math.max(parseFloat(document.getElementById("maintenanceCost").value) || 0, 0);
-      const trainingCost = Math.max(parseFloat(document.getElementById("trainingCost").value) || 0, 0);
-
-      const discountRate = Math.min(Math.max(parseFloat(document.getElementById("discountRate").value) || 0, 0), 100);
-      const codCost = Math.max(parseFloat(document.getElementById("codCost").value) || 0, 0);
-      const taxRate = Math.min(Math.max(parseFloat(document.getElementById("taxRate").value) || 0, 0), 100);
-      const paymentGatewayFee = Math.min(Math.max(parseFloat(document.getElementById("paymentGatewayFee").value) || 0, 0), 100);
-      const platformCommission = Math.min(Math.max(parseFloat(document.getElementById("platformCommission").value) || 0, 0), 100);
-      const targetROAS = Math.max(parseFloat(document.getElementById("targetROAS").value) || 0, 0);
-      const repeatCustomerRate = Math.min(Math.max(parseFloat(document.getElementById("repeatCustomerRate").value) || 0, 0), 100);
-
-      // الطلبات
       const totalExpectedOrders = productCosts.reduce((sum, p) => sum + p.expectedDeliveries, 0);
-      const deliveredOrders = productCosts.map(p => p.expectedDeliveries * (defaultDeliveryRate / 100));
-      const returnedOrders = productCosts.map(p => p.expectedDeliveries * ((100 - defaultDeliveryRate) / 100));
-      const totalDeliveredOrders = deliveredOrders.reduce((sum, d) => sum + d, 0);
+      const adCost = cpc * clicks;
+      const ordersFromAds = clicks * (conversionRate / 100);
+      const deliveredOrders = ordersFromAds * (1 - codReturnRate / 100);
+      const returnCost = ordersFromAds * (codReturnRate / 100) * 20; // تكلفة المرتجع 20 جنيه افتراضي
 
-      // حساب التكاليف الكلية بدون الربح
-      const totalProductCost = productCosts.reduce((sum, p, i) => sum + p.totalCost * deliveredOrders[i], 0);
-      const totalAdCost = totalExpectedOrders * adCostPerOrder;
-      const totalReturnCost = returnedOrders.reduce((sum, r) => sum + r, 0) * returnCostPerOrder;
-      const totalCodCost = totalDeliveredOrders * codCost;
-      const totalPackagingCost = totalDeliveredOrders * packagingCost;
-      const fixedCosts = staffCost + websiteCost + storageCost + organicMarketingCost + supportCost + maintenanceCost + trainingCost;
+      // تحليل المنافسة
+      const avgCompetitorPrice = competitors.length > 0 ? competitors.reduce((sum, c) => sum + c.price, 0) / competitors.length : 0;
+      const competitorSales = competitors.reduce((sum, c) => sum + c.sales, 0);
 
-      const totalVariableCost = totalProductCost + totalAdCost + totalReturnCost + totalCodCost + totalPackagingCost;
-      const totalCostBeforeProfit = totalVariableCost + fixedCosts;
-
-      // حساب الربح الافتراضي لتغطية التكاليف (صافي الربح = 0)
-      let defaultDesiredProfit = 0;
-      if (totalDeliveredOrders > 0) {
-        const baseCostPerOrder = totalCostBeforeProfit / totalDeliveredOrders;
-        const taxMultiplier = taxRate / 100;
-        const gatewayMultiplier = paymentGatewayFee / 100;
-        const platformMultiplier = platformCommission / 100;
-        const discountMultiplier = discountRate / 100;
-        
-        const revenuePerOrderBeforeProfit = baseCostPerOrder / (1 - taxMultiplier - gatewayMultiplier - platformMultiplier - discountMultiplier);
-        defaultDesiredProfit = revenuePerOrderBeforeProfit - (productCosts[0].totalCost + packagingCost + codCost); // افتراضي لكل طلب
-      }
-
-      // إذا لم يُحدد الربح للمنتجات، استخدم القيمة المقترحة
+      // السعر المثالي لكل منتج
       const suggestedPrices = productCosts.map(p => {
-        const desiredProfit = p.desiredProfit > 0 ? p.desiredProfit : defaultDesiredProfit;
-        const baseCost = p.totalCost + packagingCost;
-        const priceBeforeDiscount = baseCost + desiredProfit + codCost;
-        const discountAmount = priceBeforeDiscount * (discountRate / 100);
-        const priceAfterDiscount = priceBeforeDiscount - discountAmount;
-        const taxAmount = priceAfterDiscount * (taxRate / 100);
-        const gatewayFee = priceAfterDiscount * (paymentGatewayFee / 100);
-        const platformFee = priceAfterDiscount * (platformCommission / 100);
-        const finalPrice = priceAfterDiscount + taxAmount + gatewayFee + platformFee;
+        let idealPrice = p.totalCost * 1.5; // هامش ربح أولي 50%
+        if (avgCompetitorPrice > 0) {
+          idealPrice = Math.min(idealPrice * 1.2, avgCompetitorPrice * 1.1); // تنافسية مع المنافسين
+        }
+        if (p.targetSegment === "رخيصة") idealPrice = Math.min(idealPrice, 300);
+        else if (p.targetSegment === "متوسطة") idealPrice = Math.min(Math.max(idealPrice, 300), 1000);
+        else if (p.targetSegment === "فاخرة") idealPrice = Math.max(idealPrice, 1000);
         return {
           name: p.name,
-          totalCost: baseCost,
-          priceBeforeDiscount,
-          priceAfterDiscount,
-          taxAmount,
-          gatewayFee,
-          platformFee,
-          profitPerOrder: priceAfterDiscount - baseCost - codCost - gatewayFee - platformFee,
-          expectedDeliveries: p.expectedDeliveries
+          totalCost: p.totalCost,
+          idealPrice,
+          profitPerOrder: idealPrice - p.totalCost
         };
       });
 
       // الحسابات المالية
-      const totalRevenue = suggestedPrices.reduce((sum, p, i) => sum + p.priceAfterDiscount * deliveredOrders[i], 0);
-      const totalTax = suggestedPrices.reduce((sum, p, i) => sum + p.taxAmount * deliveredOrders[i], 0);
-      const totalGatewayFees = suggestedPrices.reduce((sum, p, i) => sum + p.gatewayFee * deliveredOrders[i], 0);
-      const totalPlatformCommission = suggestedPrices.reduce((sum, p, i) => sum + p.platformFee * deliveredOrders[i], 0);
-      const totalExpenses = totalCostBeforeProfit + totalTax + totalGatewayFees + totalPlatformCommission;
-      const netProfit = totalRevenue - totalExpenses;
-      const requiredAdSpend = targetROAS > 0 ? totalRevenue / targetROAS : 0;
+      const totalRevenue = suggestedPrices.reduce((sum, p) => sum + p.idealPrice * p.expectedDeliveries, 0);
+      const totalCost = suggestedPrices.reduce((sum, p) => sum + p.totalCost * p.expectedDeliveries, 0) + adCost + returnCost;
+      const netProfit = totalRevenue - totalCost;
+      const roi = adCost > 0 ? (netProfit / adCost) * 100 : 0;
+      const breakEvenOrders = totalCost / (suggestedPrices[0]?.profitPerOrder || 1);
 
-      // إيرادات العملاء المتكررين
-      const repeatRevenue = totalRevenue * (repeatCustomerRate / 100);
-
-      // تحديث الربح الافتراضي في واجهة المستخدم
-      const defaultProfitInput = document.getElementById("defaultDesiredProfit");
-      if (defaultProfitInput.value == 0 || !defaultProfitInput.dataset.userModified) {
-        defaultProfitInput.value = defaultDesiredProfit.toFixed(2);
-        defaultProfitInput.dataset.userModified = false;
-      }
-
-      // تنبيه المستخدم
-      if (!defaultProfitInput.dataset.userModified) {
-        showAlert(`الربح الافتراضي (${currency} ${defaultDesiredProfit.toFixed(2)}) يغطي التكاليف بدون مكسب أو خسارة. يمكنك زيادته لتحقيق ربح إضافي!`, "info");
-      }
-
-      // مخرجات إضافية
-      const avgOrderCost = totalExpectedOrders > 0 ? totalExpenses / totalExpectedOrders : 0;
-      const returnRatePercentage = totalExpectedOrders > 0 ? (returnedOrders.reduce((sum, r) => sum + r, 0) / totalExpectedOrders) * 100 : 0;
-      const profitMargin = totalRevenue > 0 ? (netProfit / totalRevenue) * 100 : 0;
-
-      // تحديث لوحة المعلومات
-      const dashNetProfit = document.getElementById("dashNetProfit");
+      // تحديث لوحة التحكم
       document.getElementById("dashRevenue").textContent = `${currency} ${totalRevenue.toFixed(2)}`;
+      const dashNetProfit = document.getElementById("dashNetProfit");
       dashNetProfit.textContent = `${currency} ${netProfit.toFixed(2)}`;
       dashNetProfit.classList.toggle("negative", netProfit < 0);
-      const totalDesiredProfit = suggestedPrices.reduce((sum, p, i) => sum + p.profitPerOrder * deliveredOrders[i], 0);
-      const breakEven = totalDesiredProfit > 0 ? Math.ceil((totalExpenses - totalRevenue + fixedCosts) / (totalDesiredProfit / totalDeliveredOrders)) : 0;
-      document.getElementById("dashBreakEven").textContent = `${breakEven} طلب`;
-      const roas = totalAdCost > 0 ? totalRevenue / totalAdCost : 0;
-      document.getElementById("dashROAS").textContent = roas.toFixed(2);
-      document.getElementById("dashAvgOrderCost").textContent = `${currency} ${avgOrderCost.toFixed(2)}`;
-      document.getElementById("dashReturnRate").textContent = `${returnRatePercentage.toFixed(2)}%`;
-      document.getElementById("dashTotalTax").textContent = `${currency} ${totalTax.toFixed(2)}`;
-      document.getElementById("dashProfitMargin").textContent = `${profitMargin.toFixed(2)}%`;
-      document.getElementById("dashGatewayFees").textContent = `${currency} ${totalGatewayFees.toFixed(2)}`;
-      document.getElementById("dashStorageCost").textContent = `${currency} ${storageCost.toFixed(2)}`;
-      document.getElementById("dashOrganicMarketingCost").textContent = `${currency} ${organicMarketingCost.toFixed(2)}`;
-      document.getElementById("dashPlatformCommission").textContent = `${currency} ${totalPlatformCommission.toFixed(2)}`;
-      document.getElementById("dashSupportCost").textContent = `${currency} ${supportCost.toFixed(2)}`;
-      document.getElementById("dashMaintenanceCost").textContent = `${currency} ${maintenanceCost.toFixed(2)}`;
-      document.getElementById("dashRequiredAdSpend").textContent = `${currency} ${requiredAdSpend.toFixed(2)}`;
-      document.getElementById("dashTrainingCost").textContent = `${currency} ${trainingCost.toFixed(2)}`;
-      document.getElementById("dashRepeatRevenue").textContent = `${currency} ${repeatRevenue.toFixed(2)}`;
-
-      // تحديث جدول التسعير
-      const pricingTable = document.querySelector("#pricingTable tbody");
-      pricingTable.innerHTML = "";
-      suggestedPrices.forEach(p => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${p.name}</td>
-          <td>${p.totalCost.toFixed(2)}</td>
-          <td>${p.priceBeforeDiscount.toFixed(2)}</td>
-          <td>${p.priceAfterDiscount.toFixed(2)}</td>
-          <td>${p.taxAmount.toFixed(2)}</td>
-          <td>${p.gatewayFee.toFixed(2)}</td>
-          <td>${p.platformFee.toFixed(2)}</td>
-          <td>${p.profitPerOrder.toFixed(2)}</td>
-        `;
-        pricingTable.appendChild(row);
-      });
+      document.getElementById("dashBreakEven").textContent = `${Math.ceil(breakEvenOrders)} طلب`;
+      document.getElementById("dashROI").textContent = `${roi.toFixed(2)}%`;
 
       // تحديث المخطط
-      updateChart(totalProductCost, totalAdCost, totalReturnCost, staffCost, websiteCost, totalCodCost, totalPackagingCost, totalTax, totalGatewayFees, storageCost, organicMarketingCost, supportCost, maintenanceCost, trainingCost, totalPlatformCommission);
+      updateChart(totalCost - adCost - returnCost, adCost, returnCost);
+
+      // التوصيات الذكية
+      const recommendationList = document.getElementById("recommendationList");
+      recommendationList.innerHTML = "";
+      suggestedPrices.forEach(p => {
+        if (avgCompetitorPrice > 0 && p.idealPrice < avgCompetitorPrice * 0.7) {
+          recommendationList.innerHTML += `<li>سعر "${p.name}" أقل من السوق بكتير (${((avgCompetitorPrice - p.idealPrice) / avgCompetitorPrice * 100).toFixed(0)}%)، جرب تزوده شوية عشان تكسب أكتر!</li>`;
+        }
+        if (p.targetSegment === "متوسطة" && p.idealPrice > 800) {
+          recommendationList.innerHTML += `<li>السعر بتاع "${p.name}" عالي على الطبقة المتوسطة، جرب عرض (اشتري 2 وخد 1 هدية) عشان تبيع أكتر!</li>`;
+        }
+        if (roi < 100) {
+          recommendationList.innerHTML += `<li>الإعلانات مكلفة ومش بتجيب عائد كويس، جرب تستهدف ناس مختلفة أو تخفف الميزانية!</li>`;
+        } else if (roi > 200) {
+          recommendationList.innerHTML += `<li>الإعلانات بتاعك جامدة جدًا، زود الميزانية عشان تبيع أكتر!</li>`;
+        }
+        if (codReturnRate > 30) {
+          recommendationList.innerHTML += `<li>المرتجعات عالية جدًا (${codReturnRate}%)، جرب تكلم العملاء قبل التوصيل عشان تقللها!</li>`;
+        }
+      });
+
+      // تحديث المنزلقات
+      const priceSlider = document.getElementById("priceSlider");
+      const adCostSlider = document.getElementById("adCostSlider");
+      const returnRateSlider = document.getElementById("returnRateSlider");
+      priceSlider.value = suggestedPrices[0]?.idealPrice || 0;
+      adCostSlider.value = cpc;
+      returnRateSlider.value = codReturnRate;
+      document.getElementById("priceValue").textContent = `${currency} ${priceSlider.value}`;
+      document.getElementById("adCostValue").textContent = `${currency} ${adCostSlider.value}`;
+      document.getElementById("returnRateValue").textContent = `${returnRateSlider.value}%`;
+
+      priceSlider.oninput = () => {
+        document.getElementById("priceValue").textContent = `${currency} ${priceSlider.value}`;
+        simulateWhatIf(parseFloat(priceSlider.value), parseFloat(adCostSlider.value), parseFloat(returnRateSlider.value));
+      };
+      adCostSlider.oninput = () => {
+        document.getElementById("adCostValue").textContent = `${currency} ${adCostSlider.value}`;
+        simulateWhatIf(parseFloat(priceSlider.value), parseFloat(adCostSlider.value), parseFloat(returnRateSlider.value));
+      };
+      returnRateSlider.oninput = () => {
+        document.getElementById("returnRateValue").textContent = `${returnRateSlider.value}%`;
+        simulateWhatIf(parseFloat(priceSlider.value), parseFloat(adCostSlider.value), parseFloat(returnRateSlider.value));
+      };
     }
 
     // تحديث المخطط
-    function updateChart(productCost, adCost, returnCost, staffCost, websiteCost, codCost, packagingCost, taxCost, gatewayFees, storageCost, organicMarketingCost, supportCost, maintenanceCost, trainingCost, platformCommission) {
+    function updateChart(productCost, adCost, returnCost) {
       if (costChart) costChart.destroy();
       costChart = new Chart(document.getElementById("costBreakdownChart").getContext("2d"), {
         type: "pie",
         data: {
-          labels: ["تكلفة المنتجات", "الإعلانات", "المرتجعات", "الموظفين", "تشغيل الموقع", "الدفع عند الاستلام", "التغليف", "الضرائب", "رسوم البوابة", "التخزين", "التسويق العضوي", "دعم العملاء", "الصيانة", "التدريب", "عمولة المنصة"],
+          labels: ["تكلفة المنتجات", "الإعلانات", "المرتجعات"],
           datasets: [{
-            data: [
-              Math.max(productCost, 0),
-              Math.max(adCost, 0),
-              Math.max(returnCost, 0),
-              Math.max(staffCost, 0),
-              Math.max(websiteCost, 0),
-              Math.max(codCost, 0),
-              Math.max(packagingCost, 0),
-              Math.max(taxCost, 0),
-              Math.max(gatewayFees, 0),
-              Math.max(storageCost, 0),
-              Math.max(organicMarketingCost, 0),
-              Math.max(supportCost, 0),
-              Math.max(maintenanceCost, 0),
-              Math.max(trainingCost, 0),
-              Math.max(platformCommission, 0)
-            ],
-            backgroundColor: ["#3b82f6", "#ef4444", "#f59e0b", "#10b981", "#8b5cf6", "#ec4899", "#14b8a6", "#f97316", "#db2777", "#4f46e5", "#06b6d4", "#6b7280", "#1d4ed8", "#84cc16", "#d97706"],
+            data: [productCost, adCost, returnCost],
+            backgroundColor: ["#3b82f6", "#ef4444", "#f59e0b"],
             borderWidth: 2,
             borderColor: "#fff"
           }]
         },
         options: {
           plugins: {
-            legend: { position: "bottom", labels: { font: { size: 24 }, padding: 55 } },
-            title: { display: true, text: "تفصيل التكاليف", font: { size: 32 }, padding: 55 },
-            tooltip: {
-              callbacks: {
-                label: (context) => `${context.label}: ${currency} ${context.raw.toFixed(2)}`
-              }
-            }
+            legend: { position: "bottom", labels: { font: { size: 26 }, padding: 60 } },
+            title: { display: true, text: "تفصيل المصاريف", font: { size: 34 }, padding: 60 }
           },
-          animation: { duration: 4000, easing: "easeOutQuart" }
+          animation: { duration: 4500, easing: "easeOutQuart" }
         }
       });
+    }
+
+    // محاكاة "ماذا لو؟"
+    function simulateWhatIf(price, adCostPerClick, returnRate) {
+      const clicks = Math.max(parseFloat(document.getElementById("clicks").value) || 0, 0);
+      const conversionRate = Math.min(Math.max(parseFloat(document.getElementById("conversionRate").value) || 0, 0), 100);
+      const totalCost = products[0].buyPrice + products[0].shipping + products[0].otherCosts + 15;
+      const adCost = adCostPerClick * clicks;
+      const orders = clicks * (conversionRate / 100);
+      const deliveredOrders = orders * (1 - returnRate / 100);
+      const returnCost = orders * (returnRate / 100) * 20;
+      const revenue = price * deliveredOrders;
+      const profit = revenue - (totalCost * deliveredOrders + adCost + returnCost);
+
+      document.getElementById("dashRevenue").textContent = `${currency} ${revenue.toFixed(2)}`;
+      document.getElementById("dashNetProfit").textContent = `${currency} ${profit.toFixed(2)}`;
+      document.getElementById("dashNetProfit").classList.toggle("negative", profit < 0);
     }
 
     // عرض التنبيهات
@@ -879,42 +661,39 @@
       alertDiv.className = `alert alert-${type}`;
       alertDiv.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i> ${message}`;
       document.querySelector(".container").prepend(alertDiv);
-      setTimeout(() => alertDiv.remove(), 6500);
+      setTimeout(() => alertDiv.remove(), 7000);
     }
 
     // أحداث المستمعين
-    document.querySelectorAll("input").forEach(input => {
-      input.addEventListener("input", (e) => {
-        if (e.target.id === "defaultDesiredProfit") e.target.dataset.userModified = true;
-        debounce(calculateAll, 300)();
-      });
+    document.querySelectorAll("input, select").forEach(input => {
+      input.addEventListener("input", debounce(calculateAll, 300));
     });
 
-    document.getElementById("currency").addEventListener("change", () => {
-      currency = document.getElementById("currency").value;
+    document.getElementById("calculateIdealPrice").addEventListener("click", () => {
       calculateAll();
+      showAlert("السعر المثالي اتحسب لك، شوفه في لوحة التحكم!", "success");
     });
 
     document.getElementById("calculate").addEventListener("click", () => {
       calculateAll();
-      showAlert("تم حساب النتائج بنجاح!", "success");
+      showAlert("كل حاجة اتحسبت بنجاح!", "success");
     });
 
     document.getElementById("reset").addEventListener("click", () => {
-      products = [{ name: "منتج 1", buyPrice: 0, shipping: 0, otherCosts: 0, expectedDeliveries: 0, desiredProfit: 0 }];
-      document.querySelectorAll("input:not([id='currency'])").forEach(input => {
-        input.value = "0";
-        if (input.id === "defaultDesiredProfit") input.dataset.userModified = false;
-      });
-      document.getElementById("currency").value = "ج.م";
+      products = [{ name: "منتج 1", buyPrice: 0, shipping: 0, otherCosts: 0, expectedDeliveries: 0, targetSegment: "متوسطة" }];
+      competitors = [];
+      localStorage.setItem("products", JSON.stringify(products));
+      localStorage.setItem("competitors", JSON.stringify(competitors));
+      document.querySelectorAll("input:not([type='range'])").forEach(input => input.value = "0");
       renderProducts();
+      renderCompetitors();
       calculateAll();
-      showAlert("تم إعادة تعيين البيانات!", "success");
+      showAlert("كل حاجة رجعت زي الأول!", "success");
     });
 
     document.getElementById("print").addEventListener("click", () => {
       window.print();
-      showAlert("جارٍ الطباعة!", "success");
+      showAlert("التقرير بيطبع دلوقتي!", "success");
     });
 
     // Debounce Function
@@ -928,6 +707,7 @@
 
     // التهيئة الأولية
     renderProducts();
+    renderCompetitors();
     calculateAll();
   </script>
 </body>
