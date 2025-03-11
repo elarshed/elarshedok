@@ -3,58 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SELL RIGHT</title>
-<link rel="manifest" href="/manifest.json">
+    <title>SELL RIGHT - تطبيق احترافي</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-/* Custom Install Prompt */
-.install-prompt {
-    display: none;
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(74, 144, 226, 0.95);
-    color: #fff;
-    padding: 0.8rem 1.5rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    text-align: center;
-    font-size: 0.9rem;
-    max-width: 90%;
-    animation: slideUp 0.5s ease;
-}
-.install-prompt.active { display: block; }
-.install-prompt p { margin-bottom: 0.5rem; font-weight: 600; }
-.install-prompt button {
-    background: #fff;
-    color: #4a90e2;
-    padding: 0.4rem 1rem;
-    border-radius: 8px;
-    border: none;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-.install-prompt button:hover {
-    background: #f0f4f8;
-    transform: scale(1.05);
-}
-.install-prompt .close-prompt {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 1rem;
-    cursor: pointer;
-}
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Cairo', sans-serif;
@@ -461,12 +415,6 @@
 </head>
 <body class="light-mode">
     <div class="app-container">
-        <!-- Custom Install Prompt -->
-<div class="install-prompt" id="installPrompt">
-    <button class="close-prompt" onclick="hideInstallPrompt()">×</button>
-    <p>قم بتثبيت تطبيق SELL RIGHT</p>
-    <button onclick="installApp()">تثبيت الآن</button>
-</div>
         <!-- App Bar -->
         <div class="app-bar">
             <span class="app-title">
@@ -647,67 +595,6 @@
     </div>
 
     <script>
-        let deferredPrompt;
-
-// التقاط حدث beforeinstallprompt
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    showInstallPrompt();
-});
-
-// إظهار الإشعار المخصص
-const showInstallPrompt = () => {
-    const installPrompt = document.getElementById('installPrompt');
-    if (installPrompt) {
-        installPrompt.classList.add('active');
-    }
-};
-
-// إخفاء الإشعار
-const hideInstallPrompt = () => {
-    const installPrompt = document.getElementById('installPrompt');
-    if (installPrompt) {
-        installPrompt.classList.remove('active');
-    }
-};
-
-// تثبيت التطبيق
-const installApp = async () => {
-    hideInstallPrompt();
-    if (deferredPrompt) {
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === 'accepted') {
-            console.log('User accepted the install prompt');
-        } else {
-            console.log('User dismissed the install prompt');
-        }
-        deferredPrompt = null;
-    }
-};
-
-// التحقق من تثبيت التطبيق
-window.addEventListener('appinstalled', () => {
-    console.log('PWA was installed');
-    deferredPrompt = null;
-});
-
-// إظهار الإشعار تلقائيًا عند تحميل الصفحة إذا كان التطبيق غير مثبت
-window.addEventListener('load', () => {
-    if (!window.matchMedia('(display-mode: standalone)').matches) {
-        showInstallPrompt();
-    }
-});
-        if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/service-worker.js')
-    .then((registration) => {
-      console.log('Service Worker registered with scope:', registration.scope);
-    })
-    .catch((error) => {
-      console.log('Service Worker registration failed:', error);
-    });
-}
         let previousProfit = 0;
         const currencySymbols = { EGP: 'ج.م', LYD: 'د.ل', SAR: 'ر.س', AED: 'د.إ' };
         const getCurrencySymbol = () => currencySymbols[document.getElementById('currency').value];
