@@ -217,7 +217,7 @@
     <div class="login-container">
         <h1>
             <i class="fas fa-calculator"></i>
-            تسجيل الدخول إلى SELL RIGHT
+            SELL RIGHT
         </h1>
         <div class="input-group">
             <input type="text" id="activationCode" placeholder=" " required>
@@ -251,7 +251,7 @@
         });
 
         async function verifyCode() {
-            const code = document.getElementById('activationCode').value.trim(); // بدون toUpperCase لأن الكود في الشيت صغير
+            const code = document.getElementById('activationCode').value.trim();
             const errorMessage = document.getElementById('errorMessage');
             const loginBtn = document.querySelector('.login-btn');
             let deviceId = localStorage.getItem('deviceId');
@@ -272,18 +272,29 @@
 
             try {
                 const data = await codesData;
-                // استخراج الأكواد المتاحة (Used = FALSE و Active = TRUE)
-                const availableCodes = data
-                    .filter(row => row.Used === 'FALSE' && row.Active === 'TRUE')
-                    .map(row => row.Code);
+                // البحث عن الكود في البيانات المجلبة
+                const codeEntry = data.find(row => row.Code === code);
 
-                if (!availableCodes.includes(code)) {
-                    errorMessage.textContent = 'الكود غير صحيح، مستخدم، أو غير نشط';
+                if (!codeEntry) {
+                    errorMessage.textContent = 'الكود غير صحيح';
                     errorMessage.style.display = 'block';
                     return;
                 }
 
-                // التحقق من localStorage إذا كان الكود مستخدم على هذا الجهاز من قبل
+                // التحقق من الحالة: يجب أن يكون Used = FALSE و Active = TRUE
+                if (codeEntry.Used === 'TRUE') {
+                    errorMessage.textContent = 'هذا الكود تم استخدامه من قبل';
+                    errorMessage.style.display = 'block';
+                    return;
+                }
+
+                if (codeEntry.Active !== 'TRUE') {
+                    errorMessage.textContent = 'هذا الكود غير مفعل';
+                    errorMessage.style.display = 'block';
+                    return;
+                }
+
+                // التحقق من localStorage إذا كان الكود مستخدم على جهاز آخر
                 const storedDataStr = localStorage.getItem('activationCode');
                 if (storedDataStr) {
                     const storedData = JSON.parse(storedDataStr);
@@ -303,8 +314,6 @@
                     code: code,
                     deviceId: deviceId
                 }));
-
-                // لا يمكن تحديث الشيت تلقائيًا، لكن يمكنك تحديثه يدويًا لاحقًا
                 window.location.href = 'index.html';
             } catch (error) {
                 console.error('خطأ في جلب البيانات من Google Sheet:', error);
