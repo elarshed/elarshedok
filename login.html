@@ -7,8 +7,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-    <!-- إضافة مكتبة Tabletop.js لجلب البيانات من Google Sheets -->
-    <script src="https://cdn.jsdelivr.net/npm/tabletop@1.6.1/dist/tabletop.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -236,28 +234,24 @@
             return `device_${randomId}_${Date.now()}`;
         }
 
-        // متغير عالمي لتخزين البيانات مرة واحدة
-        let codesData = [];
+        // دالة لجلب البيانات من data-config-xyz.json
+        async function fetchCodesData() {
+            try {
+                const response = await fetch('data-config-xyz.json');
+                if (!response.ok) {
+                    throw new Error(`فشل في جلب البيانات: ${response.status} ${response.statusText}`);
+                }
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('خطأ في جلب البيانات من data-config-xyz.json:', error);
+                throw error;
+            }
+        }
 
-        // تحميل البيانات من Google Sheet عند تحميل الصفحة
-        document.addEventListener('DOMContentLoaded', () => {
-            Tabletop.init({
-                key: '1w2BGbPrRMwVQf4IkAhv2TwuJ6JSiXfhmh37FotBJW30', // مفتاح الشيت
-                callback: (data, tabletop) => {
-                    codesData = data; // تخزين البيانات
-                    console.log('البيانات تم تحميلها:', codesData);
-                },
-                error: (error) => {
-                    console.error('خطأ في تحميل البيانات:', error);
-                    document.getElementById('errorMessage').textContent = 'مشكلة في الاتصال بالبيانات، حاول لاحقًا';
-                    document.getElementById('errorMessage').style.display = 'block';
-                },
-                simpleSheet: true
-            });
-        });
-
+        // دالة التحقق من الكود
         async function verifyCode() {
-            const codeInput = document.getElementById('activationCode').value.trim().toLowerCase(); // تحويل إلى أحرف صغيرة
+            const codeInput = document.getElementById('activationCode').value.trim().toLowerCase();
             const errorMessage = document.getElementById('errorMessage');
             const loginBtn = document.querySelector('.login-btn');
             let deviceId = localStorage.getItem('deviceId');
@@ -276,73 +270,75 @@
             loginBtn.classList.add('loading');
             loginBtn.disabled = true;
 
-            // تأخير قصير للتأكد من تحميل البيانات
-            await new Promise(resolve => setTimeout(resolve, 500));
+            try {
+                const codesData = await fetchCodesData();
 
-            if (codesData.length === 0) {
-                errorMessage.textContent = 'البيانات غير متاحة، تحقق من الاتصال';
-                errorMessage.style.display = 'block';
-                loginBtn.classList.remove('loading');
-                loginBtn.disabled = false;
-                return;
-            }
-
-            // البحث عن الكود في البيانات المجلبة
-            const codeEntry = codesData.find(row => row.Code.toLowerCase() === codeInput);
-
-            if (!codeEntry) {
-                errorMessage.textContent = 'الكود غير موجود';
-                errorMessage.style.display = 'block';
-                loginBtn.classList.remove('loading');
-                loginBtn.disabled = false;
-                return;
-            }
-
-            // التحقق من الحالة: يجب أن يكون Used = FALSE و Active = TRUE
-            if (codeEntry.Used === 'TRUE') {
-                errorMessage.textContent = 'هذا الكود تم استخدامه من قبل';
-                errorMessage.style.display = 'block';
-                loginBtn.classList.remove('loading');
-                loginBtn.disabled = false;
-                return;
-            }
-
-            if (codeEntry.Active !== 'TRUE') {
-                errorMessage.textContent = 'هذا الكود غير مفعل';
-                errorMessage.style.display = 'block';
-                loginBtn.classList.remove('loading');
-                loginBtn.disabled = false;
-                return;
-            }
-
-            // التحقق من localStorage إذا كان الكود مستخدم على جهاز آخر
-            const storedDataStr = localStorage.getItem('activationCode');
-            if (storedDataStr) {
-                const storedData = JSON.parse(storedDataStr);
-                if (storedData.code.toLowerCase() === codeInput && storedData.deviceId !== deviceId) {
-                    errorMessage.textContent = 'هذا الكود مستخدم على جهاز آخر';
+                if (!codesData || codesData.length === 0) {
+                    errorMessage.textContent = 'البيانات غير متاحة، تحقق من الملف data-config-xyz.json';
                     errorMessage.style.display = 'block';
                     loginBtn.classList.remove('loading');
                     loginBtn.disabled = false;
                     return;
                 }
-                if (storedData.code.toLowerCase() === codeInput && storedData.deviceId === deviceId) {
-                    window.location.href = 'index.html';
+
+                const codeEntry = codesData.find(row => row.Code.toLowerCase() === codeInput);
+
+                if (!codeEntry) {
+                    errorMessage.textContent = 'الكود غير موجود';
+                    errorMessage.style.display = 'block';
                     loginBtn.classList.remove('loading');
                     loginBtn.disabled = false;
                     return;
                 }
+
+                if (codeEntry.Used === 'TRUE') {
+                    errorMessage.textContent = 'هذا الكود تم استخدامه من قبل';
+                    errorMessage.style.display = 'block';
+                    loginBtn.classList.remove('loading');
+                    loginBtn.disabled = false;
+                    return;
+                }
+
+                if (codeEntry.Active !== 'TRUE') {
+                    errorMessage.textContent = 'هذا الكود غير مفعل';
+                    errorMessage.style.display = 'block';
+                    loginBtn.classList.remove('loading');
+                    loginBtn.disabled = false;
+                    return;
+                }
+
+                const storedDataStr = localStorage.getItem('activationCode');
+                if (storedDataStr) {
+                    const storedData = JSON.parse(storedDataStr);
+                    if (storedData.code.toLowerCase() === codeInput && storedData.deviceId !== deviceId) {
+                        errorMessage.textContent = 'هذا الكود مستخدم على جهاز آخر';
+                        errorMessage.style.display = 'block';
+                        loginBtn.classList.remove('loading');
+                        loginBtn.disabled = false;
+                        return;
+                    }
+                    if (storedData.code.toLowerCase() === codeInput && storedData.deviceId === deviceId) {
+                        window.location.href = 'index.html';
+                        loginBtn.classList.remove('loading');
+                        loginBtn.disabled = false;
+                        return;
+                    }
+                }
+
+                localStorage.setItem('activationCode', JSON.stringify({
+                    code: codeInput,
+                    deviceId: deviceId
+                }));
+                window.location.href = 'index.html';
+
+            } catch (error) {
+                errorMessage.textContent = 'خطأ في جلب البيانات، تأكد من وجود data-config-xyz.json';
+                errorMessage.style.display = 'block';
+                console.error(error);
+            } finally {
+                loginBtn.classList.remove('loading');
+                loginBtn.disabled = false;
             }
-
-            // تخزين الكود ومعرف الجهاز في localStorage
-            localStorage.setItem('activationCode', JSON.stringify({
-                code: codeInput,
-                deviceId: deviceId
-            }));
-            window.location.href = 'index.html';
-
-            loginBtn.classList.remove('loading');
-            loginBtn.disabled = false;
         }
 
         document.getElementById('activationCode').addEventListener('keypress', (e) => {
