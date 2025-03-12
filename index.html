@@ -44,7 +44,7 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
 
-       /* App Bar */
+        /* App Bar */
         .app-bar {
             background: linear-gradient(90deg, #4a90e2, #63b3ed);
             padding: 0.5rem;
@@ -57,27 +57,18 @@
             overflow: hidden;
         }
         .dark-mode .app-bar { background: linear-gradient(90deg, #2a69ac, #4dabf7); }
-        .app-bar .profile-pic {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            border: 2px solid #fff;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-        }
-        .app-bar .profile-pic:hover { transform: scale(1.1); }
         .app-bar .app-title {
             font-size: 1rem;
             font-weight: 900;
             color: #fff;
             display: flex;
             align-items: center;
-            gap: 0.5rem; /* Adjusted gap for better spacing */
+            gap: 0.5rem;
             transition: transform 0.3s ease;
         }
         .app-bar .app-title:hover { transform: scale(1.05); }
         .app-bar .app-title i { 
-            font-size: 1rem; /* Slightly larger icon for better visibility */
+            font-size: 1rem;
             animation: pulse 2s infinite; 
         }
         .social-links {
@@ -165,14 +156,24 @@
         .profile-modal.active { display: flex; }
         .profile-modal .close-btn {
             position: absolute;
-            top: 0.3rem;
-            right: 0.3rem;
-            font-size: 1rem;
+            top: 0.5rem;
+            right: 0.5rem;
+            font-size: 1.5rem; /* Increased size for better visibility */
             cursor: pointer;
             color: #4a90e2;
             transition: color 0.3s ease;
         }
         .profile-modal .close-btn:hover { color: #63b3ed; }
+        .profile-modal .profile-pic {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #4a90e2;
+            overflow: hidden;
+            margin: 0 auto;
+            transition: transform 0.3s ease;
+        }
+        .profile-modal .profile-pic:hover { transform: scale(1.1); }
         .profile-modal .bio {
             display: flex;
             flex-direction: column;
@@ -441,7 +442,7 @@
         <!-- App Bar -->
         <div class="app-bar">
             <span class="app-title">
-                <i class="fas fa-calculator"></i> <!-- Moved the calculator icon here -->
+                <i class="fas fa-calculator"></i>
                 SELL RIGHT
             </span>
             <div class="profile-container">
@@ -457,15 +458,15 @@
                     <a href="https://tiktok.com/@elarshedok" target="_blank" class="tiktok"><i class="fab fa-tiktok"></i></a>
                     <a href="https://linkedin.com/in/elarshedok" target="_blank" class="linkedin"><i class="fab fa-linkedin"></i></a>
                 </div>
-                <div class="profile-pic">
-                    <img src="https://imgg.io/images/2025/03/12/d1f425f5f81f9df07b5909ee5de09238.jpg" alt="Profile Picture">
-                </div>
             </div>
         </div>
 
         <!-- Profile Modal -->
         <div class="profile-modal" id="profileModal">
             <span class="close-btn" onclick="toggleProfileModal()">×</span>
+            <div class="profile-pic">
+                <img src="https://imgg.io/images/2025/03/12/d1f425f5f81f9df07b5909ee5de09238.jpg" alt="Profile Picture of Ahmed">
+            </div>
             <div class="bio">
                 <span>Ahmed Muhammed Abdeslam</span>
                 <span><i class="fas fa-globe"></i> 🌐 Digital Marketing Specialist</span>
@@ -650,7 +651,7 @@
             const adCostWithTaxPerOrder = applyTax ? adCostPerOrder * 1.14 : adCostPerOrder;
             const totalAdSpend = targetOrders * adCostPerOrder;
             const adSpendWithTax = applyTax ? totalAdSpend * 1.14 : totalAdSpend;
-            const totalPackagingCost = targetOrders * packagingCost; // تكلفة التغليف على جميع الأوردرات
+            const totalPackagingCost = targetOrders * packagingCost;
             const totalReturnCost = returnedOrders * returnCost;
 
             // Net Profit Per Order (Before Ads and Fixed Costs)
@@ -658,7 +659,7 @@
 
             // Total Revenue and Costs
             const totalRevenue = deliveredOrders * sellingPrice;
-            const totalVariableCosts = deliveredOrders * (productPrice + shippingCost); // التكاليف المتغيرة بدون التغليف
+            const totalVariableCosts = deliveredOrders * (productPrice + shippingCost);
             const totalCosts = totalVariableCosts + totalPackagingCost + adSpendWithTax + totalReturnCost + totalFixedCosts;
             const netProfitAfterAds = totalRevenue - totalCosts;
 
@@ -778,7 +779,7 @@
         const resetValues = () => {
             document.querySelectorAll('input').forEach(input => input.value = '');
             document.getElementById('applyTax').checked = false;
-            previousProfit = 0; // Reset previous profit to ensure trend indicator works correctly
+            previousProfit = 0;
             calculateResults();
             updateTaxStatus();
             document.querySelectorAll('.result-card:not(.bg-blue-50)').forEach(card => card.classList.add('hidden'));
