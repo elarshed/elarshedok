@@ -7,6 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- إضافة مكتبة Tabletop.js لجلب البيانات من Google Sheets -->
+    <script src="https://cdn.rawgit.com/jsfiddle-files/tabletop.js/master/tabletop.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -215,7 +217,7 @@
     <div class="login-container">
         <h1>
             <i class="fas fa-calculator"></i>
-            SELL RIGHT
+            تسجيل الدخول إلى SELL RIGHT
         </h1>
         <div class="input-group">
             <input type="text" id="activationCode" placeholder=" " required>
@@ -228,14 +230,28 @@
     </div>
 
     <script>
-        // دالة لتوليد معرف جهاز بسيط (يمكن تحسينه لاحقًا باستخدام مكتبة مثل FingerprintJS)
+        // دالة لتوليد معرف جهاز بسيط
         function generateDeviceId() {
             const randomId = Math.random().toString(36).substr(2, 9);
             return `device_${randomId}_${Date.now()}`;
         }
 
+        // جلب البيانات من Google Sheet باستخدام Tabletop.js
+        let codesData = new Promise((resolve, reject) => {
+            Tabletop.init({
+                key: '1w2BGbPrRMwVQf4IkAhv2TwuJ6JSiXfhmh37FotBJW30', // مفتاح الشيت من الرابط
+                callback: function(data, tabletop) {
+                    resolve(data);
+                },
+                error: function(error) {
+                    reject(error);
+                },
+                simpleSheet: true // يعيد البيانات كمصفوفة بسيطة
+            });
+        });
+
         async function verifyCode() {
-            const code = document.getElementById('activationCode').value.trim().toUpperCase();
+            const code = document.getElementById('activationCode').value.trim(); // بدون toUpperCase لأن الكود في الشيت صغير
             const errorMessage = document.getElementById('errorMessage');
             const loginBtn = document.querySelector('.login-btn');
             let deviceId = localStorage.getItem('deviceId');
@@ -255,38 +271,43 @@
             loginBtn.disabled = true;
 
             try {
-                const response = await fetch('codes.json', { cache: 'no-store' });
-                if (!response.ok) throw new Error('فشل في جلب بيانات الأكواد');
-                const codes = await response.json();
+                const data = await codesData;
+                // استخراج الأكواد المتاحة (Used = FALSE و Active = TRUE)
+                const availableCodes = data
+                    .filter(row => row.Used === 'FALSE' && row.Active === 'TRUE')
+                    .map(row => row.Code);
 
-                const codeEntry = codes.find(c => c.code === code);
-
-                if (!codeEntry) {
-                    errorMessage.textContent = 'الكود غير صحيح';
+                if (!availableCodes.includes(code)) {
+                    errorMessage.textContent = 'الكود غير صحيح، مستخدم، أو غير نشط';
                     errorMessage.style.display = 'block';
                     return;
                 }
 
-                if (codeEntry.deviceId && codeEntry.deviceId !== deviceId) {
-                    errorMessage.textContent = 'هذا الكود مستخدم على جهاز آخر';
-                    errorMessage.style.display = 'block';
-                    return;
+                // التحقق من localStorage إذا كان الكود مستخدم على هذا الجهاز من قبل
+                const storedDataStr = localStorage.getItem('activationCode');
+                if (storedDataStr) {
+                    const storedData = JSON.parse(storedDataStr);
+                    if (storedData.code === code && storedData.deviceId !== deviceId) {
+                        errorMessage.textContent = 'هذا الكود مستخدم على جهاز آخر';
+                        errorMessage.style.display = 'block';
+                        return;
+                    }
+                    if (storedData.code === code && storedData.deviceId === deviceId) {
+                        window.location.href = 'index.html';
+                        return;
+                    }
                 }
 
-                if (!codeEntry.deviceId) {
-                    codeEntry.deviceId = deviceId;
-                    console.log('تم ربط الكود بالجهاز:', codeEntry);
-                    // ملاحظة: هذا التغيير لا يتم حفظه في codes.json على GitHub Pages لأنه موقع ثابت
-                }
-
-                // تخزين بيانات التفعيل مع معرف الجهاز
+                // تخزين الكود ومعرف الجهاز في localStorage
                 localStorage.setItem('activationCode', JSON.stringify({
                     code: code,
                     deviceId: deviceId
                 }));
+
+                // لا يمكن تحديث الشيت تلقائيًا، لكن يمكنك تحديثه يدويًا لاحقًا
                 window.location.href = 'index.html';
             } catch (error) {
-                console.error('خطأ في التحقق من الكود:', error);
+                console.error('خطأ في جلب البيانات من Google Sheet:', error);
                 errorMessage.textContent = 'حدث خطأ، حاول مرة أخرى';
                 errorMessage.style.display = 'block';
             } finally {
