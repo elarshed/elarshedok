@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- إضافة مكتبات FingerprintJS و CryptoJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fingerprintjs2/2.1.0/fingerprint2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -595,6 +598,43 @@
     </div>
 
     <script>
+        // إضافة كود التحقق من المصادقة
+        const secretKey = 'sell-right-secure-key-2025'; // نفس المفتاح اللي في login.html
+        const validCodes = ['SELLRIGHT2025', 'PROFIT2025']; // نفس الأكواد اللي في login.html
+
+        function checkAccess() {
+            const encryptedData = localStorage.getItem('authData');
+            if (!encryptedData) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            try {
+                const bytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
+                const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+                const storedCode = decryptedData.code;
+                const storedFingerprint = decryptedData.fingerprint;
+
+                new Fingerprint2().get(function(fingerprint) {
+                    if (validCodes.includes(storedCode) && storedFingerprint === fingerprint) {
+                        // المستخدم مصرح له، استمر في تحميل الصفحة
+                    } else {
+                        alert('جهاز غير مصرح به أو كود غير صالح');
+                        localStorage.removeItem('authData');
+                        window.location.href = 'login.html';
+                    }
+                });
+            } catch (error) {
+                console.error('خطأ في فك التشفير:', error);
+                localStorage.removeItem('authData');
+                window.location.href = 'login.html';
+            }
+        }
+
+        // شغل التحقق فورًا عند تحميل الصفحة
+        checkAccess();
+
+        // الكود الأصلي للأداة
         let previousProfit = 0;
         const currencySymbols = { EGP: 'ج.م', LYD: 'د.ل', SAR: 'ر.س', AED: 'د.إ' };
         const getCurrencySymbol = () => currencySymbols[document.getElementById('currency').value];
@@ -820,5 +860,6 @@
         calculateResults();
         updateTaxStatus();
     </script>
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'91f0aba3091e452f',t:'MTc0MTc1NTAyMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>
