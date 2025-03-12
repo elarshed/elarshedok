@@ -3,14 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="SELL RIGHT - أداة احترافية لتحسين تجربة التداول">
-    <title>SELL RIGHT - الأداة</title>
+    <title>SELL RIGHT</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fingerprintjs2/2.1.0/fingerprint2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -41,13 +38,9 @@
             backdrop-filter: blur(8px);
         }
         .dark-mode .app-container { background: rgba(45, 55, 72, 0.95); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); }
-
-        /* Animations */
         @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
-
-        /* App Bar */
         .app-bar {
             background: linear-gradient(90deg, #4a90e2, #63b3ed);
             padding: 0.5rem;
@@ -79,10 +72,7 @@
             transition: transform 0.3s ease;
         }
         .app-bar .app-title:hover { transform: scale(1.05); }
-        .app-bar .app-title i { 
-            font-size: 1rem;
-            animation: pulse 2s infinite; 
-        }
+        .app-bar .app-title i { font-size: 1rem; animation: pulse 2s infinite; }
         .social-links {
             display: flex;
             gap: 0.4rem;
@@ -139,14 +129,8 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
-        .dark-mode .view-profile-btn {
-            background: rgba(45, 55, 72, 0.9);
-            color: #63b3ed;
-        }
-        .dark-mode .view-profile-btn:hover {
-            background: #4a5568;
-            color: #a0aec0;
-        }
+        .dark-mode .view-profile-btn { background: rgba(45, 55, 72, 0.9); color: #63b3ed; }
+        .dark-mode .view-profile-btn:hover { background: #4a5568; color: #a0aec0; }
         .profile-modal {
             display: none;
             position: fixed;
@@ -190,8 +174,6 @@
             gap: 0.3rem;
             justify-content: center;
         }
-
-        /* Controls */
         .controls {
             display: flex;
             justify-content: space-between;
@@ -263,8 +245,6 @@
         .dropdown-option { padding: 0.3rem; font-size: 0.7rem; cursor: pointer; }
         .dropdown-option:hover { background: #e9ecef; }
         .dark-mode .dropdown-option:hover { background: #718096; }
-
-        /* Inputs Section */
         .inputs-section { padding: 0.5rem; }
         .inputs-container {
             display: grid;
@@ -325,8 +305,6 @@
             margin-top: 0.1rem;
         }
         .dark-mode .input-hint { color: #a0aec0; }
-
-        /* Results Section */
         .results-section { padding: 0.5rem; }
         .results-container {
             display: grid;
@@ -374,8 +352,6 @@
         .dark-mode .suggestion-price { color: #63b3ed; }
         .dark-mode .suggestion-rate { color: #68d391; }
         .dark-mode .suggestion-orders { color: #f6ad55; }
-
-        /* Bottom Action Bar */
         .bottom-bar {
             position: sticky;
             bottom: 0;
@@ -403,8 +379,6 @@
         .dark-mode .action-btn:hover { color: #63b3ed; background: #2d3748; }
         .action-btn i { font-size: 1rem; }
         .action-btn span { font-size: 0.6rem; font-weight: 700; }
-
-        /* Responsive Adjustments */
         @media (min-width: 640px) {
             .app-container { max-width: 640px; }
             .inputs-container, .results-container { grid-template-columns: repeat(2, 1fr); }
@@ -417,8 +391,48 @@
     </style>
 </head>
 <body class="light-mode">
+    <script>
+        // التحقق من الكود ومعرف الجهاز عند تحميل الصفحة
+        async function checkActivationCode() {
+            const storedDataStr = localStorage.getItem('activationCode');
+            const currentDeviceId = localStorage.getItem('deviceId');
+
+            if (!storedDataStr || !currentDeviceId) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const storedData = JSON.parse(storedDataStr);
+            const { code, deviceId: storedDeviceId } = storedData;
+
+            if (!code || !storedDeviceId || currentDeviceId !== storedDeviceId) {
+                localStorage.removeItem('activationCode');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            try {
+                const response = await fetch('codes.json', { cache: 'no-store' });
+                if (!response.ok) throw new Error('فشل في جلب بيانات الأكواد');
+                const codes = await response.json();
+                const codeEntry = codes.find(c => c.code === code);
+
+                if (!codeEntry) {
+                    localStorage.removeItem('activationCode');
+                    window.location.href = 'login.html';
+                    return;
+                }
+                // إذا كان الكود موجودًا ومعرف الجهاز متطابق، يتم السماح بالوصول
+            } catch (error) {
+                console.error('خطأ في التحقق من الكود:', error);
+                window.location.href = 'login.html';
+            }
+        }
+
+        window.onload = checkActivationCode;
+    </script>
+
     <div class="app-container">
-        <!-- App Bar -->
         <div class="app-bar">
             <span class="app-title">
                 <i class="fas fa-calculator"></i>
@@ -443,7 +457,6 @@
             </div>
         </div>
 
-        <!-- Profile Modal -->
         <div class="profile-modal" id="profileModal">
             <span class="close-btn" onclick="toggleProfileModal()">×</span>
             <div class="bio">
@@ -454,7 +467,6 @@
             </div>
         </div>
 
-        <!-- Controls -->
         <div class="controls">
             <div class="mode-toggle">
                 <label class="toggle-switch">
@@ -480,7 +492,6 @@
             </div>
         </div>
 
-        <!-- Inputs Section -->
         <div class="inputs-section">
             <div class="inputs-container">
                 <div class="input-group">
@@ -537,7 +548,6 @@
             </div>
         </div>
 
-        <!-- Results Section -->
         <div class="results-section">
             <div class="results-container" id="results">
                 <div class="result-card">
@@ -584,7 +594,6 @@
             </div>
         </div>
 
-        <!-- Bottom Action Bar -->
         <div class="bottom-bar">
             <div class="action-btn" id="showMoreBtn" onclick="showMoreResults()">
                 <i class="fas fa-eye"></i>
@@ -598,247 +607,212 @@
     </div>
 
     <script>
-        // التحقق من التفعيل
-        function checkAccess() {
-            const encryptedData = localStorage.getItem('authData');
-            if (!encryptedData) {
-                window.location.href = 'login.html';
-                return false;
+        let previousProfit = 0;
+        const currencySymbols = { EGP: 'ج.م', LYD: 'د.ل', SAR: 'ر.س', AED: 'د.إ' };
+        const getCurrencySymbol = () => currencySymbols[document.getElementById('currency').value];
+
+        const calculateResults = () => {
+            const productPrice = parseFloat(document.getElementById('productPrice').value) || 0;
+            const sellingPrice = parseFloat(document.getElementById('sellingPrice').value) || 0;
+            const shippingCost = parseFloat(document.getElementById('shippingCost').value) || 0;
+            const targetOrders = parseFloat(document.getElementById('targetOrders').value) || 0;
+            const deliveryRate = parseFloat(document.getElementById('deliveryRate').value) || 0;
+            const adCostPerOrder = parseFloat(document.getElementById('adCostPerOrder').value) || 0;
+            const returnCost = parseFloat(document.getElementById('returnCost').value) || 0;
+            const packagingCost = parseFloat(document.getElementById('packagingCost').value) || 0;
+            const salaries = parseFloat(document.getElementById('salaries').value) || 0;
+            const subscriptions = parseFloat(document.getElementById('subscriptions').value) || 0;
+            const applyTax = document.getElementById('applyTax').checked;
+            const currencySymbol = getCurrencySymbol();
+
+            if (deliveryRate > 100) {
+                alert('نسبة التسليمات لا يمكن أن تكون أكثر من 100%');
+                return;
             }
 
-            try {
-                const bytes = CryptoJS.AES.decrypt(encryptedData, 'SellRight-2025-UniqueKey123!@#');
-                const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-                const storedFingerprint = decryptedData.fingerprint;
+            const deliveredOrders = Math.round((targetOrders * deliveryRate) / 100);
+            const returnedOrders = targetOrders - deliveredOrders;
+            const totalFixedCosts = salaries + subscriptions;
+            const variableCostPerOrder = productPrice + shippingCost + packagingCost;
+            const adCostWithTaxPerOrder = applyTax ? adCostPerOrder * 1.14 : adCostPerOrder;
+            const totalAdSpend = targetOrders * adCostPerOrder;
+            const adSpendWithTax = applyTax ? totalAdSpend * 1.14 : totalAdSpend;
+            const totalPackagingCost = targetOrders * packagingCost;
+            const totalReturnCost = returnedOrders * returnCost;
 
-                return new Promise((resolve) => {
-                    new Fingerprint2().get(function(fingerprint) {
-                        if (storedFingerprint !== fingerprint) {
-                            alert('جهاز غير مصرح به');
-                            localStorage.removeItem('authData');
-                            window.location.href = 'login.html';
-                            resolve(false);
-                        } else {
-                            resolve(true);
-                        }
-                    });
-                });
-            } catch (error) {
-                console.error('خطأ في فك التشفير:', error);
-                localStorage.removeItem('authData');
-                window.location.href = 'login.html';
-                return false;
-            }
-        }
+            const netProfitPerOrder = sellingPrice - variableCostPerOrder;
+            const totalRevenue = deliveredOrders * sellingPrice;
+            const totalVariableCosts = deliveredOrders * (productPrice + shippingCost);
+            const totalCosts = totalVariableCosts + totalPackagingCost + adSpendWithTax + totalReturnCost + totalFixedCosts;
+            const netProfitAfterAds = totalRevenue - totalCosts;
 
-        // تشغيل الأداة بعد التحقق
-        async function initializeTool() {
-            const isAuthorized = await checkAccess();
-            if (!isAuthorized) return;
+            const profitMargin = sellingPrice ? (netProfitPerOrder / sellingPrice) * 100 : 0;
 
-            let previousProfit = 0;
-            const currencySymbols = { EGP: 'ج.م', LYD: 'د.ل', SAR: 'ر.س', AED: 'د.إ' };
-            const getCurrencySymbol = () => currencySymbols[document.getElementById('currency').value];
+            const contributionMarginPerOrder = sellingPrice - (productPrice + shippingCost) - (returnCost * (1 - deliveryRate / 100));
+            const fixedCostsPlusAdAndReturns = totalFixedCosts + adSpendWithTax + (targetOrders * returnCost * (1 - deliveryRate / 100)) + totalPackagingCost;
 
-            const calculateResults = () => {
-                const productPrice = parseFloat(document.getElementById('productPrice').value) || 0;
-                const sellingPrice = parseFloat(document.getElementById('sellingPrice').value) || 0;
-                const shippingCost = parseFloat(document.getElementById('shippingCost').value) || 0;
-                const targetOrders = parseFloat(document.getElementById('targetOrders').value) || 0;
-                const deliveryRate = parseFloat(document.getElementById('deliveryRate').value) || 0;
-                const adCostPerOrder = parseFloat(document.getElementById('adCostPerOrder').value) || 0;
-                const returnCost = parseFloat(document.getElementById('returnCost').value) || 0;
-                const packagingCost = parseFloat(document.getElementById('packagingCost').value) || 0;
-                const salaries = parseFloat(document.getElementById('salaries').value) || 0;
-                const subscriptions = parseFloat(document.getElementById('subscriptions').value) || 0;
-                const applyTax = document.getElementById('applyTax').checked;
-                const currencySymbol = getCurrencySymbol();
+            const breakEvenSellingPrice = deliveredOrders ? (totalCosts) / deliveredOrders : sellingPrice;
+            const breakEvenDeliveredOrders = contributionMarginPerOrder ? fixedCostsPlusAdAndReturns / contributionMarginPerOrder : 0;
+            const breakEvenDeliveryRate = targetOrders ? (breakEvenDeliveredOrders / targetOrders) * 100 : 0;
 
-                if (deliveryRate > 100) {
-                    alert('نسبة التسليمات لا يمكن أن تكون أكثر من 100%');
-                    return;
-                }
+            const targetProfitIncrease = 1000;
+            const profitIncreaseSellingPrice = deliveredOrders ? (totalCosts + targetProfitIncrease) / deliveredOrders : sellingPrice;
+            const profitIncreaseDeliveredOrders = contributionMarginPerOrder ? (fixedCostsPlusAdAndReturns + targetProfitIncrease) / contributionMarginPerOrder : 0;
+            const profitIncreaseDeliveryRate = targetOrders ? (profitIncreaseDeliveredOrders / targetOrders) * 100 : 0;
 
-                const deliveredOrders = Math.round((targetOrders * deliveryRate) / 100);
-                const returnedOrders = targetOrders - deliveredOrders;
-                const totalFixedCosts = salaries + subscriptions;
-                const variableCostPerOrder = productPrice + shippingCost + packagingCost;
-                const adCostWithTaxPerOrder = applyTax ? adCostPerOrder * 1.14 : adCostPerOrder;
-                const totalAdSpend = targetOrders * adCostPerOrder;
-                const adSpendWithTax = applyTax ? totalAdSpend * 1.14 : totalAdSpend;
-                const totalPackagingCost = targetOrders * packagingCost;
-                const totalReturnCost = returnedOrders * returnCost;
+            const returnRate = targetOrders ? (returnedOrders / targetOrders) * 100 : 0;
 
-                const netProfitPerOrder = sellingPrice - variableCostPerOrder;
-                const totalRevenue = deliveredOrders * sellingPrice;
-                const totalVariableCosts = deliveredOrders * (productPrice + shippingCost);
-                const totalCosts = totalVariableCosts + totalPackagingCost + adSpendWithTax + totalReturnCost + totalFixedCosts;
-                const netProfitAfterAds = totalRevenue - totalCosts;
-                const profitMargin = sellingPrice ? (netProfitPerOrder / sellingPrice) * 100 : 0;
-
-                const contributionMarginPerOrder = sellingPrice - (productPrice + shippingCost) - (returnCost * (1 - deliveryRate / 100));
-                const fixedCostsPlusAdAndReturns = totalFixedCosts + adSpendWithTax + (targetOrders * returnCost * (1 - deliveryRate / 100)) + totalPackagingCost;
-                const breakEvenSellingPrice = deliveredOrders ? (totalCosts) / deliveredOrders : sellingPrice;
-                const breakEvenDeliveredOrders = contributionMarginPerOrder ? fixedCostsPlusAdAndReturns / contributionMarginPerOrder : 0;
-                const breakEvenDeliveryRate = targetOrders ? (breakEvenDeliveredOrders / targetOrders) * 100 : 0;
-                const targetProfitIncrease = 1000;
-                const profitIncreaseSellingPrice = deliveredOrders ? (totalCosts + targetProfitIncrease) / deliveredOrders : sellingPrice;
-                const profitIncreaseDeliveredOrders = contributionMarginPerOrder ? (fixedCostsPlusAdAndReturns + targetProfitIncrease) / contributionMarginPerOrder : 0;
-                const profitIncreaseDeliveryRate = targetOrders ? (profitIncreaseDeliveredOrders / targetOrders) * 100 : 0;
-                const returnRate = targetOrders ? (returnedOrders / targetOrders) * 100 : 0;
-
-                const updateElement = (id, value, isPercentage = false, isNumberOnly = false) => {
-                    const element = document.getElementById(id);
-                    if (!element) return;
-                    const oldValue = parseFloat(element.textContent.replace(/[^\d.-]/g, '')) || 0;
-                    if (isFinite(value) && !isNaN(value)) {
-                        element.textContent = isPercentage ? `${value.toFixed(2)}%` : (isNumberOnly ? value.toFixed(0) : `${currencySymbol} ${value.toFixed(2)}`);
-                        element.classList.remove('text-red-600', 'text-green-600', 'text-gray-600');
-                        element.classList.add(value > 0 ? 'text-green-600' : value < 0 ? 'text-red-600' : 'text-gray-600');
-                        if (value !== oldValue) {
-                            element.style.animation = 'pulse 0.5s ease';
-                            setTimeout(() => element.style.animation = '', 500);
-                        }
-                    } else {
-                        element.textContent = '';
-                        element.classList.remove('text-red-600', 'text-green-600', 'text-gray-600');
+            const updateElement = (id, value, isPercentage = false, isNumberOnly = false) => {
+                const element = document.getElementById(id);
+                if (!element) return;
+                const oldValue = parseFloat(element.textContent.replace(/[^\d.-]/g, '')) || 0;
+                if (isFinite(value) && !isNaN(value)) {
+                    element.textContent = isPercentage ? `${value.toFixed(2)}%` : (isNumberOnly ? value.toFixed(0) : `${currencySymbol} ${value.toFixed(2)}`);
+                    element.classList.remove('text-red-600', 'text-green-600', 'text-gray-600');
+                    element.classList.add(value > 0 ? 'text-green-600' : value < 0 ? 'text-red-600' : 'text-gray-600');
+                    if (value !== oldValue) {
+                        element.style.animation = 'pulse 0.5s ease';
+                        setTimeout(() => element.style.animation = '', 500);
                     }
-                };
-
-                updateElement('netProfitPerOrder', netProfitPerOrder);
-                updateElement('profitMargin', profitMargin, true);
-                updateElement('deliveredOrders', deliveredOrders, false, true);
-                updateElement('profitBeforeAds', deliveredOrders * netProfitPerOrder);
-                updateElement('totalAdSpend', totalAdSpend);
-                updateElement('adSpendWithTax', adSpendWithTax);
-                updateElement('returnRate', returnRate, true);
-                updateElement('totalReturnCost', totalReturnCost);
-                updateElement('netProfitAfterAds', netProfitAfterAds);
-
-                const indicator = document.getElementById('profitIndicator');
-                if (indicator) {
-                    indicator.style.display = netProfitAfterAds !== 0 ? 'inline' : 'none';
-                    indicator.classList.remove('fa-arrow-up', 'fa-arrow-down');
-                    indicator.classList.add(netProfitAfterAds > 0 ? 'fa-arrow-up' : 'fa-arrow-down');
-                }
-
-                const trendIndicator = document.getElementById('trendIndicator');
-                if (trendIndicator) {
-                    if (netProfitAfterAds !== previousProfit) {
-                        trendIndicator.style.display = 'inline';
-                        trendIndicator.classList.remove('fa-arrow-up', 'fa-arrow-down');
-                        trendIndicator.classList.add(netProfitAfterAds > previousProfit ? 'fa-arrow-up' : 'fa-arrow-down');
-                        setTimeout(() => trendIndicator.style.display = 'none', 2000);
-                    }
-                }
-                previousProfit = netProfitAfterAds;
-
-                const suggestions = document.getElementById('suggestions');
-                if (!suggestions) return;
-                suggestions.innerHTML = '';
-
-                const hasInputs = productPrice !== 0 || sellingPrice !== 0 || shippingCost !== 0 || targetOrders !== 0 || 
-                                 deliveryRate !== 0 || adCostPerOrder !== 0 || returnCost !== 0 || packagingCost !== 0 || 
-                                 salaries !== 0 || subscriptions !== 0;
-
-                if (!hasInputs) {
-                    suggestions.innerHTML = '';
-                } else if (netProfitAfterAds === 0) {
-                    suggestions.innerHTML = 'أنت عند نقطة التعادل.';
-                } else if (netProfitAfterAds < 0) {
-                    suggestions.innerHTML = `
-                        <strong>للخروج من الخسارة:</strong><br>
-                        1. ارفع سعر البيع إلى <span class="suggestion-price">${currencySymbol} ${breakEvenSellingPrice.toFixed(2)}</span> اقتراح.<br>
-                        2. أو ارفع نسبة التسليمات إلى <span class="suggestion-rate">${breakEvenDeliveryRate.toFixed(2)}%</span> اقتراح.
-                    `;
-                } else if (netProfitAfterAds > 0 && netProfitAfterAds < 1000) {
-                    suggestions.innerHTML = `
-                        <strong>لزيادة الربح إلى ${currencySymbol} 1000 على الأقل:</strong><br>
-                        1. ارفع سعر البيع إلى <span class="suggestion-price">${currencySymbol} ${profitIncreaseSellingPrice.toFixed(2)}</span> اقتراح.<br>
-                        2. أو ارفع نسبة التسليمات إلى <span class="suggestion-rate">${profitIncreaseDeliveryRate.toFixed(2)}%</span> اقتراح.
-                    `;
                 } else {
-                    suggestions.innerHTML = '';
-                }
-            };
-
-            const updateTaxStatus = () => {
-                const applyTax = document.getElementById('applyTax').checked;
-                document.getElementById('taxText').textContent = applyTax ? 'مفعل' : 'غير مفعل';
-                document.querySelector('.status-dot').classList.toggle('active', applyTax);
-                document.querySelector('.status-dot').classList.toggle('inactive', !applyTax);
-            };
-
-            const showMoreResults = () => {
-                document.querySelectorAll('.result-card.hidden').forEach(card => card.classList.remove('hidden'));
-                document.getElementById('showMoreBtn').style.display = 'none';
-            };
-
-            const resetValues = () => {
-                document.querySelectorAll('input').forEach(input => input.value = '');
-                document.getElementById('applyTax').checked = false;
-                previousProfit = 0;
-                calculateResults();
-                updateTaxStatus();
-                document.querySelectorAll('.result-card:not(.bg-blue-50)').forEach(card => card.classList.add('hidden'));
-                document.getElementById('showMoreBtn').style.display = 'flex';
-                const indicator = document.getElementById('profitIndicator');
-                if (indicator) indicator.style.display = 'none';
-                const trendIndicator = document.getElementById('trendIndicator');
-                if (trendIndicator) trendIndicator.style.display = 'none';
-                document.querySelectorAll('.result-value').forEach(element => {
                     element.textContent = '';
                     element.classList.remove('text-red-600', 'text-green-600', 'text-gray-600');
-                });
-                const suggestions = document.getElementById('suggestions');
-                if (suggestions) suggestions.innerHTML = '';
-            };
-
-            const toggleProfileModal = () => {
-                const modal = document.getElementById('profileModal');
-                modal.classList.toggle('active');
-            };
-
-            document.getElementById('darkModeToggle').addEventListener('change', () => {
-                document.body.classList.toggle('light-mode', !document.getElementById('darkModeToggle').checked);
-                document.body.classList.toggle('dark-mode', document.getElementById('darkModeToggle').checked);
-                document.getElementById('modeLabel').textContent = document.getElementById('darkModeToggle').checked ? 'ليل' : 'نهار';
-                document.querySelector('.light-mode-icon').style.display = document.getElementById('darkModeToggle').checked ? 'none' : 'inline';
-                document.querySelector('.dark-mode-icon').style.display = document.getElementById('darkModeToggle').checked ? 'inline' : 'none';
-            });
-
-            const dropdownSelected = document.getElementById('dropdownSelected');
-            const dropdownOptions = document.getElementById('dropdownOptions');
-            const currencyInput = document.getElementById('currency');
-            document.querySelectorAll('.dropdown-option').forEach(option => {
-                option.addEventListener('click', () => {
-                    const value = option.getAttribute('data-value');
-                    dropdownSelected.innerHTML = `<span class="${option.querySelector('span').className}"></span> ${value} <i class="fas fa-chevron-down"></i>`;
-                    currencyInput.value = value;
-                    dropdownOptions.classList.remove('active');
-                    calculateResults();
-                });
-            });
-            dropdownSelected.addEventListener('click', () => dropdownOptions.classList.toggle('active'));
-            document.addEventListener('click', (e) => {
-                if (!dropdownSelected.contains(e.target) && !dropdownOptions.contains(e.target)) {
-                    dropdownOptions.classList.remove('active');
                 }
-            });
+            };
 
-            document.querySelectorAll('input, #currency, #applyTax').forEach(input => {
-                input.addEventListener('input', () => {
-                    calculateResults();
-                    updateTaxStatus();
-                });
-            });
+            updateElement('netProfitPerOrder', netProfitPerOrder);
+            updateElement('profitMargin', profitMargin, true);
+            updateElement('deliveredOrders', deliveredOrders, false, true);
+            updateElement('profitBeforeAds', deliveredOrders * netProfitPerOrder);
+            updateElement('totalAdSpend', totalAdSpend);
+            updateElement('adSpendWithTax', adSpendWithTax);
+            updateElement('returnRate', returnRate, true);
+            updateElement('totalReturnCost', totalReturnCost);
+            updateElement('netProfitAfterAds', netProfitAfterAds);
 
+            const indicator = document.getElementById('profitIndicator');
+            if (indicator) {
+                indicator.style.display = netProfitAfterAds !== 0 ? 'inline' : 'none';
+                indicator.classList.remove('fa-arrow-up', 'fa-arrow-down');
+                indicator.classList.add(netProfitAfterAds > 0 ? 'fa-arrow-up' : 'fa-arrow-down');
+            }
+
+            const trendIndicator = document.getElementById('trendIndicator');
+            if (trendIndicator) {
+                if (netProfitAfterAds !== previousProfit) {
+                    trendIndicator.style.display = 'inline';
+                    trendIndicator.classList.remove('fa-arrow-up', 'fa-arrow-down');
+                    trendIndicator.classList.add(netProfitAfterAds > previousProfit ? 'fa-arrow-up' : 'fa-arrow-down');
+                    setTimeout(() => trendIndicator.style.display = 'none', 2000);
+                }
+            }
+            previousProfit = netProfitAfterAds;
+
+            const suggestions = document.getElementById('suggestions');
+            if (!suggestions) return;
+            suggestions.innerHTML = '';
+
+            const hasInputs = productPrice !== 0 || sellingPrice !== 0 || shippingCost !== 0 || targetOrders !== 0 || 
+                             deliveryRate !== 0 || adCostPerOrder !== 0 || returnCost !== 0 || packagingCost !== 0 || 
+                             salaries !== 0 || subscriptions !== 0;
+
+            if (!hasInputs) {
+                suggestions.innerHTML = '';
+            } else if (netProfitAfterAds === 0) {
+                suggestions.innerHTML = 'أنت عند نقطة التعادل.';
+            } else if (netProfitAfterAds < 0) {
+                suggestions.innerHTML = `
+                    <strong>للخروج من الخسارة:</strong><br>
+                    1. ارفع سعر البيع إلى <span class="suggestion-price">${currencySymbol} ${breakEvenSellingPrice.toFixed(2)}</span> اقتراح.<br>
+                    2. أو ارفع نسبة التسليمات إلى <span class="suggestion-rate">${breakEvenDeliveryRate.toFixed(2)}%</span> اقتراح.
+                `;
+            } else if (netProfitAfterAds > 0 && netProfitAfterAds < 1000) {
+                suggestions.innerHTML = `
+                    <strong>لزيادة الربح إلى ${currencySymbol} 1000 على الأقل:</strong><br>
+                    1. ارفع سعر البيع إلى <span class="suggestion-price">${currencySymbol} ${profitIncreaseSellingPrice.toFixed(2)}</span> اقتراح.<br>
+                    2. أو ارفع نسبة التسليمات إلى <span class="suggestion-rate">${profitIncreaseDeliveryRate.toFixed(2)}%</span> اقتراح.
+                `;
+            } else {
+                suggestions.innerHTML = '';
+            }
+        };
+
+        const updateTaxStatus = () => {
+            const applyTax = document.getElementById('applyTax').checked;
+            document.getElementById('taxText').textContent = applyTax ? 'مفعل' : 'غير مفعل';
+            document.querySelector('.status-dot').classList.toggle('active', applyTax);
+            document.querySelector('.status-dot').classList.toggle('inactive', !applyTax);
+        };
+
+        const showMoreResults = () => {
+            document.querySelectorAll('.result-card.hidden').forEach(card => card.classList.remove('hidden'));
+            document.getElementById('showMoreBtn').style.display = 'none';
+        };
+
+        const resetValues = () => {
+            document.querySelectorAll('input').forEach(input => input.value = '');
+            document.getElementById('applyTax').checked = false;
+            previousProfit = 0;
             calculateResults();
             updateTaxStatus();
-        }
+            document.querySelectorAll('.result-card:not(.bg-blue-50)').forEach(card => card.classList.add('hidden'));
+            document.getElementById('showMoreBtn').style.display = 'flex';
 
-        // تشغيل الأداة عند تحميل الصفحة
-        initializeTool();
+            const indicator = document.getElementById('profitIndicator');
+            if (indicator) indicator.style.display = 'none';
+            const trendIndicator = document.getElementById('trendIndicator');
+            if (trendIndicator) trendIndicator.style.display = 'none';
+
+            document.querySelectorAll('.result-value').forEach(element => {
+                element.textContent = '';
+                element.classList.remove('text-red-600', 'text-green-600', 'text-gray-600');
+            });
+
+            const suggestions = document.getElementById('suggestions');
+            if (suggestions) suggestions.innerHTML = '';
+        };
+
+        const toggleProfileModal = () => {
+            const modal = document.getElementById('profileModal');
+            modal.classList.toggle('active');
+        };
+
+        document.getElementById('darkModeToggle').addEventListener('change', () => {
+            document.body.classList.toggle('light-mode', !document.getElementById('darkModeToggle').checked);
+            document.body.classList.toggle('dark-mode', document.getElementById('darkModeToggle').checked);
+            document.getElementById('modeLabel').textContent = document.getElementById('darkModeToggle').checked ? 'ليل' : 'نهار';
+            document.querySelector('.light-mode-icon').style.display = document.getElementById('darkModeToggle').checked ? 'none' : 'inline';
+            document.querySelector('.dark-mode-icon').style.display = document.getElementById('darkModeToggle').checked ? 'inline' : 'none';
+        });
+
+        const dropdownSelected = document.getElementById('dropdownSelected');
+        const dropdownOptions = document.getElementById('dropdownOptions');
+        const currencyInput = document.getElementById('currency');
+        document.querySelectorAll('.dropdown-option').forEach(option => {
+            option.addEventListener('click', () => {
+                const value = option.getAttribute('data-value');
+                dropdownSelected.innerHTML = `<span class="${option.querySelector('span').className}"></span> ${value} <i class="fas fa-chevron-down"></i>`;
+                currencyInput.value = value;
+                dropdownOptions.classList.remove('active');
+                calculateResults();
+            });
+        });
+        dropdownSelected.addEventListener('click', () => dropdownOptions.classList.toggle('active'));
+        document.addEventListener('click', (e) => {
+            if (!dropdownSelected.contains(e.target) && !dropdownOptions.contains(e.target)) {
+                dropdownOptions.classList.remove('active');
+            }
+        });
+
+        document.querySelectorAll('input, #currency, #applyTax').forEach(input => {
+            input.addEventListener('input', () => {
+                calculateResults();
+                updateTaxStatus();
+            });
+        });
+
+        calculateResults();
+        updateTaxStatus();
     </script>
 </body>
 </html>
