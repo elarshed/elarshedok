@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="تفعيل أداة SELL RIGHT - أدخل كود التفعيل الخاص بك">
     <title>SELL RIGHT - تفعيل الأداة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fingerprintjs2/2.1.0/fingerprint2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(135deg, #e6f0fa 0%, #d1e8ff 100%);
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -19,7 +22,7 @@
             overflow: hidden;
         }
         .login-container {
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.95);
             padding: 2rem;
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
@@ -27,6 +30,7 @@
             max-width: 400px;
             text-align: center;
             animation: fadeIn 0.5s ease-in;
+            backdrop-filter: blur(8px);
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-20px); }
@@ -36,7 +40,7 @@
             font-size: 1.8rem;
             color: #2d3748;
             margin-bottom: 1.5rem;
-            font-weight: 600;
+            font-weight: 900;
         }
         .input-group {
             margin-bottom: 1.5rem;
@@ -49,6 +53,8 @@
             font-size: 1rem;
             transition: border-color 0.3s ease;
             box-sizing: border-box;
+            background: #f7fafc;
+            font-family: 'Cairo', sans-serif;
         }
         input:focus {
             border-color: #4a90e2;
@@ -62,6 +68,7 @@
             border: none;
             border-radius: 8px;
             font-size: 1.1rem;
+            font-weight: 700;
             cursor: pointer;
             transition: background 0.3s ease, transform 0.2s ease;
         }
@@ -78,6 +85,17 @@
             font-size: 0.9rem;
             min-height: 1rem;
         }
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        .logo i {
+            font-size: 2rem;
+            color: #4a90e2;
+            margin-left: 0.5rem;
+        }
         @media (max-width: 480px) {
             .login-container { padding: 1.5rem; }
             h1 { font-size: 1.5rem; }
@@ -88,7 +106,10 @@
 </head>
 <body>
     <div class="login-container">
-        <h1>تفعيل أداة SELL RIGHT</h1>
+        <div class="logo">
+            <i class="fas fa-calculator"></i>
+            <h1>تفعيل أداة SELL RIGHT</h1>
+        </div>
         <div class="input-group">
             <input type="text" id="activationCode" placeholder="أدخل كود التفعيل" autocomplete="off">
         </div>
@@ -127,7 +148,7 @@
                             }).catch(err => console.error('خطأ في تحديث الحالة:', err));
                         }
 
-                        window.location.href = 'tool.html';
+                        window.location.href = 'index.html';
                     });
                 })
                 .catch(error => {
