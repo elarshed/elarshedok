@@ -3,23 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تفعيل الأداة</title>
+    <meta name="description" content="تفعيل أداة SELL RIGHT - أدخل كود التفعيل الخاص بك">
+    <title>SELL RIGHT - تفعيل الأداة</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fingerprintjs2/2.1.0/fingerprint2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <style>
-        body { font-family: Arial, sans-serif; background: #e6f0fa; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .login-container { background: #fff; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); text-align: center; width: 100%; max-width: 400px; }
-        h1 { font-size: 1.5rem; margin-bottom: 1rem; color: #2d3748; }
-        input { width: 100%; padding: 0.5rem; margin-bottom: 1rem; border: 1px solid #cbd5e0; border-radius: 5px; font-size: 1rem; }
-        button { background: #4a90e2; color: #fff; padding: 0.5rem 1rem; border: none; border-radius: 5px; font-size: 1rem; cursor: pointer; transition: background 0.3s ease; }
-        button:hover { background: #63b3ed; }
-        #errorMsg { color: #f56565; margin-top: 0.5rem; font-size: 0.9rem; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #e6f0fa 0%, #d1e8ff 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .login-container {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1 {
+            font-size: 1.8rem;
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+        input:focus {
+            border-color: #4a90e2;
+            outline: none;
+        }
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background: #4a90e2;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+        button:hover {
+            background: #63b3ed;
+            transform: translateY(-2px);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        #errorMsg {
+            color: #e53e3e;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            min-height: 1rem;
+        }
+        @media (max-width: 480px) {
+            .login-container { padding: 1.5rem; }
+            h1 { font-size: 1.5rem; }
+            input, button { font-size: 0.95rem; padding: 0.6rem; }
+            button { width: 100%; }
+        }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <h1>تفعيل الأداة</h1>
-        <input type="text" id="activationCode" placeholder="أدخل كود التفعيل">
+        <h1>تفعيل أداة SELL RIGHT</h1>
+        <div class="input-group">
+            <input type="text" id="activationCode" placeholder="أدخل كود التفعيل" autocomplete="off">
+        </div>
         <button onclick="verifyCode()">تفعيل الأداة</button>
         <p id="errorMsg"></p>
     </div>
@@ -28,6 +100,11 @@
         function verifyCode() {
             var code = document.getElementById('activationCode').value.trim();
             var errorMsg = document.getElementById('errorMsg');
+
+            if (!code) {
+                errorMsg.textContent = 'الرجاء إدخال كود التفعيل';
+                return;
+            }
 
             var apiUrl = "https://script.google.com/macros/s/AKfycbyuHUI8TZ2K8tmOLc_NxX8c7Oc_IAip9n3JMrjDy2qI287vUQNHBdmVI-cT1eSChhPI/exec";
             fetch(apiUrl + "?code=" + encodeURIComponent(code))
@@ -47,17 +124,22 @@
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({ code: code, rowIndex: data.rowIndex })
-                            });
+                            }).catch(err => console.error('خطأ في تحديث الحالة:', err));
                         }
 
                         window.location.href = 'tool.html';
                     });
                 })
                 .catch(error => {
-                    console.error('خطأ:', error);
-                    errorMsg.textContent = 'خطأ في الاتصال بالخادم';
+                    console.error('خطأ في الاتصال:', error);
+                    errorMsg.textContent = 'خطأ في الاتصال بالخادم، حاول مرة أخرى';
                 });
         }
+
+        // التعامل مع الضغط على Enter
+        document.getElementById('activationCode').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') verifyCode();
+        });
     </script>
 </body>
 </html>
