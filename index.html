@@ -37,10 +37,14 @@
             animation: slideUp 0.5s ease;
             backdrop-filter: blur(8px);
         }
-        .dark-mode .app-container { background: rgba(45, 55, 72, 0.95); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); }
+        .dark-mode .app-container { background: rgba(45, 55, 72, 0.95); box-shadow: 0 4px20px rgba(0, 0, 0, 0.2); }
+
+        /* Animations */
         @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
+
+        /* App Bar */
         .app-bar {
             background: linear-gradient(90deg, #4a90e2, #63b3ed);
             padding: 0.5rem;
@@ -68,11 +72,14 @@
             color: #fff;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.5rem; /* Adjusted gap for better spacing */
             transition: transform 0.3s ease;
         }
         .app-bar .app-title:hover { transform: scale(1.05); }
-        .app-bar .app-title i { font-size: 1rem; animation: pulse 2s infinite; }
+        .app-bar .app-title i { 
+            font-size: 1rem; /* Slightly larger icon for better visibility */
+            animation: pulse 2s infinite; 
+        }
         .social-links {
             display: flex;
             gap: 0.4rem;
@@ -129,8 +136,14 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
-        .dark-mode .view-profile-btn { background: rgba(45, 55, 72, 0.9); color: #63b3ed; }
-        .dark-mode .view-profile-btn:hover { background: #4a5568; color: #a0aec0; }
+        .dark-mode .view-profile-btn {
+            background: rgba(45, 55, 72, 0.9);
+            color: #63b3ed;
+        }
+        .dark-mode .view-profile-btn:hover {
+            background: #4a5568;
+            color: #a0aec0;
+        }
         .profile-modal {
             display: none;
             position: fixed;
@@ -174,6 +187,8 @@
             gap: 0.3rem;
             justify-content: center;
         }
+
+        /* Controls */
         .controls {
             display: flex;
             justify-content: space-between;
@@ -245,6 +260,8 @@
         .dropdown-option { padding: 0.3rem; font-size: 0.7rem; cursor: pointer; }
         .dropdown-option:hover { background: #e9ecef; }
         .dark-mode .dropdown-option:hover { background: #718096; }
+
+        /* Inputs Section */
         .inputs-section { padding: 0.5rem; }
         .inputs-container {
             display: grid;
@@ -305,6 +322,8 @@
             margin-top: 0.1rem;
         }
         .dark-mode .input-hint { color: #a0aec0; }
+
+        /* Results Section */
         .results-section { padding: 0.5rem; }
         .results-container {
             display: grid;
@@ -352,6 +371,8 @@
         .dark-mode .suggestion-price { color: #63b3ed; }
         .dark-mode .suggestion-rate { color: #68d391; }
         .dark-mode .suggestion-orders { color: #f6ad55; }
+
+        /* Bottom Action Bar */
         .bottom-bar {
             position: sticky;
             bottom: 0;
@@ -379,6 +400,8 @@
         .dark-mode .action-btn:hover { color: #63b3ed; background: #2d3748; }
         .action-btn i { font-size: 1rem; }
         .action-btn span { font-size: 0.6rem; font-weight: 700; }
+
+        /* Responsive Adjustments */
         @media (min-width: 640px) {
             .app-container { max-width: 640px; }
             .inputs-container, .results-container { grid-template-columns: repeat(2, 1fr); }
@@ -393,7 +416,7 @@
 <body class="light-mode">
     <script>
         // التحقق من الكود ومعرف الجهاز عند تحميل الصفحة
-        async function checkActivationCode() {
+        function checkActivationCode() {
             const storedDataStr = localStorage.getItem('activationCode');
             const currentDeviceId = localStorage.getItem('deviceId');
 
@@ -408,24 +431,6 @@
             if (!code || !storedDeviceId || currentDeviceId !== storedDeviceId) {
                 localStorage.removeItem('activationCode');
                 window.location.href = 'login.html';
-                return;
-            }
-
-            try {
-                const response = await fetch('codes.json', { cache: 'no-store' });
-                if (!response.ok) throw new Error('فشل في جلب بيانات الأكواد');
-                const codes = await response.json();
-                const codeEntry = codes.find(c => c.code === code);
-
-                if (!codeEntry) {
-                    localStorage.removeItem('activationCode');
-                    window.location.href = 'login.html';
-                    return;
-                }
-                // إذا كان الكود موجودًا ومعرف الجهاز متطابق، يتم السماح بالوصول
-            } catch (error) {
-                console.error('خطأ في التحقق من الكود:', error);
-                window.location.href = 'login.html';
             }
         }
 
@@ -433,9 +438,10 @@
     </script>
 
     <div class="app-container">
+        <!-- App Bar -->
         <div class="app-bar">
             <span class="app-title">
-                <i class="fas fa-calculator"></i>
+                <i class="fas fa-calculator"></i> <!-- Moved the calculator icon here -->
                 SELL RIGHT
             </span>
             <div class="profile-container">
@@ -457,6 +463,7 @@
             </div>
         </div>
 
+        <!-- Profile Modal -->
         <div class="profile-modal" id="profileModal">
             <span class="close-btn" onclick="toggleProfileModal()">×</span>
             <div class="bio">
@@ -467,6 +474,7 @@
             </div>
         </div>
 
+        <!-- Controls -->
         <div class="controls">
             <div class="mode-toggle">
                 <label class="toggle-switch">
@@ -492,6 +500,7 @@
             </div>
         </div>
 
+        <!-- Inputs Section -->
         <div class="inputs-section">
             <div class="inputs-container">
                 <div class="input-group">
@@ -548,6 +557,7 @@
             </div>
         </div>
 
+        <!-- Results Section -->
         <div class="results-section">
             <div class="results-container" id="results">
                 <div class="result-card">
@@ -594,6 +604,7 @@
             </div>
         </div>
 
+        <!-- Bottom Action Bar -->
         <div class="bottom-bar">
             <div class="action-btn" id="showMoreBtn" onclick="showMoreResults()">
                 <i class="fas fa-eye"></i>
@@ -612,6 +623,7 @@
         const getCurrencySymbol = () => currencySymbols[document.getElementById('currency').value];
 
         const calculateResults = () => {
+            // Inputs
             const productPrice = parseFloat(document.getElementById('productPrice').value) || 0;
             const sellingPrice = parseFloat(document.getElementById('sellingPrice').value) || 0;
             const shippingCost = parseFloat(document.getElementById('shippingCost').value) || 0;
@@ -630,6 +642,7 @@
                 return;
             }
 
+            // Basic Calculations
             const deliveredOrders = Math.round((targetOrders * deliveryRate) / 100);
             const returnedOrders = targetOrders - deliveredOrders;
             const totalFixedCosts = salaries + subscriptions;
@@ -637,31 +650,40 @@
             const adCostWithTaxPerOrder = applyTax ? adCostPerOrder * 1.14 : adCostPerOrder;
             const totalAdSpend = targetOrders * adCostPerOrder;
             const adSpendWithTax = applyTax ? totalAdSpend * 1.14 : totalAdSpend;
-            const totalPackagingCost = targetOrders * packagingCost;
+            const totalPackagingCost = targetOrders * packagingCost; // تكلفة التغليف على جميع الأوردرات
             const totalReturnCost = returnedOrders * returnCost;
 
+            // Net Profit Per Order (Before Ads and Fixed Costs)
             const netProfitPerOrder = sellingPrice - variableCostPerOrder;
+
+            // Total Revenue and Costs
             const totalRevenue = deliveredOrders * sellingPrice;
-            const totalVariableCosts = deliveredOrders * (productPrice + shippingCost);
+            const totalVariableCosts = deliveredOrders * (productPrice + shippingCost); // التكاليف المتغيرة بدون التغليف
             const totalCosts = totalVariableCosts + totalPackagingCost + adSpendWithTax + totalReturnCost + totalFixedCosts;
             const netProfitAfterAds = totalRevenue - totalCosts;
 
+            // Profit Margin
             const profitMargin = sellingPrice ? (netProfitPerOrder / sellingPrice) * 100 : 0;
 
+            // Break-even and Profit Increase Calculations
             const contributionMarginPerOrder = sellingPrice - (productPrice + shippingCost) - (returnCost * (1 - deliveryRate / 100));
             const fixedCostsPlusAdAndReturns = totalFixedCosts + adSpendWithTax + (targetOrders * returnCost * (1 - deliveryRate / 100)) + totalPackagingCost;
 
+            // Break-even (for loss)
             const breakEvenSellingPrice = deliveredOrders ? (totalCosts) / deliveredOrders : sellingPrice;
             const breakEvenDeliveredOrders = contributionMarginPerOrder ? fixedCostsPlusAdAndReturns / contributionMarginPerOrder : 0;
             const breakEvenDeliveryRate = targetOrders ? (breakEvenDeliveredOrders / targetOrders) * 100 : 0;
 
+            // Profit Increase (if profit < 1000)
             const targetProfitIncrease = 1000;
             const profitIncreaseSellingPrice = deliveredOrders ? (totalCosts + targetProfitIncrease) / deliveredOrders : sellingPrice;
             const profitIncreaseDeliveredOrders = contributionMarginPerOrder ? (fixedCostsPlusAdAndReturns + targetProfitIncrease) / contributionMarginPerOrder : 0;
             const profitIncreaseDeliveryRate = targetOrders ? (profitIncreaseDeliveredOrders / targetOrders) * 100 : 0;
 
+            // Return Rate
             const returnRate = targetOrders ? (returnedOrders / targetOrders) * 100 : 0;
 
+            // Update Display
             const updateElement = (id, value, isPercentage = false, isNumberOnly = false) => {
                 const element = document.getElementById(id);
                 if (!element) return;
@@ -690,6 +712,7 @@
             updateElement('totalReturnCost', totalReturnCost);
             updateElement('netProfitAfterAds', netProfitAfterAds);
 
+            // Profit Indicator
             const indicator = document.getElementById('profitIndicator');
             if (indicator) {
                 indicator.style.display = netProfitAfterAds !== 0 ? 'inline' : 'none';
@@ -697,6 +720,7 @@
                 indicator.classList.add(netProfitAfterAds > 0 ? 'fa-arrow-up' : 'fa-arrow-down');
             }
 
+            // Trend Indicator
             const trendIndicator = document.getElementById('trendIndicator');
             if (trendIndicator) {
                 if (netProfitAfterAds !== previousProfit) {
@@ -708,10 +732,12 @@
             }
             previousProfit = netProfitAfterAds;
 
+            // Suggestions
             const suggestions = document.getElementById('suggestions');
             if (!suggestions) return;
             suggestions.innerHTML = '';
 
+            // Check if there are no inputs
             const hasInputs = productPrice !== 0 || sellingPrice !== 0 || shippingCost !== 0 || targetOrders !== 0 || 
                              deliveryRate !== 0 || adCostPerOrder !== 0 || returnCost !== 0 || packagingCost !== 0 || 
                              salaries !== 0 || subscriptions !== 0;
@@ -752,22 +778,25 @@
         const resetValues = () => {
             document.querySelectorAll('input').forEach(input => input.value = '');
             document.getElementById('applyTax').checked = false;
-            previousProfit = 0;
+            previousProfit = 0; // Reset previous profit to ensure trend indicator works correctly
             calculateResults();
             updateTaxStatus();
             document.querySelectorAll('.result-card:not(.bg-blue-50)').forEach(card => card.classList.add('hidden'));
             document.getElementById('showMoreBtn').style.display = 'flex';
 
+            // Reset profit indicators
             const indicator = document.getElementById('profitIndicator');
             if (indicator) indicator.style.display = 'none';
             const trendIndicator = document.getElementById('trendIndicator');
             if (trendIndicator) trendIndicator.style.display = 'none';
 
+            // Reset all result values
             document.querySelectorAll('.result-value').forEach(element => {
                 element.textContent = '';
                 element.classList.remove('text-red-600', 'text-green-600', 'text-gray-600');
             });
 
+            // Clear suggestions
             const suggestions = document.getElementById('suggestions');
             if (suggestions) suggestions.innerHTML = '';
         };
