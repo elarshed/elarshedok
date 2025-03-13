@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="تسجيل الدخول إلى أداة Sell Right - أحمد محمد عبدالسلام">
+    <meta name="description" content="تسجيل الدخول إلى أداة Sell Right">
     <meta name="keywords" content="Sell Right, تسجيل الدخول, أحمد محمد عبدالسلام, التسويق الرقمي">
     <meta name="author" content="Ahmed Muhammed Abdeslam">
     <title>تسجيل الدخول - SELL RIGHT</title>
@@ -533,7 +533,6 @@
 </head>
 <body>
     <canvas id="starry-sky"></canvas>
-    <div class="welcome-message">مرحبًا بك في أداة Sell Right</div>
     <div class="login-container">
         <h1>
             <i class="fas fa-calculator"></i>
@@ -639,7 +638,6 @@
             return `device_${randomId}_${Date.now()}`;
         }
 
-        // دالة لجلب البيانات من data-config-xyz.json
         async function fetchCodesData() {
             try {
                 const response = await fetch('data-config-xyz.json');
