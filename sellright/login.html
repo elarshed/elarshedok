@@ -244,7 +244,7 @@
                 const data = await response.json();
                 return data;
             } catch (error) {
-                console.error('خطأ في جلب البيانات من data-config-xyz.json:', error);
+                console.error('خطأ في جلب البيانات :', error);
                 throw error;
             }
         }
@@ -274,7 +274,7 @@
                 const codesData = await fetchCodesData();
 
                 if (!codesData || codesData.length === 0) {
-                    errorMessage.textContent = 'البيانات غير متاحة، تحقق من الملف data-config-xyz.json';
+                    errorMessage.textContent = 'البيانات غير متاحة  ';
                     errorMessage.style.display = 'block';
                     loginBtn.classList.remove('loading');
                     loginBtn.disabled = false;
@@ -332,7 +332,7 @@
                 window.location.href = 'index.html';
 
             } catch (error) {
-                errorMessage.textContent = 'خطأ في جلب البيانات، تأكد من وجود data-config-xyz.json';
+                errorMessage.textContent = 'خطأ في جلب البيانات';
                 errorMessage.style.display = 'block';
                 console.error(error);
             } finally {
