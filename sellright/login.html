@@ -25,7 +25,8 @@
             align-items: center;
             overflow-x: hidden;
             position: relative;
-            transition: all 0.3s ease;
+            margin: 0 auto;
+            padding: 0;
         }
         canvas {
             position: absolute;
@@ -44,6 +45,8 @@
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
             animation: fadeInWelcome 1s ease-out;
             z-index: 1;
+            text-align: center;
+            width: 100%;
         }
         @keyframes fadeInWelcome {
             from { opacity: 0; transform: translateY(-20px); }
@@ -54,8 +57,8 @@
             padding: 2.5rem 1.5rem;
             border-radius: 20px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 400px;
+            width: 90%;
+            max-width: 380px;
             text-align: center;
             position: relative;
             z-index: 1;
@@ -63,6 +66,7 @@
             backdrop-filter: blur(20px);
             border: 1px solid rgba(74, 144, 226, 0.2);
             transition: transform 0.5s ease, box-shadow 0.5s ease;
+            margin: 0 auto;
         }
         .login-container:hover {
             transform: translateY(-5px);
@@ -333,7 +337,8 @@
         .branding-footer {
             position: fixed;
             bottom: 0.5rem;
-            right: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
             font-size: 0.8rem;
             color: #f5f6fa;
             opacity: 0.7;
@@ -354,8 +359,8 @@
         @media (max-width: 480px) {
             .login-container {
                 padding: 2rem 1.2rem;
-                margin: 1rem;
                 max-width: 90%;
+                margin: 0 auto;
             }
             .login-container h1 {
                 font-size: 1.8rem;
@@ -404,14 +409,12 @@
             }
             .branding-footer {
                 font-size: 0.7rem;
-                right: 0.8rem;
-                bottom: 0.3rem;
             }
         }
         @media (max-width: 360px) {
             .login-container {
                 padding: 1.5rem 1rem;
-                max-width: 95%;
+                max-width: 92%;
             }
             .login-container h1 {
                 font-size: 1.6rem;
@@ -465,7 +468,7 @@
         @media (max-width: 320px) {
             .login-container {
                 padding: 1.2rem 0.8rem;
-                max-width: 98%;
+                max-width: 95%;
             }
             .login-container h1 {
                 font-size: 1.4rem;
@@ -514,8 +517,6 @@
             }
             .branding-footer {
                 font-size: 0.65rem;
-                right: 0.5rem;
-                bottom: 0.2rem;
             }
         }
     </style>
