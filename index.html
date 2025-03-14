@@ -3,9 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="أحمد محمد عبدالسلام - خبير تسويق رقمي وتجارة إلكترونية وتصميم ويب">
+    <meta name="description" content="Ahmed Muhammed Abdeslam - خبير تسويق وتجارة إلكترونية وتصميم مواقع الويب">
     <meta name="keywords" content="Ahmed Muhammed Abdeslam, Digital Marketing, E-Commerce, Web Design">
     <meta name="author" content="Ahmed Muhammed Abdeslam">
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Ahmed Muhammed Abdeslam - Digital Marketing Expert">
+    <meta property="og:description" content="خبير تسويق وتجارة إلكترونية وتصميم مواقع الويب بأكثر من 10 سنوات من الخبرة">
+    <meta property="og:image" content="https://imgg.io/images/2025/03/12/d1f425f5f81f9df07b5909ee5de09238.jpg">
+    <meta property="og:image:width" content="140">
+    <meta property="og:image:height" content="140">
+    <meta property="og:url" content="https://elarshedok.com">
+    <meta property="og:type" content="website">
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:image" content="https://imgg.io/images/2025/03/12/d1f425f5f81f9df07b5909ee5de09238.jpg">
     <title data-i18n="title"></title>
 
     <!-- Font Awesome for Icons -->
@@ -224,7 +235,7 @@
 
         /* Back to Top Button */
         .back-to-top {
-            display: none;
+            display: none; /* مخفي افتراضيًا */
             position: fixed;
             bottom: 20px;
             right: 20px;
@@ -238,7 +249,6 @@
             cursor: pointer;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
             align-items: center;
             justify-content: center;
             touch-action: manipulation;
@@ -250,7 +260,7 @@
         }
 
         .back-to-top.show {
-            display: flex;
+            display: flex; /* يظهر فقط عند التمرير */
         }
 
         /* Section Styling */
@@ -1060,7 +1070,6 @@
         // Load Theme on Page Load
         window.addEventListener('load', () => {
             applyTheme();
-            showBackToTop();
         });
 
         // Mobile Menu Toggle
@@ -1092,16 +1101,15 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function showBackToTop() {
+        // Show Back to Top Button on Scroll
+        window.addEventListener('scroll', () => {
             const backToTopButton = document.querySelector('.back-to-top');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 300) {
-                    backToTopButton.classList.add('show');
-                } else {
-                    backToTopButton.classList.remove('show');
-                }
-            });
-        }
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
     </script>
 </body>
 </html>
