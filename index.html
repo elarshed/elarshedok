@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ahmed Muhammed Abdeslam - خبير تسويق رقمي وتجارة إلكترونية وتصميم ويب">
+    <meta name="keywords" content="Ahmed Muhammed Abdeslam, Digital Marketing, E-Commerce, Web Design, Facebook Ads, Google Ads, TikTok Ads">
+    <meta name="author" content="Ahmed Muhammed Abdeslam">
+    <title data-i18n="title"></title>
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Flag Icon CSS for Language Flags -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+
+    <!-- Google Fonts with Arabic and English Support -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Tajawal:wght@400;700;900&family=Montserrat:wght@400;700;900&family=Poppins:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+            font-family: 'Tajawal', 'Cairo', 'Montserrat', sans-serif;
+            scroll-behavior: smooth;
+            background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+            color: #2d3748;
+            line-height: 1.6;
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a202c, #2d3748);
+            color: #e2e8f0;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #4a90e2, #63b3ed);
+            z-index: 1001;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        /* Animations */
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Header */
+        header {
+            background: #1a202c;
+            padding: 0.8rem 1rem; /* Reduced padding for mobile */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: background 0.5s ease;
+        }
+
+        body.dark-mode header {
+            background: #0f172a;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.3rem; /* Reduced for mobile */
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        .menu-toggle:hover {
+            color: #4a90e2;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem; /* Reduced gap for mobile */
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 0.9rem; /* Reduced font size */
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            padding: 0.4rem 0.8rem; /* Reduced padding */
+            border-radius: 15px; /* Slightly smaller border radius */
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: #4a90e2;
+            color: #ffffff;
+        }
+
+        .lang-switcher {
+            display: flex;
+            gap: 0.5rem; /* Reduced gap for mobile */
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 2px solid #4a90e2;
+            cursor: pointer;
+            color: #4a90e2;
+            font-size: 0.8rem; /* Reduced font size */
+            font-family: 'Montserrat', sans-serif;
+            padding: 0.3rem 0.8rem; /* Reduced padding */
+            border-radius: 15px;
+            transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+        }
+
+        .lang-btn:hover {
+            background: #4a90e2;
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .lang-btn:active {
+            transform: translateY(0);
+            opacity: 0.8;
+        }
+
+        .theme-toggle {
+            background: transparent;
+            border: 2px solid #4a90e2;
+            color: #4a90e2;
+            font-size: 0.9rem; /* Reduced for mobile */
+            padding: 0.3rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+            margin-left: 0.5rem;
+            width: 30px; /* Reduced size */
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            background: #4a90e2;
+            color: #ffffff;
+            transform: rotate(360deg);
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.9);
+        }
+
+        .theme-toggle i {
+            position: absolute;
+            transition: opacity 0.3s ease;
+        }
+
+        .theme-toggle .fa-sun {
+            opacity: 1;
+        }
+
+        .theme-toggle .fa-moon {
+            opacity: 0;
+        }
+
+        body.dark-mode .theme-toggle .fa-sun {
+            opacity: 0;
+        }
+
+        body.dark-mode .theme-toggle .fa-moon {
+            opacity: 1;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            height: 40vh; /* Reduced height for better mobile compatibility */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0.8rem; /* Reduced padding */
+            background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+            position: relative;
+            border-bottom: 3px solid #4a90e2;
+        }
+
+        body.dark-mode .hero-section {
+            background: linear-gradient(135deg, #1a202c, #2d3748);
+            border-bottom: 3px solid #63b3ed;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px; /* Reduced max-width for mobile */
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1rem; /* Reduced padding */
+            border-radius: 10px; /* Slightly smaller border radius */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode .hero-content {
+            background: rgba(26, 32, 44, 0.9);
+        }
+
+        .hero-section h1 {
+            font-size: 1.8rem; /* Reduced font size for better mobile fit */
+            font-weight: 900;
+            color: #1a202c;
+            margin-bottom: 0.6rem;
+            font-family: 'Montserrat', sans-serif;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            white-space: nowrap;
+        }
+
+        body.dark-mode .hero-section h1 {
+            color: #e2e8f0;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-section p {
+            font-size: 1rem; /* Reduced font size */
+            color: #4a5568;
+            margin-bottom: 0.8rem;
+            font-family: 'Tajawal', sans-serif;
+            max-width: 500px; /* Reduced max-width */
+        }
+
+        body.dark-mode .hero-section p {
+            color: #a0aec0;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem; /* Reduced gap */
+            margin-top: 0.6rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .social-links a {
+            padding: 0.4rem; /* Reduced padding */
+            border-radius: 50%;
+            background: transparent;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+            opacity: 0.8;
+        }
+
+        .social-links a:active {
+            transform: scale(0.9);
+        }
+
+        .social-links a i {
+            font-size: 1.5rem; /* Reduced icon size */
+        }
+
+        .social-links a[href*="linkedin"] i { color: #0077b5; }
+        .social-links a[href*="tiktok"] i { color: #00f2ea; }
+        .social-links a[href*="instagram"] i { color: #e1306c; }
+        .social-links a[href*="facebook"] i { color: #3b5998; }
+
+        /* Section Styling */
+        .section {
+            padding: 2rem 1rem; /* Reduced padding */
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(240, 244, 248, 0.95));
+            border-radius: 10px;
+            margin: 0.8rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            animation: slideUp 0.5s ease;
+            position: relative;
+        }
+
+        .section:hover {
+            box-shadow: 0 6px 20px rgba(74, 144, 226, 0.15);
+        }
+
+        body.dark-mode .section {
+            background: linear-gradient(135deg, rgba(26, 32, 44, 0.95), rgba(45, 55, 72, 0.95));
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-mode .section:hover {
+            box-shadow: 0 6px 20px rgba(74, 144, 226, 0.25);
+        }
+
+        .section h2 {
+            font-size: 2rem; /* Reduced font size */
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 1rem;
+            font-family: 'Cairo', sans-serif;
+            position: relative;
+        }
+
+        body.dark-mode .section h2 {
+            color: #e2e8f0;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px; /* Reduced width */
+            height: 3px;
+            background: linear-gradient(90deg, #4a90e2, #63b3ed);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-section {
+            background: linear-gradient(135deg, #f9fafb, #edf2f7);
+        }
+
+        body.dark-mode .about-section {
+            background: linear-gradient(135deg, #1a202c, #2d3748);
+        }
+
+        .about-content {
+            max-width: 900px; /* Reduced max-width */
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem; /* Reduced gap */
+            flex-wrap: wrap;
+        }
+
+        .about-image img {
+            width: 200px; /* Reduced image size */
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border: 3px solid #4a90e2;
+            transition: transform 0.3s ease;
+        }
+
+        body.dark-mode .about-image img {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            border: 3px solid #63b3ed;
+        }
+
+        .about-image img:hover {
+            transform: scale(1.05);
+        }
+
+        .about-text {
+            text-align: right;
+            max-width: 400px; /* Reduced max-width */
+        }
+
+        .about-text p {
+            font-size: 1rem; /* Reduced font size */
+            color: #4a5568;
+            font-family: 'Tajawal', sans-serif;
+            margin-bottom: 1rem;
+        }
+
+        body.dark-mode .about-text p {
+            color: #a0aec0;
+        }
+
+        .about-text ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1rem;
+        }
+
+        .about-text ul li {
+            font-size: 0.9rem; /* Reduced font size */
+            color: #4a5568;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        body.dark-mode .about-text ul li {
+            color: #a0aec0;
+        }
+
+        .about-text ul li i {
+            color: #4a90e2;
+            font-size: 1rem; /* Reduced icon size */
+        }
+
+        .whatsapp-btn {
+            background: linear-gradient(90deg, #25d366, #20c65a);
+            color: #ffffff;
+            padding: 0.6rem 1.5rem; /* Reduced padding */
+            border-radius: 20px; /* Smaller border radius */
+            font-size: 1rem; /* Reduced font size */
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        body.dark-mode .whatsapp-btn {
+            background: linear-gradient(90deg, #20c65a, #25d366);
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 12px rgba(37, 211, 102, 0.4);
+        }
+
+        .whatsapp-btn:active {
+            transform: scale(0.95);
+        }
+
+        .whatsapp-btn i {
+            font-size: 1.2rem; /* Reduced icon size */
+            color: #ffffff !important;
+        }
+
+        /* Services Section */
+        .services-section {
+            background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+        }
+
+        body.dark-mode .services-section {
+            background: linear-gradient(135deg, #1a202c, #2d3748);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Reduced min width */
+            gap: 1.5rem; /* Reduced gap */
+            max-width: 900px; /* Reduced max-width */
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1.5rem; /* Reduced padding */
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        body.dark-mode .service-card {
+            background: rgba(26, 32, 44, 0.95);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(74, 144, 226, 0.2);
+        }
+
+        .service-card:active {
+            transform: scale(0.98);
+        }
+
+        .service-card i {
+            font-size: 1.8rem; /* Reduced icon size */
+            color: #4a90e2;
+            margin-bottom: 0.8rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem; /* Reduced font size */
+            color: #1a202c;
+            margin-bottom: 0.5rem;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body.dark-mode .service-card h3 {
+            color: #e2e8f0;
+        }
+
+        .service-card p {
+            font-size: 0.9rem; /* Reduced font size */
+            color: #4a5568;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body.dark-mode .service-card p {
+            color: #a0aec0;
+        }
+
+        /* Tools Section */
+        .tools-section {
+            background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+        }
+
+        body.dark-mode .tools-section {
+            background: linear-gradient(135deg, #1a202c, #2d3748);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .tool-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        body.dark-mode .tool-card {
+            background: rgba(26, 32, 44, 0.95);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(74, 144, 226, 0.2);
+        }
+
+        .tool-card:active {
+            transform: scale(0.98);
+        }
+
+        .tool-card i {
+            font-size: 1.8rem;
+            color: #4a90e2;
+            margin-bottom: 0.8rem;
+        }
+
+        .tool-card h3 {
+            font-size: 1.3rem;
+            color: #1a202c;
+            margin-bottom: 0.5rem;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body.dark-mode .tool-card h3 {
+            color: #e2e8f0;
+        }
+
+        .tool-card p {
+            font-size: 0.9rem;
+            color: #4a5568;
+            margin-bottom: 1rem;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body.dark-mode .tool-card p {
+            color: #a0aec0;
+        }
+
+        .tool-btn {
+            background: linear-gradient(90deg, #4a90e2, #63b3ed);
+            color: #ffffff;
+            padding: 0.6rem 1.5rem; /* Reduced padding */
+            border-radius: 20px;
+            font-size: 0.9rem; /* Reduced font size */
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .tool-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 12px rgba(74, 144, 226, 0.4);
+        }
+
+        .tool-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Projects Section */
+        .projects-section {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(240, 244, 248, 0.95));
+        }
+
+        body.dark-mode .projects-section {
+            background: linear-gradient(135deg, rgba(26, 32, 44, 0.95), rgba(45, 55, 72, 0.95));
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        body.dark-mode .project-card {
+            background: rgba(26, 32, 44, 0.95);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(74, 144, 226, 0.2);
+        }
+
+        .project-card:active {
+            transform: scale(0.98);
+        }
+
+        .project-card i {
+            font-size: 1.8rem;
+            color: #4a90e2;
+            margin-bottom: 0.8rem;
+        }
+
+        .project-card h3 {
+            font-size: 1.3rem;
+            color: #1a202c;
+            margin-bottom: 0.5rem;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body.dark-mode .project-card h3 {
+            color: #e2e8f0;
+        }
+
+        .project-card p {
+            font-size: 0.9rem;
+            color: #4a5568;
+            margin-bottom: 1rem;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body.dark-mode .project-card p {
+            color: #a0aec0;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+        }
+
+        body.dark-mode .contact-section {
+            background: linear-gradient(135deg, #1a202c, #2d3748);
+        }
+
+        .contact-section .social-links {
+            gap: 1rem;
+        }
+
+        .contact-section .social-links a {
+            padding: 0.4rem;
+            border-radius: 50%;
+            background: transparent;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .contact-section .social-links a:hover {
+            transform: translateY(-3px);
+            opacity: 0.8;
+        }
+
+        .contact-section .social-links a:active {
+            transform: scale(0.9);
+        }
+
+        .contact-section .social-links a i {
+            font-size: 1.5rem; /* Reduced icon size */
+        }
+
+        /* Footer */
+        footer {
+            background: #1a202c;
+            padding: 1rem; /* Reduced padding */
+            text-align: center;
+            color: #ffffff;
+            font-size: 0.8rem; /* Reduced font size */
+            font-family: 'Tajawal', sans-serif;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode footer {
+            background: #0f172a;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 50px; /* Adjusted for smaller header */
+                left: 0;
+                width: 100%;
+                background: #1a202c;
+                padding: 0.8rem;
+                border-radius: 0 0 8px 8px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                font-size: 0.8rem; /* Further reduced */
+                padding: 0.6rem;
+                text-align: center;
+            }
+
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .lang-switcher, .theme-toggle {
+                margin-top: 0.8rem;
+            }
+
+            .lang-switcher {
+                justify-content: center;
+                width: 100%;
+                gap: 0.4rem;
+            }
+
+            .lang-btn {
+                padding: 0.3rem 0.8rem;
+                font-size: 0.7rem;
+            }
+
+            .theme-toggle {
+                margin-left: 0;
+                width: 28px;
+                height: 28px;
+                font-size: 0.8rem;
+            }
+
+            .hero-section {
+                height: 30vh; /* Further reduced height for mobile */
+                padding: 0.6rem;
+            }
+
+            .hero-content {
+                padding: 0.8rem;
+                max-width: 90%; /* Adjusted for smaller screens */
+            }
+
+            .hero-section h1 {
+                font-size: 1.4rem; /* Further reduced */
+            }
+
+            .hero-section p {
+                font-size: 0.9rem;
+                max-width: 90%;
+            }
+
+            .social-links a i {
+                font-size: 1.3rem; /* Further reduced */
+            }
+
+            .about-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .about-image img {
+                width: 150px; /* Further reduced */
+                height: 150px;
+            }
+
+            .section h2 {
+                font-size: 1.6rem; /* Further reduced */
+            }
+
+            .services-grid, .tools-grid, .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .whatsapp-btn {
+                padding: 0.5rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .whatsapp-btn i {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-section {
+                height: 25vh; /* Even smaller for very small screens */
+                padding: 0.5rem;
+            }
+
+            .hero-content {
+                padding: 0.6rem;
+            }
+
+            .hero-section h1 {
+                font-size: 1.2rem; /* Even smaller */
+            }
+
+            .hero-section p {
+                font-size: 0.8rem;
+            }
+
+            .social-links {
+                gap: 0.8rem;
+            }
+
+            .social-links a i {
+                font-size: 1.2rem;
+            }
+
+            .about-image img {
+                width: 120px; /* Even smaller */
+                height: 120px;
+            }
+
+            .section h2 {
+                font-size: 1.4rem;
+            }
+
+            .about-text p, .about-text ul li {
+                font-size: 0.8rem;
+            }
+
+            .service-card, .tool-card, .project-card {
+                padding: 1rem;
+            }
+
+            .service-card i, .tool-card i, .project-card i {
+                font-size: 1.5rem;
+            }
+
+            .service-card h3, .tool-card h3, .project-card h3 {
+                font-size: 1.1rem;
+            }
+
+            .service-card p, .tool-card p, .project-card p {
+                font-size: 0.8rem;
+            }
+
+            .tool-btn {
+                padding: 0.5rem 1.2rem;
+                font-size: 0.8rem;
+            }
+
+            .whatsapp-btn {
+                padding: 0.4rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .whatsapp-btn i {
+                font-size: 0.9rem;
+            }
+
+            .contact-section .social-links a i {
+                font-size: 1.2rem;
+            }
+
+            footer {
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+        <nav class="navbar">
+            <div class="nav-links" id="navLinks">
+                <a href="#home" data-i18n="nav-home"></a>
+                <a href="#about" data-i18n="nav-about"></a>
+                <a href="#services" data-i18n="nav-services"></a>
+                <a href="#tools" data-i18n="nav-tools"></a>
+                <a href="#projects" data-i18n="nav-projects"></a>
+                <a href="#contact" data-i18n="nav-contact"></a>
+            </div>
+            <div class="lang-switcher">
+                <button class="lang-btn" onclick="changeLanguage('en')"><span class="flag-icon flag-icon-us"></span> English</button>
+                <button class="lang-btn" onclick="changeLanguage('ar')"><span class="flag-icon flag-icon-eg"></span> العربية</button>
+            </div>
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="hero-content">
+            <h1>Ahmed Muhammed Abdeslam</h1>
+            <p data-i18n="hero-description"></p>
+            <div class="social-links">
+                <a href="https://linkedin.com/in/elarshedok" target="_blank" title="لينكدإن"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://tiktok.com/@elarshedok" target="_blank" title="تيك توك"><i class="fab fa-tiktok"></i></a>
+                <a href="https://instagram.com/ahmed10az" target="_blank" title="إنستجرام"><i class="fab fa-instagram"></i></a>
+                <a href="https://web.facebook.com/ahmed10az" target="_blank" title="فيسبوك"><i class="fab fa-facebook-f"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about-section" id="about">
+        <h2 data-i18n="about-title"></h2>
+        <div class="about-content">
+            <div class="about-image">
+                <img src="https://imgg.io/images/2025/03/12/d1f425f5f81f9df07b5909ee5de09238.jpg" alt="Ahmed Muhammed Abdeslam">
+            </div>
+            <div class="about-text">
+                <p data-i18n="about-description"></p>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> <span data-i18n="about-experience-1"></span></li>
+                    <li><i class="fas fa-check-circle"></i> <span data-i18n="about-experience-2"></span></li>
+                    <li><i class="fas fa-check-circle"></i> <span data-i18n="about-experience-3"></span></li>
+                </ul>
+                <a href="https://wa.me/201282512082" class="whatsapp-btn" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                    <span data-i18n="whatsapp-cta"></span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section services-section" id="services">
+        <h2 data-i18n="services-title"></h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fas fa-chart-line"></i>
+                <h3 data-i18n="service-marketing-title"></h3>
+                <p data-i18n="service-marketing-description"></p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-shopping-cart"></i>
+                <h3 data-i18n="service-ecommerce-title"></h3>
+                <p data-i18n="service-ecommerce-description"></p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-ad"></i>
+                <h3 data-i18n="service-ads-title"></h3>
+                <p data-i18n="service-ads-description"></p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-laptop-code"></i>
+                <h3 data-i18n="service-web-title"></h3>
+                <p data-i18n="service-web-description"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section class="section tools-section" id="tools">
+        <h2 data-i18n="tools-title"></h2>
+        <div class="tools-grid">
+            <div class="tool-card">
+                <i class="fas fa-calculator"></i>
+                <h3 data-i18n="tools-sellright-title"></h3>
+                <p data-i18n="tools-sellright-description"></p>
+                <a href="https://elarshedok.com/sellright" class="tool-btn" data-i18n="tools-cta"></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section projects-section" id="projects">
+        <h2 data-i18n="projects-title"></h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <i class="fas fa-tools"></i>
+                <h3 data-i18n="project-placeholder-title"></h3>
+                <p data-i18n="project-placeholder-description"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact-section" id="contact">
+        <h2 data-i18n="contact-title"></h2>
+        <div class="social-links">
+            <a href="https://linkedin.com/in/elarshedok" target="_blank" title="لينكدإن"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://tiktok.com/@elarshedok" target="_blank" title="تيك توك"><i class="fab fa-tiktok"></i></a>
+            <a href="https://instagram.com/ahmed10az" target="_blank" title="إنستجرام"><i class="fab fa-instagram"></i></a>
+            <a href="https://web.facebook.com/ahmed10az" target="_blank" title="فيسبوك"><i class="fab fa-facebook-f"></i></a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p data-i18n="footer-text"></p>
+    </footer>
+
+    <script>
+        // Language Translations
+        const translations = {
+            ar: {
+                title: "أحمد محمد عبدالسلام - خبير تسويق رقمي وتجارة إلكترونية وتصميم ويب",
+                "nav-home": "الرئيسية",
+                "nav-about": "من أنا",
+                "nav-services": "الخدمات",
+                "nav-tools": "الأدوات",
+                "nav-projects": "المشاريع",
+                "nav-contact": "تواصل",
+                "hero-description": "خبير تسويق رقمي وتجارة إلكترونية وتصميم ويب بخبرة تزيد عن 10 سنوات",
+                "about-title": "من أنا؟",
+                "about-description": "أنا أحمد محمد عبدالسلام، خبير تسويق رقمي وتجارة إلكترونية وتصميم مواقع بأكثر من 10 سنوات من الخبرة. أقدم استراتيجيات تسويق مبتكرة تدفع النمو وتعزز الرؤية التجارية، مع مساعدة العملاء في تحقيق آلاف الطلبات عبر حملات رقمية مستهدفة.",
+                "about-experience-1": "خبرة في إدارة الإعلانات على فيسبوك، تيك توك، وجوجل.",
+                "about-experience-2": "تحسين تجربة العملاء في التجارة الإلكترونية وتصميم مواقع احترافية.",
+                "about-experience-3": "تحقيق عائد استثماري عالٍ ونمو مستدام للعملاء.",
+                "whatsapp-cta": "تواصل معي",
+                "services-title": "الخدمات",
+                "service-marketing-title": "استراتيجيات التسويق الرقمي",
+                "service-marketing-description": "استراتيجيات مبتكرة تعزز علامتك التجارية بناءً على البيانات.",
+                "service-ecommerce-title": "استشارات التجارة الإلكترونية",
+                "service-ecommerce-description": "تحسين متاجرك الإلكترونية بإرشادات احترافية.",
+                "service-ads-title": "إدارة الحملات الإعلانية",
+                "service-ads-description": "تحسين إعلاناتك على فيسبوك، جوجل، وتيك توك.",
+                "service-web-title": "تصميم مواقع الويب",
+                "service-web-description": "تصميم مواقع متطورة تعزز حضورك الرقمي.",
+                "tools-title": "الأدوات",
+                "tools-sellright-title": "Sell Right",
+                "tools-sellright-description": "استكشف أدوات متطورة لتحسين أداء التسويق والمبيعات الخاصة بك.",
+                "tools-cta": "جرّب Sell Right الآن",
+                "projects-title": "المشاريع",
+                "project-placeholder-title": "مشروع قادم",
+                "project-placeholder-description": "مكان مخصص لعرض أدوات ومشاريع جديدة في المستقبل.",
+                "contact-title": "تواصل معي",
+                "footer-text": "© 2025 Ahmed Muhammed Abdeslam - جميع الحقوق محفوظة"
+            },
+            en: {
+                title: "Ahmed Muhammed Abdeslam - Digital Marketing, E-Commerce & Web Design Expert",
+                "nav-home": "Home",
+                "nav-about": "About",
+                "nav-services": "Services",
+                "nav-tools": "Tools",
+                "nav-projects": "Projects",
+                "nav-contact": "Contact",
+                "hero-description": "Digital Marketing, E-Commerce & Web Design Expert with Over 10 Years of Experience",
+                "about-title": "About Me",
+                "about-description": "I am Ahmed Muhammed Abdeslam, a Digital Marketing, E-Commerce, and Web Design Specialist with over 10 years of experience. I offer innovative marketing strategies that drive growth and enhance brand visibility, helping clients achieve thousands of orders through targeted digital campaigns.",
+                "about-experience-1": "Expert in managing ads on Facebook, TikTok, and Google.",
+                "about-experience-2": "Improving customer experiences in e-commerce and designing professional websites.",
+                "about-experience-3": "Achieving high ROI and sustainable growth for clients.",
+                "whatsapp-cta": "Contact Me",
+                "services-title": "Services",
+                "service-marketing-title": "Digital Marketing Strategies",
+                "service-marketing-description": "Innovative, data-driven strategies to boost your brand.",
+                "service-ecommerce-title": "E-Commerce Consulting",
+                "service-ecommerce-description": "Expert guidance to optimize your online stores.",
+                "service-ads-title": "Ad Campaign Management",
+                "service-ads-description": "Optimize your ads on Facebook, Google, and TikTok.",
+                "service-web-title": "Web Design",
+                "service-web-description": "Advanced website designs to elevate your digital presence.",
+                "tools-title": "Tools",
+                "tools-sellright-title": "Sell Right",
+                "tools-sellright-description": "Explore cutting-edge tools to enhance your marketing and sales performance.",
+                "tools-cta": "Try Sell Right Now",
+                "projects-title": "Projects",
+                "project-placeholder-title": "Coming Soon",
+                "project-placeholder-description": "A dedicated space for showcasing new tools and projects in the future.",
+                "contact-title": "Contact Me",
+                "footer-text": "© 2025 Ahmed Muhammed Abdeslam - All Rights Reserved"
+            }
+        };
+
+        // Language Switcher Function
+        function changeLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            document.querySelectorAll('[data-i18n]').forEach(elem => {
+                const key = elem.getAttribute('data-i18n');
+                elem.textContent = translations[lang][key] || elem.getAttribute('data-default');
+            });
+            document.title = translations[lang]['title'];
+            updateProgressBar();
+        }
+
+        // Theme Toggle Function
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+            updateProgressBar();
+        }
+
+        // Load Theme Preference
+        window.addEventListener('load', () => {
+            const savedLang = localStorage.getItem('lang') || 'ar';
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+            }
+            changeLanguage(savedLang);
+            updateProgressBar();
+        });
+
+        // Save Language Preference
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const lang = btn.querySelector('.flag-icon').classList.contains('flag-icon-us') ? 'en' : 'ar';
+                localStorage.setItem('lang', lang);
+                changeLanguage(lang);
+            });
+        });
+
+        // Progress Bar
+        function updateProgressBar() {
+            const winScroll = document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.querySelector('.progress-bar').style.transform = `translateX(${100 - scrolled}%)`;
+        }
+
+        window.addEventListener('scroll', updateProgressBar);
+
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
