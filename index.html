@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="أحمد محمد عبدالسلام - خبير تسويق رقمي وتجارة إلكترونية وتصميم ويب">
-    <meta name="keywords" content="Ahmed Muhammed Abdeslam, Digital Marketing, E-Commerce, Web Design, Facebook Ads, Google Ads, TikTok Ads">
+    <meta name="keywords" content="Ahmed Muhammed Abdeslam, Digital Marketing, E-Commerce, Web Design">
     <meta name="author" content="Ahmed Muhammed Abdeslam">
     <title data-i18n="title"></title>
 
     <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" async integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Flag Icon CSS for Language Flags -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
 
     <!-- Google Fonts with Arabic Support -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet" async>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
 
     <style>
         /* Reset and Base Styles */
@@ -41,82 +41,12 @@
             color: #e2e8f0;
         }
 
-        /* Toast Notifications */
-        .toast {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #4a90e2;
-            color: #ffffff;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            z-index: 1002;
-            opacity: 0;
-            transform: translateY(-20px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-
-        .toast.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Progress Bar */
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, #4a90e2, #63b3ed);
-            z-index: 1001;
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-        }
-
         /* Animations */
         @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
-        }
-
-        /* Loading Overlay */
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1003;
-            opacity: 1;
-            transition: opacity 0.5s ease;
-        }
-
-        body.loaded .loading-overlay {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .loading-spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #4a90e2;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
 
         /* Header */
@@ -132,7 +62,6 @@
 
         body.dark-mode header {
             background: linear-gradient(90deg, #0f172a, #1a202c);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
         }
 
         .navbar {
@@ -148,9 +77,7 @@
             width: 120px;
             height: auto;
             max-height: 50px;
-            flex-shrink: 0;
             transition: transform 0.3s ease;
-            loading="lazy";
         }
 
         .logo img:hover {
@@ -168,17 +95,14 @@
             text-decoration: none;
             font-size: 1rem;
             font-weight: 700;
-            font-family: 'Cairo', sans-serif;
-            padding: 0.4rem 0.8rem;
+            padding: 0.5rem 1rem;
             border-radius: 8px;
-            transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+            transition: background 0.3s ease, transform 0.3s ease;
         }
 
         .nav-links a:hover {
             background: #4a90e2;
-            color: #ffffff;
             transform: translateY(-2px);
-            box-shadow: 0 2px 5px rgba(74, 144, 226, 0.3);
         }
 
         .control-group {
@@ -190,24 +114,20 @@
         .lang-toggle {
             display: flex;
             gap: 0.4rem;
-            align-items: center;
         }
 
         .lang-toggle a {
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            justify-content: center;
             gap: 0.3rem;
-            padding: 0.2rem 0.4rem;
+            padding: 0.3rem 0.5rem;
             border-radius: 4px;
-            background: transparent;
-            transition: transform 0.3s ease, background 0.3s ease;
+            transition: background 0.3s ease;
             text-decoration: none;
         }
 
         .lang-toggle a:hover {
             background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.1);
         }
 
         .lang-toggle a i {
@@ -218,7 +138,6 @@
         .lang-toggle a span {
             font-size: 0.8rem;
             color: #ffffff;
-            font-family: 'Cairo', sans-serif;
             text-transform: uppercase;
         }
 
@@ -235,11 +154,9 @@
             background: #4a90e2;
             border-radius: 11px;
             cursor: pointer;
-            transition: background 0.3s ease;
             display: flex;
             align-items: center;
             padding: 0 3px;
-            aria-label="Toggle Theme";
         }
 
         .theme-toggle::before {
@@ -252,7 +169,6 @@
             background: #ffffff;
             border-radius: 50%;
             transition: transform 0.3s ease;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
         }
 
         body.dark-mode .theme-toggle {
@@ -265,41 +181,20 @@
 
         .theme-toggle-container i {
             font-size: 0.9rem;
-            transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease;
-        }
-
-        .theme-toggle-container .fa-sun {
             color: #f7c948;
-            opacity: 1;
-            margin-right: 0.4rem;
         }
 
-        .theme-toggle-container .fa-moon {
+        body.dark-mode .theme-toggle-container i.fa-sun {
             color: #a0aec0;
-            opacity: 0;
-            margin-left: 0.4rem;
         }
 
-        body.dark-mode .theme-toggle-container .fa-sun {
-            opacity: 0;
-            transform: scale(0.8);
-        }
-
-        body.dark-mode .theme-toggle-container .fa-moon {
-            opacity: 1;
+        body.dark-mode .theme-toggle-container i.fa-moon {
             color: #e2e8f0;
-            transform: scale(1.1);
-        }
-
-        .theme-toggle-container i:hover {
-            transform: scale(1.2);
         }
 
         .theme-label {
             font-size: 0.8rem;
             color: #ffffff;
-            margin-left: 0.5rem;
-            font-family: 'Cairo', sans-serif;
         }
 
         body.dark-mode .theme-label {
@@ -308,17 +203,15 @@
 
         .menu-toggle {
             display: none;
-            font-size: 1.4rem;
+            font-size: 1.8rem;
             color: #ffffff;
             cursor: pointer;
-            padding: 0.4rem;
+            padding: 0.5rem;
             border-radius: 5px;
-            transition: color 0.3s ease, background 0.3s ease;
-            aria-label="Toggle Menu";
+            transition: background 0.3s ease;
         }
 
         .menu-toggle:hover {
-            color: #4a90e2;
             background: rgba(255, 255, 255, 0.1);
         }
 
@@ -332,62 +225,41 @@
             color: #ffffff;
             border: none;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 1.2rem;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
             cursor: pointer;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-            transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-            aria-label="Back to Top";
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            touch-action: manipulation;
         }
 
         .back-to-top:hover {
-            background: #63b3ed;
             transform: scale(1.1);
             box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
         }
 
         .back-to-top.show {
             display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         /* Section Styling */
         .section {
             padding: 2rem;
             text-align: center;
-            background: linear-gradient(135deg, #ffffff, #f0f4f8);
+            background: #ffffff;
             border-radius: 12px;
             margin: 1.5rem auto;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             max-width: 1100px;
             width: 90%;
         }
 
-        .section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .section:hover {
-            box-shadow: 0 8px 20px rgba(74, 144, 226, 0.2);
-        }
-
         body.dark-mode .section {
-            background: linear-gradient(135deg, #2d3748, #1a202c);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-        }
-
-        body.dark-mode .section:hover {
-            box-shadow: 0 8px 20px rgba(74, 144, 226, 0.3);
+            background: #2d3748;
         }
 
         .section h2 {
@@ -395,7 +267,6 @@
             font-weight: 700;
             color: #1a202c;
             margin-bottom: 1.2rem;
-            font-family: 'Cairo', sans-serif;
             position: relative;
         }
 
@@ -411,19 +282,16 @@
             transform: translateX(-50%);
             width: 40px;
             height: 3px;
-            background: linear-gradient(90deg, #4a90e2, #63b3ed);
+            background: #4a90e2;
             border-radius: 3px;
         }
 
         /* About Section */
         .about-section {
-            background: linear-gradient(135deg, #f9fafb, #e3f2fd);
             border: 2px solid #4a90e2;
-            position: relative;
         }
 
         body.dark-mode .about-section {
-            background: linear-gradient(135deg, #1a202c, #2d3748);
             border: 2px solid #63b3ed;
         }
 
@@ -438,12 +306,10 @@
             padding: 1.5rem;
             background: rgba(255, 255, 255, 0.9);
             border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
         }
 
         body.dark-mode .about-content {
             background: rgba(26, 32, 44, 0.9);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
         }
 
         .about-header {
@@ -455,34 +321,26 @@
             font-size: 2.2rem;
             font-weight: 900;
             color: #1a202c;
-            font-family: 'Cairo', sans-serif;
-            text-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
-            line-height: 1.2;
         }
 
         body.dark-mode .about-header h1 {
             color: #e2e8f0;
-            text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
         }
 
         .social-links {
             display: flex;
             gap: 1.2rem;
-            margin-top: 0.8rem;
-            flex-wrap: wrap;
-            justify智能化: center;
+            justify-content: center;
         }
 
         .social-links a {
-            position: relative;
-            padding: 0.6rem;
+            padding: 0.8rem;
             border-radius: 50%;
-            background: transparent;
-            transition: border 0.3s ease;
+            transition: transform 0.3s ease;
         }
 
-        .social-links a:active {
-            border: 2px solid rgba(255, 255, 255, 0.3);
+        .social-links a:hover {
+            transform: scale(1.1);
         }
 
         .social-links a i {
@@ -499,35 +357,26 @@
             height: 160px;
             border-radius: 50%;
             object-fit: cover;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             border: 3px solid #4a90e2;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            loading="lazy";
+            transition: transform 0.3s ease;
         }
 
         body.dark-mode .about-image img {
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
             border: 3px solid #63b3ed;
         }
 
         .about-image img:hover {
             transform: scale(1.1);
-            box-shadow: 0 8px 20px rgba(74, 144, 226, 0.3);
         }
 
         .about-text {
             text-align: center;
             max-width: 450px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
         }
 
         .about-text p {
             font-size: 1.3rem;
             color: #4a5568;
-            font-family: 'Tajawal', sans-serif;
             margin-bottom: 1rem;
         }
 
@@ -539,7 +388,6 @@
             list-style: none;
             padding: 0;
             margin-bottom: 1.2rem;
-            text-align: center;
         }
 
         .about-text ul li {
@@ -562,9 +410,9 @@
         }
 
         .whatsapp-btn {
-            background: linear-gradient(90deg, #25d366, #20c65a);
+            background: #25d366;
             color: #ffffff;
-            padding: 0.9rem 1.6rem;
+            padding: 1rem 2rem;
             border-radius: 25px;
             font-size: 1.3rem;
             font-weight: 700;
@@ -573,45 +421,27 @@
             align-items: center;
             gap: 0.7rem;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease;
             animation: pulse 2s infinite;
-            aria-label="Contact via WhatsApp";
-        }
-
-        body.dark-mode .whatsapp-btn {
-            background: linear-gradient(90deg, #20c65a, #25d366);
+            min-width: 160px;
+            touch-action: manipulation;
         }
 
         .whatsapp-btn:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.5);
-        }
-
-        .whatsapp-btn:active {
-            transform: translateY(0);
         }
 
         .whatsapp-btn i {
             font-size: 1.5rem;
-            color: #ffffff !important;
         }
 
         /* Services Section */
-        .services-section {
-            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-        }
-
-        body.dark-mode .services-section {
-            background: linear-gradient(135deg, #2d3748, #1a202c);
-        }
-
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 1.5rem;
             max-width: 900px;
             margin: 0 auto;
-            justify-items: center;
         }
 
         .service-card {
@@ -619,28 +449,17 @@
             padding: 1.4rem;
             border-radius: 12px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            transition: transform 0.3s ease;
             text-align: center;
             min-height: 220px;
-            max-width: 320px;
         }
 
         body.dark-mode .service-card {
             background: rgba(26, 32, 44, 0.95);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
         .service-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 10px 25px rgba(74, 144, 226, 0.3);
-        }
-
-        .service-card:active {
-            transform: translateY(0);
         }
 
         .service-card i {
@@ -653,7 +472,6 @@
             font-size: 1.4rem;
             color: #1a202c;
             margin-bottom: 0.6rem;
-            font-family: 'Cairo', sans-serif;
         }
 
         body.dark-mode .service-card h3 {
@@ -663,7 +481,6 @@
         .service-card p {
             font-size: 1.2rem;
             color: #4a5568;
-            font-family: 'Tajawal', sans-serif;
         }
 
         body.dark-mode .service-card p {
@@ -671,20 +488,10 @@
         }
 
         /* Tools Section */
-        .tools-section {
-            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-        }
-
-        body.dark-mode .tools-section {
-            background: linear-gradient(135deg, #2d3748, #1a202c);
-        }
-
         .tools-intro {
             font-size: 1.3rem;
             color: #4a5568;
             margin-bottom: 1.2rem;
-            font-family: 'Tajawal', sans-serif;
-            text-align: center;
         }
 
         body.dark-mode .tools-intro {
@@ -697,7 +504,6 @@
             gap: 1.5rem;
             max-width: 900px;
             margin: 0 auto;
-            justify-items: center;
         }
 
         .tool-card {
@@ -705,28 +511,17 @@
             padding: 1.4rem;
             border-radius: 12px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            transition: transform 0.3s ease;
             text-align: center;
             min-height: 240px;
-            max-width: 320px;
         }
 
         body.dark-mode .tool-card {
             background: rgba(26, 32, 44, 0.95);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
         .tool-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 10px 25px rgba(74, 144, 226, 0.3);
-        }
-
-        .tool-card:active {
-            transform: translateY(0);
         }
 
         .tool-card i {
@@ -739,7 +534,6 @@
             font-size: 1.4rem;
             color: #1a202c;
             margin-bottom: 0.6rem;
-            font-family: 'Cairo', sans-serif;
         }
 
         body.dark-mode .tool-card h3 {
@@ -750,7 +544,6 @@
             font-size: 1.2rem;
             color: #4a5568;
             margin-bottom: 1rem;
-            font-family: 'Tajawal', sans-serif;
         }
 
         body.dark-mode .tool-card p {
@@ -758,138 +551,47 @@
         }
 
         .tool-btn {
-            background: linear-gradient(90deg, #4a90e2, #63b3ed);
+            background: #4a90e2;
             color: #ffffff;
-            padding: 0.9rem 1.6rem;
+            padding: 1rem 2rem;
             border-radius: 25px;
             font-size: 1.3rem;
             font-weight: 700;
             text-decoration: none;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            aria-label="Try Sell Right";
+            transition: transform 0.3s ease;
+            min-width: 160px;
+            touch-action: manipulation;
         }
 
         .tool-btn:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(74, 144, 226, 0.5);
-        }
-
-        .tool-btn:active {
-            transform: translateY(0);
         }
 
         /* Contact Section */
-        .contact-section {
-            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-        }
-
-        body.dark-mode .contact-section {
-            background: linear-gradient(135deg, #2d3748, #1a202c);
-        }
-
         .contact-section .social-links {
             gap: 1.2rem;
         }
 
-        .contact-section .social-links a {
-            position: relative;
-            padding: 0.6rem;
-            border-radius: 50%;
-            background: transparent;
-            transition: border 0.3s ease;
-        }
-
-        .contact-section .social-links a:active {
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .contact-section .social-links a i {
-            font-size: 1.8rem;
-        }
-
         /* Footer */
         footer {
-            background: linear-gradient(90deg, #1a202c, #2d3748);
+            background: #1a202c;
             padding: 1.2rem;
             text-align: center;
             color: #ffffff;
             font-size: 1.1rem;
-            font-family: 'Cairo', sans-serif;
-            box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.2);
         }
 
         body.dark-mode footer {
-            background: linear-gradient(90deg, #0f172a, #1a202c);
+            background: #0f172a;
         }
 
         /* Responsive Design */
-        @media (max-width: 1200px) {
-            .navbar {
-                gap: 0.6rem;
-            }
-
-            .section {
-                width: 92%;
-            }
-        }
-
-        @media (max-width: 1024px) {
-            .logo img {
-                width: 100px;
-                max-height: 45px;
-            }
-
-            .nav-links a {
-                font-size: 0.9rem;
-                padding: 0.3rem 0.6rem;
-            }
-
-            .section {
-                width: 95%;
-            }
-
-            .section h2 {
-                font-size: 1.8rem;
-            }
-
-            .about-content {
-                padding: 1.2rem;
-            }
-
-            .about-header h1 {
-                font-size: 1.8rem;
-            }
-
-            .about-image img {
-                width: 140px;
-                height: 140px;
-            }
-
-            .about-text p {
-                font-size: 1.2rem;
-            }
-
-            .about-text ul li {
-                font-size: 1.1rem;
-            }
-
-            .whatsapp-btn {
-                padding: 0.8rem 1.4rem;
-                font-size: 1.2rem;
-            }
-
-            .whatsapp-btn i {
-                font-size: 1.4rem;
-            }
-        }
-
         @media (max-width: 768px) {
             .menu-toggle {
                 display: block;
-                font-size: 1.8rem; /* Larger icon for better touch */
-                padding: 0.6rem;
-                touch-action: manipulation; /* Improve touch responsiveness */
+                padding: 0.8rem;
+                touch-action: manipulation;
             }
 
             .nav-links {
@@ -897,83 +599,28 @@
                 position: absolute;
                 top: 100%;
                 right: 0;
-                background: linear-gradient(90deg, #1a202c, #2d3748);
+                background: #1a202c;
                 width: 100%;
                 flex-direction: column;
                 padding: 1rem;
                 box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-                z-index: 999;
-                border-radius: 0 0 8px 8px;
             }
 
             .nav-links.active {
                 display: flex;
             }
 
-            body.dark-mode .nav-links {
-                background: linear-gradient(90deg, #0f172a, #1a202c);
-            }
-
-            .navbar {
-                flex-wrap: nowrap;
-                padding: 0.5rem;
-            }
-
-            .control-group {
-                gap: 0.4rem;
-            }
-
             .logo img {
                 width: 90px;
-                max-height: 40px;
-            }
-
-            .lang-toggle a {
-                padding: 0.3rem 0.5rem;
-            }
-
-            .lang-toggle a i {
-                font-size: 1.1rem;
-            }
-
-            .lang-toggle a span {
-                font-size: 0.9rem;
-            }
-
-            .theme-toggle {
-                width: 40px;
-                height: 20px;
-            }
-
-            .theme-toggle::before {
-                width: 16px;
-                height: 16px;
-            }
-
-            body.dark-mode .theme-toggle::before {
-                transform: translateX(20px);
-            }
-
-            .theme-toggle-container i {
-                font-size: 1rem;
-            }
-
-            .theme-label {
-                font-size: 0.9rem;
             }
 
             .section {
                 padding: 1.2rem;
                 margin: 1rem auto;
-                width: 95%;
             }
 
-            .section h2 {
-                font-size: 1.6rem;
-            }
-
-            .about-header h1 {
-                font-size: 1.6rem;
+            .social-links a {
+                padding: 1rem;
             }
 
             .about-image img {
@@ -981,369 +628,63 @@
                 height: 130px;
             }
 
-            .social-links {
-                gap: 1rem;
-            }
-
-            .social-links a {
-                padding: 0.8rem; /* Larger touch area */
-            }
-
-            .social-links a i {
-                font-size: 1.6rem;
-            }
-
-            .about-text p {
-                font-size: 1.1rem;
-            }
-
-            .about-text ul li {
-                font-size: 1rem;
-            }
-
-            .whatsapp-btn {
+            .whatsapp-btn, .tool-btn {
                 padding: 0.8rem 1.5rem;
-                font-size: 1.1rem;
-                min-width: 140px; /* Larger touch area */
-                touch-action: manipulation;
-            }
-
-            .whatsapp-btn i {
-                font-size: 1.3rem;
+                font-size: 1.2rem;
+                min-width: 140px;
             }
 
             .services-grid, .tools-grid {
                 grid-template-columns: 1fr;
-                gap: 1.2rem;
             }
 
-            .service-card, .tool-card {
-                min-height: 180px;
-                max-width: 280px;
-                padding: 1.2rem;
-            }
-
-            .service-card i, .tool-card i {
-                font-size: 1.6rem;
-            }
-
-            .service-card h3, .tool-card h3 {
+            .back-to-top {
+                width: 50px;
+                height: 50px;
                 font-size: 1.2rem;
-            }
-
-            .service-card p, .tool-card p {
-                font-size: 1rem;
-            }
-
-            .tools-intro {
-                font-size: 1.1rem;
-            }
-
-            .tool-btn {
-                padding: 0.8rem 1.5rem;
-                font-size: 1.1rem;
-                min-width: 140px; /* Larger touch area */
-                touch-action: manipulation;
             }
         }
 
         @media (max-width: 480px) {
-            .logo img {
-                width: 80px;
-                max-height: 35px;
-            }
-
-            .menu-toggle {
+            .section h2 {
                 font-size: 1.6rem;
-                padding: 0.5rem;
-            }
-
-            .lang-toggle a {
-                padding: 0.2rem 0.4rem;
-            }
-
-            .lang-toggle a i {
-                font-size: 1rem;
-            }
-
-            .lang-toggle a span {
-                font-size: 0.8rem;
-            }
-
-            .theme-toggle {
-                width: 35px;
-                height: 18px;
-            }
-
-            .theme-toggle::before {
-                width: 14px;
-                height: 14px;
-            }
-
-            body.dark-mode .theme-toggle::before {
-                transform: translateX(17px);
-            }
-
-            .theme-toggle-container i {
-                font-size: 0.9rem;
-            }
-
-            .theme-label {
-                font-size: 0.8rem;
-            }
-
-            .section {
-                padding: 1rem;
-                margin: 0.8rem auto;
-                width: 92%;
-            }
-
-            .section h2 {
-                font-size: 1.4rem;
-            }
-
-            .about-content {
-                padding: 1rem;
-                gap: 1rem;
             }
 
             .about-header h1 {
-                font-size: 1.4rem;
-            }
-
-            .about-image img {
-                width: 110px;
-                height: 110px;
-            }
-
-            .social-links {
-                gap: 0.8rem;
-            }
-
-            .social-links a {
-                padding: 0.7rem;
-            }
-
-            .social-links a i {
-                font-size: 1.4rem;
+                font-size: 1.6rem;
             }
 
             .about-text p {
-                font-size: 1rem;
-            }
-
-            .about-text ul li {
-                font-size: 0.9rem;
-                gap: 0.4rem;
-            }
-
-            .whatsapp-btn {
-                padding: 0.7rem 1.2rem;
-                font-size: 1rem;
-                min-width: 130px;
-            }
-
-            .whatsapp-btn i {
-                font-size: 1.2rem;
-            }
-
-            .service-card, .tool-card {
-                min-height: 160px;
-                max-width: 240px;
-                padding: 1rem;
-            }
-
-            .service-card i, .tool-card i {
-                font-size: 1.5rem;
-            }
-
-            .service-card h3, .tool-card h3 {
                 font-size: 1.1rem;
             }
 
-            .service-card p, .tool-card p {
-                font-size: 0.9rem;
-            }
-
-            .tools-intro {
-                font-size: 1rem;
-            }
-
-            .tool-btn {
-                padding: 0.7rem 1.2rem;
-                font-size: 1rem;
-                min-width: 130px;
-            }
-
-            .contact-section .social-links a {
-                padding: 0.7rem;
-            }
-
-            .contact-section .social-links a i {
-                font-size: 1.4rem;
-            }
-
-            footer {
-                font-size: 0.9rem;
-                padding: 1rem;
-            }
-        }
-
-        @media (max-width: 320px) {
-            .logo img {
-                width: 70px;
-                max-height: 30px;
-            }
-
-            .menu-toggle {
-                font-size: 1.4rem;
-                padding: 0.4rem;
-            }
-
-            .lang-toggle a {
-                padding: 0.1rem 0.3rem;
-            }
-
-            .lang-toggle a i {
-                font-size: 0.9rem;
-            }
-
-            .lang-toggle a span {
-                font-size: 0.7rem;
-            }
-
-            .theme-toggle {
-                width: 30px;
-                height: 16px;
-            }
-
-            .theme-toggle::before {
-                width: 12px;
-                height: 12px;
-            }
-
-            body.dark-mode .theme-toggle::before {
-                transform: translateX(14px);
-            }
-
-            .theme-toggle-container i {
-                font-size: 0.8rem;
-            }
-
-            .theme-label {
-                font-size: 0.7rem;
-            }
-
-            .section {
-                padding: 0.8rem;
-                margin: 0.6rem auto;
-                width: 90%;
-            }
-
-            .section h2 {
-                font-size: 1.2rem;
-            }
-
-            .about-content {
-                padding: 0.8rem;
-                gap: 0.8rem;
-            }
-
-            .about-header h1 {
-                font-size: 1.2rem;
-            }
-
-            .about-image img {
-                width: 100px;
-                height: 100px;
-            }
-
-            .social-links {
-                gap: 0.6rem;
-            }
-
-            .social-links a {
-                padding: 0.6rem;
-            }
-
-            .social-links a i {
-                font-size: 1.2rem;
-            }
-
-            .about-text p {
-                font-size: 0.9rem;
-            }
-
             .about-text ul li {
-                font-size: 0.8rem;
-                gap: 0.3rem;
-            }
-
-            .whatsapp-btn {
-                padding: 0.6rem 1rem;
-                font-size: 0.9rem;
-                min-width: 120px;
-            }
-
-            .whatsapp-btn i {
-                font-size: 1.1rem;
-            }
-
-            .service-card, .tool-card {
-                min-height: 140px;
-                max-width: 220px;
-                padding: 0.8rem;
-            }
-
-            .service-card i, .tool-card i {
-                font-size: 1.4rem;
+                font-size: 1rem;
             }
 
             .service-card h3, .tool-card h3 {
-                font-size: 1rem;
-            }
-
-            .service-card p, .tool-card p {
-                font-size: 0.8rem;
-            }
-
-            .tools-intro {
-                font-size: 0.9rem;
-            }
-
-            .tool-btn {
-                padding: 0.6rem 1rem;
-                font-size: 0.9rem;
-                min-width: 120px;
-            }
-
-            .contact-section .social-links a {
-                padding: 0.6rem;
-            }
-
-            .contact-section .social-links a i {
                 font-size: 1.2rem;
             }
 
-            footer {
-                font-size: 0.8rem;
-                padding: 0.8rem;
+            .service-card p, .tool-card p {
+                font-size: 1rem;
+            }
+
+            .whatsapp-btn, .tool-btn {
+                padding: 0.7rem 1.2rem;
+                font-size: 1.1rem;
+                min-width: 130px;
+            }
+
+            .back-to-top {
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body lang="ar">
-    <!-- Loading Overlay -->
-    <div class="loading-overlay">
-        <div class="loading-spinner"></div>
-    </div>
-
-    <!-- Progress Bar -->
-    <div class="progress-bar"></div>
-
-    <!-- Toast Notification -->
-    <div id="toast" class="toast"></div>
-
     <!-- Header -->
     <header>
         <nav class="navbar">
@@ -1379,10 +720,10 @@
             <div class="about-header">
                 <h1>Ahmed Muhammed Abdeslam</h1>
                 <div class="social-links">
-                    <a href="https://linkedin.com/in/elarshedok" target="_blank" title="LinkedIn" aria-label="LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://tiktok.com/@elarshedok" target="_blank" title="TikTok" aria-label="TikTok Profile"><i class="fab fa-tiktok"></i></a>
-                    <a href="https://instagram.com/ahmed10az" target="_blank" title="Instagram" aria-label="Instagram Profile"><i class="fab fa-instagram"></i></a>
-                    <a href="https://web.facebook.com/ahmed10az" target="_blank" title="Facebook" aria-label="Facebook Profile"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://linkedin.com/in/elarshedok" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://tiktok.com/@elarshedok" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://instagram.com/ahmed10az" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://web.facebook.com/ahmed10az" target="_blank"><i class="fab fa-facebook-f"></i></a>
                 </div>
             </div>
             <div class="about-image">
@@ -1404,7 +745,7 @@
     </section>
 
     <!-- Services Section -->
-    <section class="section services-section" id="services">
+    <section class="section" id="services">
         <h2 data-i18n="services-title"></h2>
         <div class="services-grid">
             <div class="service-card">
@@ -1431,7 +772,7 @@
     </section>
 
     <!-- Tools Section -->
-    <section class="section tools-section" id="tools">
+    <section class="section" id="tools">
         <h2 data-i18n="tools-title"></h2>
         <p class="tools-intro" data-i18n="tools-intro"></p>
         <div class="tools-grid">
@@ -1448,10 +789,10 @@
     <section class="section contact-section" id="contact">
         <h2 data-i18n="contact-title"></h2>
         <div class="social-links">
-            <a href="https://linkedin.com/in/elarshedok" target="_blank" title="LinkedIn" aria-label="LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
-            <a href="https://tiktok.com/@elarshedok" target="_blank" title="TikTok" aria-label="TikTok Profile"><i class="fab fa-tiktok"></i></a>
-            <a href="https://instagram.com/ahmed10az" target="_blank" title="Instagram" aria-label="Instagram Profile"><i class="fab fa-instagram"></i></a>
-            <a href="https://web.facebook.com/ahmed10az" target="_blank" title="Facebook" aria-label="Facebook Profile"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://linkedin.com/in/elarshedok" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://tiktok.com/@elarshedok" target="_blank"><i class="fab fa-tiktok"></i></a>
+            <a href="https://instagram.com/ahmed10az" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://web.facebook.com/ahmed10az" target="_blank"><i class="fab fa-facebook-f"></i></a>
         </div>
     </section>
 
@@ -1528,29 +869,35 @@
             }
         };
 
-        // Language Toggle Function
+        // Initialize Language as Arabic by Default
+        (function initializeLanguage() {
+            let lang = localStorage.getItem('lang');
+            if (!lang) {
+                lang = 'ar';
+                localStorage.setItem('lang', 'ar');
+            }
+            setLanguage(lang);
+        })();
+
+        // Set Language Function
         function setLanguage(lang) {
             document.documentElement.lang = lang;
             document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
             document.querySelectorAll('[data-i18n]').forEach(elem => {
                 const key = elem.getAttribute('data-i18n');
-                elem.textContent = translations[lang][key] || elem.getAttribute('data-default');
+                elem.textContent = translations[lang][key] || '';
             });
             document.title = translations[lang]['title'];
             localStorage.setItem('lang', lang);
-            showToast(`Language switched to ${lang === 'ar' ? 'Arabic' : 'English'}`);
-            updateProgressBar();
-            hideMenu();
-            // Re-apply theme to ensure consistency after language change
-            applyTheme();
+            applyTheme(); // Ensure theme is updated after language change
         }
 
-        // Theme Toggle Function
+        // Toggle Theme Function
         function toggleTheme() {
-            const isDarkMode = document.body.classList.toggle('dark-mode');
-            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-            showToast(`Theme switched to ${isDarkMode ? 'Dark' : 'Light'} Mode`);
-            updateProgressBar();
+            const body = document.body;
+            const isDarkMode = body.classList.contains('dark-mode');
+            body.classList.toggle('dark-mode', !isDarkMode);
+            localStorage.setItem('theme', isDarkMode ? 'light' : 'dark');
         }
 
         // Apply Theme Function
@@ -1559,39 +906,11 @@
             document.body.classList.toggle('dark-mode', savedTheme === 'dark');
         }
 
-        // Toast Notification
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
-        }
-
-        // Load Theme and Language Preference
+        // Load Theme on Page Load
         window.addEventListener('load', () => {
-            // Ensure Arabic is the default language
-            let savedLang = localStorage.getItem('lang');
-            if (!savedLang) {
-                savedLang = 'ar';
-                localStorage.setItem('lang', 'ar');
-            }
-            setLanguage(savedLang);
             applyTheme();
-            updateProgressBar();
             showBackToTop();
-            animateSectionsOnScroll();
-            setTimeout(() => document.body.classList.add('loaded'), 500);
         });
-
-        // Progress Bar
-        function updateProgressBar() {
-            const winScroll = document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.querySelector('.progress-bar').style.transform = `translateX(${100 - scrolled}%)`;
-        }
-
-        window.addEventListener('scroll', updateProgressBar);
 
         // Mobile Menu Toggle
         function toggleMenu() {
@@ -1630,22 +949,6 @@
                 } else {
                     backToTopButton.classList.remove('show');
                 }
-            });
-        }
-
-        // Animate Sections on Scroll
-        function animateSectionsOnScroll() {
-            const sections = document.querySelectorAll('.section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            sections.forEach(section => {
-                observer.observe(section);
             });
         }
     </script>
