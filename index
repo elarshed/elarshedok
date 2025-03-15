@@ -1040,7 +1040,8 @@
                 <img src="https://imgg.io/images/2025/03/12/d1f425f5f81f9df07b5909ee5de09238.jpg" alt="Ahmed Muhammed Abdeslam">
             </div>
             <div class="about-text">
-<p data-i18n="about-description" style="font-size: 21x; font-weight: bold;"></p>
+<p data-i18n="about-description-1" style="font-size: 21px; font-weight: bold;  color: #000;"></p>
+                    <p data-i18n="about-description-2" style="font-size: 21px; font-weight: bold; color: #000;"></p>
                 <ul>
                     <li class="sub-heading" data-i18n="about-how-title">🎯 كيف أحقق النتائج؟</li>
                     <li><i class="fas fa-check-circle"></i> <span data-i18n="about-how-1"></span></li>
@@ -1132,7 +1133,8 @@
                 "theme-label": "الوضع",
                                 "follow-text": "تابعني على منصات التواصل الاجتماعي",
                 "about-title": "من أنا؟",
-                "about-description": "أنا أحمد محمد عبدالسلام متخصص في التسويق الإلكتروني،التجارة الإلكترونية،وتصميم مواقع الويب،بخبرة 10 سنوات في تحقيق نتائج فعلية وزيادة الأرباح من خلال إستراتيجيات دقيقة قائمة على البيانات",
+                                "about-description-1": "أنا أحمد محمد عبدالسلام ",
+                "about-description-2": " متخصص في التسويق الإلكتروني والتجارة الإلكترونية وتصميم مواقع الويب،بخبرة 10 سنوات في تحقيق نتائج فعلية وزيادة الأرباح من خلال إستراتيجيات دقيقة قائمة على البيانات",
                 "about-how-title": "🎯 كيف أحقق النتائج؟",
                 "about-how-1": "إدارة وتحسين الحملات الإعلانية لتحقيق أعلى عائد إستثماري",
                 "about-how-2": "تصميم مواقع ويب سريعة وعملية تناسب مختلف المجالات",
@@ -1167,7 +1169,8 @@
                 "theme-label": "Mode",
 "follow-text": "Follow Me on Social Media",
                 "about-title": "Who Am I?",
-                "about-description": "I am Ahmed Mohamed Abdelsalam, a specialist in digital marketing, e-commerce, and web design, with 10 years of experience in driving real results through data-driven strategies.",
+"about-description-1": "I am Ahmed Mohamed Abdelsalam",
+                "about-description-2": "a specialist in digital marketing, e-commerce, and web design, with 10 years of experience in driving real results through data-driven strategies.",
                 "about-how-title": "🎯 How Do I Deliver Results?",
                 "about-how-1": "Optimized Ad Campaign Management",
                 "about-how-2": "Fast & High-Performance Website Development",
