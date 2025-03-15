@@ -8,5 +8,10 @@
         "Code": "lomy",
         "Used": "FALSE",
         "Active": "TRUE"
+    },
+    {
+        "Code": "01030048811",
+        "Used": "FALSE",
+        "Active": "TRUE"
     }
 ]
