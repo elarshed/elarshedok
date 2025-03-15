@@ -414,11 +414,12 @@
         .about-text ul li {
             font-size: 1.1rem;
             color: #4a5568;
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.8rem; /* زيادة المسافة بين العناصر */
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
+            line-height: 1.8; /* زيادة المسافة بين السطور */
         }
 
         body.dark-mode .about-text ul li {
@@ -432,16 +433,17 @@
 
         .about-text ul li.sub-item {
             font-size: 0.9rem;
-            margin-bottom: 0.3rem;
-            margin-right: 1.5rem;
+            margin-bottom: 0.5rem; /* تقليل المسافة قليلاً للعناصر الفرعية */
+            margin-right: 1.5rem; /* إزاحة لليمين للتمييز */
+            line-height: 1.6; /* مسافة أصغر قليلاً بين السطور */
         }
 
         .about-text .sub-heading {
             font-size: 1.2rem;
             font-weight: 700;
             color: #1a202c;
-            margin-top: 0.8rem;
-            margin-bottom: 0.4rem;
+            margin-top: 1rem;
+            margin-bottom: 0.6rem;
         }
 
         body.dark-mode .about-text .sub-heading {
@@ -725,10 +727,14 @@
 
             .about-text ul li {
                 font-size: 0.9rem;
+                margin-bottom: 0.6rem; /* تقليل المسافة قليلاً للشاشات المتوسطة */
+                line-height: 1.7;
             }
 
             .about-text ul li.sub-item {
                 font-size: 0.8rem;
+                margin-bottom: 0.4rem;
+                line-height: 1.5;
             }
 
             .whatsapp-btn, .tool-btn {
@@ -824,10 +830,14 @@
 
             .about-text ul li {
                 font-size: 0.8rem;
+                margin-bottom: 0.5rem; /* تقليل المسافة للشاشات الصغيرة */
+                line-height: 1.6;
             }
 
             .about-text ul li.sub-item {
                 font-size: 0.7rem;
+                margin-bottom: 0.3rem;
+                line-height: 1.4;
             }
 
             .whatsapp-btn, .tool-btn {
@@ -902,14 +912,14 @@
                 <ul>
                     <li class="sub-heading" data-i18n="about-how-title">🎯 كيف أحقق النتائج؟</li>
                     <li><i class="fas fa-check-circle"></i> <span data-i18n="about-how-1"></span></li>
-                    <li class="sub-item"><i class="fas fa-map-pin"></i> <span data-i18n="about-how-1-1"></span></li>
-                    <li class="sub-item"><i class="fas fa-map-pin"></i> <span data-i18n="about-how-1-2"></span></li>
+                    <li class="sub-item"><i class="fas fa-check-circle"></i> <span data-i18n="about-how-1-1"></span></li>
+                    <li class="sub-item"><i class="fas fa-check-circle"></i> <span data-i18n="about-how-1-2"></span></li>
                     <li><i class="fas fa-check-circle"></i> <span data-i18n="about-how-2"></span></li>
-                    <li class="sub-item"><i class="fas fa-map-pin"></i> <span data-i18n="about-how-2-1"></span></li>
-                    <li class="sub-item"><i class="fas fa-map-pin"></i> <span data-i18n="about-how-2-2"></span></li>
+                    <li class="sub-item"><i class="fas fa-check-circle"></i> <span data-i18n="about-how-2-1"></span></li>
+                    <li class="sub-item"><i class="fas fa-check-circle"></i> <span data-i18n="about-how-2-2"></span></li>
                     <li><i class="fas fa-check-circle"></i> <span data-i18n="about-how-3"></span></li>
-                    <li class="sub-item"><i class="fas fa-map-pin"></i> <span data-i18n="about-how-3-1"></span></li>
-                    <li class="sub-item"><i class="fas fa-map-pin"></i> <span data-i18n="about-how-3-2"></span></li>
+                    <li class="sub-item"><i class="fas fa-check-circle"></i> <span data-i18n="about-how-3-1"></span></li>
+                    <li class="sub-item"><i class="fas fa-check-circle"></i> <span data-i18n="about-how-3-2"></span></li>
                     <li class="sub-heading" data-i18n="about-why-title">🔥 لماذا تختارني؟</li>
                     <li><i class="fas fa-check-circle"></i> <span data-i18n="about-why-1"></span></li>
                     <li><i class="fas fa-check-circle"></i> <span data-i18n="about-why-2"></span></li>
@@ -1029,7 +1039,7 @@
                 "tools-cta": "جرّب Sell Right الآن",
                 "contact-title": "تواصل معي",
                 "follow-text": "تابعني على منصات التواصل الاجتماعي",
-                "footer-text": "© 2025 أحمد محمد عبدالسلام - جميع الحقوق محفوظة"
+                "footer-text": "© 2025 Ahmed Muhammed Abdeslam - جميع الحقوق محفوظة"
             },
             en: {
                 title: "Ahmed Muhammed Abdeslam - Digital Marketing, E-Commerce & Web Design Expert",
