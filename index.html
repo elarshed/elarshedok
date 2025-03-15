@@ -19,17 +19,11 @@
     <meta name="twitter:image" content="https://imgg.io/images/2025/03/12/d1f425f5f81f9df07b5909ee5de09238.jpg">
     <title data-i18n="title"></title>
 
-  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
-
-    
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
 
     <style>
-       
         * {
             margin: 0;
             padding: 0;
@@ -52,14 +46,12 @@
             color: #e2e8f0;
         }
 
-        /* Animations */
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
         }
 
-        /* Header */
         header {
             background: linear-gradient(90deg, #1a202c, #2d3748);
             padding: 0.5rem 1rem;
@@ -233,9 +225,8 @@
             color: #e2e8f0;
         }
 
-        /* Back to Top Button */
         .back-to-top {
-            display: none; /* مخفي افتراضيًا */
+            display: none;
             position: fixed;
             bottom: 20px;
             right: 20px;
@@ -260,10 +251,9 @@
         }
 
         .back-to-top.show {
-            display: flex; /* يظهر فقط عند التمرير */
+            display: flex;
         }
 
-        /* Section Styling */
         .section {
             padding: 1.5rem;
             text-align: center;
@@ -303,7 +293,6 @@
             border-radius: 2px;
         }
 
-        /* About Section */
         .about-section {
             border: 2px solid #4a90e2;
         }
@@ -348,9 +337,9 @@
         }
 
         .follow-text {
-            font-size: 0.7rem; /* حجم أصغر كثيرًا */
+            font-size: 0.7rem;
             color: #4a5568;
-            margin-bottom: 0; /* إزالة المسافة أسفل النص */
+            margin-bottom: 0;
             font-weight: 600;
         }
 
@@ -360,12 +349,12 @@
 
         .social-links {
             display: flex;
-            gap: 0.5rem; /* تقليل المسافة بين الأيقونات */
+            gap: 0.5rem;
             justify-content: center;
         }
 
         .social-links a {
-            padding: 0.6rem; /* تقليل الحشوة داخل الأيقونات */
+            padding: 0.6rem;
             border-radius: 50%;
             transition: transform 0.3s ease;
             touch-action: manipulation;
@@ -376,7 +365,7 @@
         }
 
         .social-links a i {
-            font-size: 1.4rem; /* تقليل حجم الأيقونات */
+            font-size: 1.4rem;
         }
 
         .social-links a[href*="linkedin"] i { color: #0077b5; }
@@ -441,6 +430,24 @@
             font-size: 1.1rem;
         }
 
+        .about-text ul li.sub-item {
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+            margin-right: 1.5rem;
+        }
+
+        .about-text .sub-heading {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-top: 0.8rem;
+            margin-bottom: 0.4rem;
+        }
+
+        body.dark-mode .about-text .sub-heading {
+            color: #e2e8f0;
+        }
+
         .whatsapp-btn {
             background: #25d366;
             color: #ffffff;
@@ -467,7 +474,6 @@
             font-size: 1.4rem;
         }
 
-        /* Services Section */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -519,7 +525,6 @@
             color: #a0aec0;
         }
 
-        /* Tools Section */
         .tools-intro {
             font-size: 1.2rem;
             color: #4a5568;
@@ -600,12 +605,10 @@
             transform: translateY(-4px);
         }
 
-        /* Contact Section */
         .contact-section .social-links {
             gap: 0.5rem;
         }
 
-        /* Footer */
         footer {
             background: #1a202c;
             padding: 1rem;
@@ -618,7 +621,6 @@
             background: #0f172a;
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
             .menu-toggle {
                 display: block;
@@ -725,6 +727,10 @@
                 font-size: 0.9rem;
             }
 
+            .about-text ul li.sub-item {
+                font-size: 0.8rem;
+            }
+
             .whatsapp-btn, .tool-btn {
                 padding: 0.8rem 1.5rem;
                 font-size: 1.1rem;
@@ -820,6 +826,10 @@
                 font-size: 0.8rem;
             }
 
+            .about-text ul li.sub-item {
+                font-size: 0.7rem;
+            }
+
             .whatsapp-btn, .tool-btn {
                 padding: 0.7rem 1.2rem;
                 font-size: 1rem;
@@ -890,10 +900,22 @@
             <div class="about-text">
                 <p data-i18n="about-description"></p>
                 <ul>
-                    <li><i class="fas fa-check-circle"></i> <span data-i18n="about-experience-1"></span></li>
-                    <li><i class="fas fa-check-circle"></i> <span data-i18n="about-experience-2"></span></li>
-                    <li><i class="fas fa-check-circle"></i> <span data-i18n="about-experience-3"></span></li>
+                    <li class="sub-heading" data-i18n="about-how-title">🎯 كيف أحقق النتائج؟</li>
+                    <li><i class="fas fa-check-circle"></i> <span data-i18n="about-how-1"></span></li>
+                    <li class="sub-item"><i class="fas fa-map-pin"></i> <span data-i18n="about-how-1-1"></span></li>
+                    <li class="sub-item"><i class="fas fa-map-pin"></i> <span data-i18n="about-how-1-2"></span></li>
+                    <li><i class="fas fa-check-circle"></i> <span data-i18n="about-how-2"></span></li>
+                    <li class="sub-item"><i class="fas fa-map-pin"></i> <span data-i18n="about-how-2-1"></span></li>
+                    <li class="sub-item"><i class="fas fa-map-pin"></i> <span data-i18n="about-how-2-2"></span></li>
+                    <li><i class="fas fa-check-circle"></i> <span data-i18n="about-how-3"></span></li>
+                    <li class="sub-item"><i class="fas fa-map-pin"></i> <span data-i18n="about-how-3-1"></span></li>
+                    <li class="sub-item"><i class="fas fa-map-pin"></i> <span data-i18n="about-how-3-2"></span></li>
+                    <li class="sub-heading" data-i18n="about-why-title">🔥 لماذا تختارني؟</li>
+                    <li><i class="fas fa-check-circle"></i> <span data-i18n="about-why-1"></span></li>
+                    <li><i class="fas fa-check-circle"></i> <span data-i18n="about-why-2"></span></li>
+                    <li><i class="fas fa-check-circle"></i> <span data-i18n="about-why-3"></span></li>
                 </ul>
+                <p class="sub-heading" data-i18n="about-ready-title">🚀 جاهز لتطوير مشروعك؟</p>
                 <a href="https://wa.me/201282512082" class="whatsapp-btn" target="_blank">
                     <i class="fab fa-whatsapp"></i>
                     <span data-i18n="whatsapp-cta">تواصل معي</span>
@@ -967,17 +989,29 @@
         // Language Translations
         const translations = {
             ar: {
-                title: "Ahmed Muhammed Abdeslam - خبير تسويق رقمي وتجارة إلكترونية وتصميم ويب",
+                title: "أحمد محمد عبدالسلام - خبير تسويق رقمي وتجارة إلكترونية وتصميم ويب",
                 "nav-about": "من أنا",
                 "nav-services": "الخدمات",
                 "nav-tools": "الأدوات",
                 "nav-contact": "تواصل",
                 "theme-label": "الوضع",
                 "about-title": "من أنا؟",
-                "about-description": "أنا أحمد محمد عبدالسلام، خبير تسويق رقمي وتجارة إلكترونية وتصميم مواقع بأكثر من 10 سنوات من الخبرة. أقدم استراتيجيات تسويق مبتكرة تدفع النمو وتعزز الرؤية التجارية، مع مساعدة العملاء في تحقيق آلاف الطلبات عبر حملات رقمية مستهدفة",
-                "about-experience-1": "خبرة في إدارة الإعلانات على فيسبوك، تيك توك، وجوجل",
-                "about-experience-2": "تحسين تجربة العملاء في التجارة الإلكترونية وتصميم مواقع احترافية",
-                "about-experience-3": "تحقيق عائد استثماري عالٍ ونمو مستدام للعملاء",
+                "about-description": "أنا أحمد محمد عبدالسلام، متخصص في التسويق الإلكتروني، التجارة الإلكترونية، وتصميم مواقع الويب، بخبرة 10 سنوات في تحقيق نتائج فعلية وزيادة الأرباح من خلال استراتيجيات دقيقة قائمة على البيانات.",
+                "about-how-title": "🎯 كيف أحقق النتائج؟",
+                "about-how-1": "إدارة الحملات الإعلانية لتحقيق أعلى عائد استثماري",
+                "about-how-1-1": "استهداف دقيق على فيسبوك، تيك توك، وجوجل بأقل تكلفة وأفضل نتائج.",
+                "about-how-1-2": "تحسين الأداء بشكل مستمر بناءً على تحليل البيانات.",
+                "about-how-2": "تصميم مواقع ويب سريعة وعملية",
+                "about-how-2-1": "تطوير مواقع واضحة وسهلة الاستخدام تناسب مختلف المجالات.",
+                "about-how-2-2": "تحسين الأداء والسرعة لضمان تجربة مستخدم مثالية.",
+                "about-how-3": "تحقيق أعلى مبيعات بأقل تكلفة",
+                "about-how-3-1": "تحسين محركات البحث (SEO) لجذب العملاء بدون إنفاق إضافي.",
+                "about-how-3-2": "أتمتة التسويق للحفاظ على العملاء وزيادة معدل ولائهم.",
+                "about-why-title": "🔥 لماذا تختارني؟",
+                "about-why-1": "نتائج مثبتة – كل استراتيجية مبنية على بيانات وأرقام.",
+                "about-why-2": "ميزانية مستثمرة بذكاء – بدون هدر، كل جنيه يوظَّف لتحقيق أفضل عائد.",
+                "about-why-3": "تحسين مستمر – متابعة الأداء والتطوير المستمر لتحقيق نمو دائم.",
+                "about-ready-title": "🚀 جاهز لتطوير مشروعك؟",
                 "whatsapp-cta": "تواصل معي",
                 "services-title": "الخدمات",
                 "service-marketing-title": "استراتيجيات التسويق الرقمي",
@@ -985,16 +1019,17 @@
                 "service-ecommerce-title": "استشارات التجارة الإلكترونية",
                 "service-ecommerce-description": "تحسين متاجرك الإلكترونية بإرشادات احترافية",
                 "service-ads-title": "إدارة الحملات الإعلانية",
-                "service-ads-description": "تحسين إعلاناتك على فيسبوك،جوجل،وتيك توك",
+                "service-ads-description": "تحسين إعلاناتك على فيسبوك، جوجل، وتيك توك",
                 "service-web-title": "تصميم مواقع الويب",
                 "service-web-description": "تصميم مواقع متطورة تعزز حضورك الرقمي",
                 "tools-title": "الأدوات",
-                "tools-intro": "إستكشف أدوات متطورة لتحسين أداء التسويق والمبيعات الخاصة بك",
+                "tools-intro": "استكشف أدوات متطورة لتحسين أداء التسويق والمبيعات الخاصة بك",
                 "tools-sellright-title": "Sell Right",
                 "tools-sellright-description": "أداة متطورة لتحسين أداء التسويق والمبيعات الخاصة بك",
                 "tools-cta": "جرّب Sell Right الآن",
+                "contact-title": "تواصل معي",
                 "follow-text": "تابعني على منصات التواصل الاجتماعي",
-                "footer-text": "© 2025 Ahmed Muhammed Abdeslam - جميع الحقوق محفوظة"
+                "footer-text": "© 2025 أحمد محمد عبدالسلام - جميع الحقوق محفوظة"
             },
             en: {
                 title: "Ahmed Muhammed Abdeslam - Digital Marketing, E-Commerce & Web Design Expert",
@@ -1003,11 +1038,23 @@
                 "nav-tools": "Tools",
                 "nav-contact": "Contact",
                 "theme-label": "Mode",
-                "about-title": "About Me",
-                "about-description": "I am Ahmed Muhammed Abdeslam, a Digital Marketing, E-Commerce, and Web Design Specialist with over 10 years of experience. I offer innovative marketing strategies that drive growth and enhance brand visibility, helping clients achieve thousands of orders through targeted digital campaigns.",
-                "about-experience-1": "Expert in managing ads on Facebook, TikTok, and Google.",
-                "about-experience-2": "Improving customer experiences in e-commerce and designing professional websites.",
-                "about-experience-3": "Achieving high ROI and sustainable growth for clients.",
+                "about-title": "Who Am I?",
+                "about-description": "I am Ahmed Mohamed Abdelsalam, a specialist in digital marketing, e-commerce, and web design, with 10 years of experience in driving real results through data-driven strategies.",
+                "about-how-title": "🎯 How Do I Deliver Results?",
+                "about-how-1": "Optimized Ad Campaign Management",
+                "about-how-1-1": "Precision targeting on Facebook, TikTok, and Google with minimal cost and maximum impact.",
+                "about-how-1-2": "Continuous data analysis for improved efficiency.",
+                "about-how-2": "Fast & High-Performance Website Development",
+                "about-how-2-1": "Building clear, user-friendly websites tailored to different industries.",
+                "about-how-2-2": "Enhancing speed and functionality for a seamless user experience.",
+                "about-how-3": "Maximizing Sales with Minimal Cost",
+                "about-how-3-1": "SEO optimization to attract customers without extra spending.",
+                "about-how-3-2": "Marketing automation to retain and engage customers efficiently.",
+                "about-why-title": "🔥 Why Work With Me?",
+                "about-why-1": "Proven Results – Strategies built on real data.",
+                "about-why-2": "Smart Budgeting – Every dollar is maximized for the best return.",
+                "about-why-3": "Continuous Optimization – Ongoing improvements for sustainable growth.",
+                "about-ready-title": "🚀 Ready to Scale Your Business?",
                 "whatsapp-cta": "Contact Me",
                 "services-title": "Services",
                 "service-marketing-title": "Digital Marketing Strategies",
