@@ -13,5 +13,10 @@
         "Code": "01030048811",
         "Used": "TRUE",
         "Active": "TRUE"
+    },
+    {
+        "Code": "01055247062",
+        "Used": "FALSE",
+        "Active": "TRUE"
     }
 ]
