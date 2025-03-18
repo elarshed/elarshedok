@@ -37,7 +37,7 @@
             animation: slideUp 0.5s ease;
             backdrop-filter: blur(8px);
         }
-        .dark-mode .app-container { background: rgba(45, 55, 72, 0.95); box-shadow: 0 4px20px rgba(0, 0, 0, 0.2); }
+        .dark-mode .app-container { background: rgba(45, 55, 72, 0.95); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); }
 
         /* Animations */
         @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
@@ -158,7 +158,7 @@
             position: absolute;
             top: 0.5rem;
             right: 0.5rem;
-            font-size: 2.5rem; /* Increased size for better visibility */
+            font-size: 2.5rem;
             cursor: pointer;
             color: #4a90e2;
             transition: color 0.3s ease;
@@ -402,6 +402,88 @@
         .action-btn i { font-size: 1rem; }
         .action-btn span { font-size: 0.6rem; font-weight: 700; }
 
+        /* Notification Modal */
+        .notification-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.5s ease;
+        }
+        .notification-modal.active {
+            display: flex;
+        }
+        .notification-content {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 90%;
+            width: 350px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            animation: slideUp 0.5s ease;
+            border: 2px solid #4a90e2;
+            background: linear-gradient(135deg, #f0f4f8, #e2e8f0);
+        }
+        .dark-mode .notification-content {
+            background: linear-gradient(135deg, #2d3748, #4a5568);
+            color: #e2e8f0;
+            border-color: #63b3ed;
+        }
+        .notification-content h2 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #4a90e2;
+            margin-bottom: 0.5rem;
+        }
+        .dark-mode .notification-content h2 {
+            color: #63b3ed;
+        }
+        .notification-content p {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+        .dark-mode .notification-content p {
+            color: #e2e8f0;
+        }
+        .notification-btn {
+            background: #4a90e2;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .notification-btn:hover {
+            background: #63b3ed;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .close-notification {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            font-size: 1.5rem;
+            color: #4a90e2;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .close-notification:hover {
+            color: #63b3ed;
+        }
+
         /* Responsive Adjustments */
         @media (min-width: 640px) {
             .app-container { max-width: 640px; }
@@ -435,7 +517,13 @@
             }
         }
 
-        window.onload = checkActivationCode;
+        window.onload = function() {
+            checkActivationCode();
+            loadInputsFromLocalStorage();
+            calculateResults();
+            updateTaxStatus();
+            showNotification();
+        };
     </script>
 
     <div class="app-container">
@@ -618,13 +706,22 @@
         </div>
     </div>
 
+    <!-- Notification Modal -->
+    <div class="notification-modal" id="updateNotification">
+        <div class="notification-content">
+            <span class="close-notification" onclick="closeNotification()">×</span>
+            <h2>🎉 تحديث جديد 🎉</h2>
+            <p id="notificationMessage">دلوقتي حتى لو عملت ريفريش أو خرجت ورجعت بياناتك هتفضل محفوظة ومش هتضيع</p>
+            <button class="notification-btn" onclick="closeNotification()">تمام ✅</button>
+        </div>
+    </div>
+
     <script>
         let previousProfit = 0;
         const currencySymbols = { EGP: 'ج.م', LYD: 'د.ل', SAR: 'ر.س', AED: 'د.إ' };
         const getCurrencySymbol = () => currencySymbols[document.getElementById('currency').value];
 
         const calculateResults = () => {
-            // Inputs
             const productPrice = parseFloat(document.getElementById('productPrice').value) || 0;
             const sellingPrice = parseFloat(document.getElementById('sellingPrice').value) || 0;
             const shippingCost = parseFloat(document.getElementById('shippingCost').value) || 0;
@@ -643,7 +740,6 @@
                 return;
             }
 
-            // Basic Calculations
             const deliveredOrders = Math.round((targetOrders * deliveryRate) / 100);
             const returnedOrders = targetOrders - deliveredOrders;
             const totalFixedCosts = salaries + subscriptions;
@@ -654,37 +750,29 @@
             const totalPackagingCost = targetOrders * packagingCost;
             const totalReturnCost = returnedOrders * returnCost;
 
-            // Net Profit Per Order (Before Ads and Fixed Costs)
             const netProfitPerOrder = sellingPrice - variableCostPerOrder;
 
-            // Total Revenue and Costs
             const totalRevenue = deliveredOrders * sellingPrice;
             const totalVariableCosts = deliveredOrders * (productPrice + shippingCost);
             const totalCosts = totalVariableCosts + totalPackagingCost + adSpendWithTax + totalReturnCost + totalFixedCosts;
             const netProfitAfterAds = totalRevenue - totalCosts;
 
-            // Profit Margin
             const profitMargin = sellingPrice ? (netProfitPerOrder / sellingPrice) * 100 : 0;
 
-            // Break-even and Profit Increase Calculations
             const contributionMarginPerOrder = sellingPrice - (productPrice + shippingCost) - (returnCost * (1 - deliveryRate / 100));
             const fixedCostsPlusAdAndReturns = totalFixedCosts + adSpendWithTax + (targetOrders * returnCost * (1 - deliveryRate / 100)) + totalPackagingCost;
 
-            // Break-even (for loss)
             const breakEvenSellingPrice = deliveredOrders ? (totalCosts) / deliveredOrders : sellingPrice;
             const breakEvenDeliveredOrders = contributionMarginPerOrder ? fixedCostsPlusAdAndReturns / contributionMarginPerOrder : 0;
             const breakEvenDeliveryRate = targetOrders ? (breakEvenDeliveredOrders / targetOrders) * 100 : 0;
 
-            // Profit Increase (if profit < 1000)
             const targetProfitIncrease = 1000;
             const profitIncreaseSellingPrice = deliveredOrders ? (totalCosts + targetProfitIncrease) / deliveredOrders : sellingPrice;
             const profitIncreaseDeliveredOrders = contributionMarginPerOrder ? (fixedCostsPlusAdAndReturns + targetProfitIncrease) / contributionMarginPerOrder : 0;
             const profitIncreaseDeliveryRate = targetOrders ? (profitIncreaseDeliveredOrders / targetOrders) * 100 : 0;
 
-            // Return Rate
             const returnRate = targetOrders ? (returnedOrders / targetOrders) * 100 : 0;
 
-            // Update Display
             const updateElement = (id, value, isPercentage = false, isNumberOnly = false) => {
                 const element = document.getElementById(id);
                 if (!element) return;
@@ -713,7 +801,6 @@
             updateElement('totalReturnCost', totalReturnCost);
             updateElement('netProfitAfterAds', netProfitAfterAds);
 
-            // Profit Indicator
             const indicator = document.getElementById('profitIndicator');
             if (indicator) {
                 indicator.style.display = netProfitAfterAds !== 0 ? 'inline' : 'none';
@@ -721,7 +808,6 @@
                 indicator.classList.add(netProfitAfterAds > 0 ? 'fa-arrow-up' : 'fa-arrow-down');
             }
 
-            // Trend Indicator
             const trendIndicator = document.getElementById('trendIndicator');
             if (trendIndicator) {
                 if (netProfitAfterAds !== previousProfit) {
@@ -733,12 +819,10 @@
             }
             previousProfit = netProfitAfterAds;
 
-            // Suggestions
             const suggestions = document.getElementById('suggestions');
             if (!suggestions) return;
             suggestions.innerHTML = '';
 
-            // Check if there are no inputs
             const hasInputs = productPrice !== 0 || sellingPrice !== 0 || shippingCost !== 0 || targetOrders !== 0 || 
                              deliveryRate !== 0 || adCostPerOrder !== 0 || returnCost !== 0 || packagingCost !== 0 || 
                              salaries !== 0 || subscriptions !== 0;
@@ -779,25 +863,23 @@
         const resetValues = () => {
             document.querySelectorAll('input').forEach(input => input.value = '');
             document.getElementById('applyTax').checked = false;
+            localStorage.removeItem('sellRightInputs');
             previousProfit = 0;
             calculateResults();
             updateTaxStatus();
             document.querySelectorAll('.result-card:not(.bg-blue-50)').forEach(card => card.classList.add('hidden'));
             document.getElementById('showMoreBtn').style.display = 'flex';
 
-            // Reset profit indicators
             const indicator = document.getElementById('profitIndicator');
             if (indicator) indicator.style.display = 'none';
             const trendIndicator = document.getElementById('trendIndicator');
             if (trendIndicator) trendIndicator.style.display = 'none';
 
-            // Reset all result values
             document.querySelectorAll('.result-value').forEach(element => {
                 element.textContent = '';
                 element.classList.remove('text-red-600', 'text-green-600', 'text-gray-600');
             });
 
-            // Clear suggestions
             const suggestions = document.getElementById('suggestions');
             if (suggestions) suggestions.innerHTML = '';
         };
@@ -805,6 +887,65 @@
         const toggleProfileModal = () => {
             const modal = document.getElementById('profileModal');
             modal.classList.toggle('active');
+        };
+
+        const saveInputsToLocalStorage = () => {
+            const inputs = {
+                productPrice: document.getElementById('productPrice').value,
+                sellingPrice: document.getElementById('sellingPrice').value,
+                shippingCost: document.getElementById('shippingCost').value,
+                targetOrders: document.getElementById('targetOrders').value,
+                deliveryRate: document.getElementById('deliveryRate').value,
+                adCostPerOrder: document.getElementById('adCostPerOrder').value,
+                returnCost: document.getElementById('returnCost').value,
+                packagingCost: document.getElementById('packagingCost').value,
+                salaries: document.getElementById('salaries').value,
+                subscriptions: document.getElementById('subscriptions').value,
+                applyTax: document.getElementById('applyTax').checked,
+                currency: document.getElementById('currency').value
+            };
+            localStorage.setItem('sellRightInputs', JSON.stringify(inputs));
+        };
+
+        const loadInputsFromLocalStorage = () => {
+            const savedInputs = localStorage.getItem('sellRightInputs');
+            if (savedInputs) {
+                const inputs = JSON.parse(savedInputs);
+
+                document.getElementById('productPrice').value = inputs.productPrice || '';
+                document.getElementById('sellingPrice').value = inputs.sellingPrice || '';
+                document.getElementById('shippingCost').value = inputs.shippingCost || '';
+                document.getElementById('targetOrders').value = inputs.targetOrders || '';
+                document.getElementById('deliveryRate').value = inputs.deliveryRate || '';
+                document.getElementById('adCostPerOrder').value = inputs.adCostPerOrder || '';
+                document.getElementById('returnCost').value = inputs.returnCost || '';
+                document.getElementById('packagingCost').value = inputs.packagingCost || '';
+                document.getElementById('salaries').value = inputs.salaries || '';
+                document.getElementById('subscriptions').value = inputs.subscriptions || '';
+                document.getElementById('applyTax').checked = inputs.applyTax !== undefined ? inputs.applyTax : true;
+                document.getElementById('currency').value = inputs.currency || 'EGP';
+
+                const dropdownSelected = document.getElementById('dropdownSelected');
+                const flagClass = `flag-icon flag-icon-${inputs.currency === 'EGP' ? 'eg' : inputs.currency === 'LYD' ? 'ly' : inputs.currency === 'SAR' ? 'sa' : 'ae'}`;
+                dropdownSelected.innerHTML = `<span class="${flagClass}"></span> ${inputs.currency || 'EGP'} <i class="fas fa-chevron-down"></i>`;
+            }
+        };
+
+        // Notification Logic with Version Control
+        const currentVersion = "1.0";
+        const notificationMessage = "دلوقتي حتى لو عملت ريفريش أو خرجت ورجعت بياناتك هتفضل محفوظة ومش هتضيع";
+
+        const showNotification = () => {
+            const lastSeenVersion = localStorage.getItem('lastSeenVersion');
+            if (lastSeenVersion !== currentVersion) {
+                document.getElementById('notificationMessage').innerHTML = notificationMessage.replace(/\n/g, '<br>');
+                document.getElementById('updateNotification').classList.add('active');
+            }
+        };
+
+        const closeNotification = () => {
+            document.getElementById('updateNotification').classList.remove('active');
+            localStorage.setItem('lastSeenVersion', currentVersion);
         };
 
         document.getElementById('darkModeToggle').addEventListener('change', () => {
@@ -825,6 +966,7 @@
                 currencyInput.value = value;
                 dropdownOptions.classList.remove('active');
                 calculateResults();
+                saveInputsToLocalStorage();
             });
         });
         dropdownSelected.addEventListener('click', () => dropdownOptions.classList.toggle('active'));
@@ -838,11 +980,10 @@
             input.addEventListener('input', () => {
                 calculateResults();
                 updateTaxStatus();
+                saveInputsToLocalStorage();
             });
         });
-
-        calculateResults();
-        updateTaxStatus();
     </script>
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'921c2c869dd9bd3a',t:'MTc0MjIxMTE5MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>
