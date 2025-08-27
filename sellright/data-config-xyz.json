@@ -3,5 +3,10 @@
         "Code": "172001",
         "Used": "FALSE",
         "Active": "TRUE"
+    },
+    {
+        "Code": "hgf",
+        "Used": "FALSE",
+        "Active": "TRUE"
     }
 ]
